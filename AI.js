@@ -1,3 +1,5 @@
+var readline = require('readline');
+
 SIZE_BOARD = 9
 
 _board = [[-2, -1, -2, -2, -1, -2, -2, -1, -2],
@@ -38,16 +40,54 @@ function make_clone_pion (pion) {
 
 function display(table, text="BOARD") {
     console.log("Display", text);
+    console.log("    0  1  2  3  4  5  6  7  8");
+    console.log("_____________________________");
     for (let i = 0; i<SIZE_BOARD; i++) {
-        for (let j = 0; j<SIZE_BOARD; j++) {
+          process.stdout.write(i.toString() + " |");
+           for (let j = 0; j<SIZE_BOARD; j++) {
             //console.log(table[i][j]);
-            if (table[i][j] >= 0) 
-                process.stdout.write(" "+ table[i][j].toString()+ " " );
+            if (j%2==0) {
+               if (table[i][j] >= 0)  {
+                   process.stdout.write(" "+ table[i][j].toString()+ " " );
+               }
+               else
+                   process.stdout.write(table[i][j].toString() + " " );
+            } else {
+            if (table[i][j] >= 0)  {
+                process.stdout.write(" "+ table[i][j].toString()+ "|" );
+            }
             else
-                process.stdout.write(table[i][j].toString() + " " );
+                process.stdout.write(table[i][j].toString() + "|" );
+            }
         }
         console.log();
+       if (i%2)
+         console.log("--------------------------------");
     }
+}
+
+
+function score_player (board, pion) {
+    let ans = 0;
+    for (let i = 0; i<SIZE_BOARD; i++) {
+        for (let j = 0; j<SIZE_BOARD; j++) {
+           if (board[i][j] <= 0 ) continue;
+            ans += board[i][j] * pion[i][j];
+        }
+    }
+   return ans;
+}
+
+
+function score_AI (board, pion) {
+    let ans = 0;
+    for (let i = 0; i<SIZE_BOARD; i++) {
+        for (let j = 0; j<SIZE_BOARD; j++) {
+           if (board[i][j] >= 0 ) continue;
+            ans += board[i][j] * pion[i][j];
+        }
+    }
+   return -ans;
 }
 
 function heuristic (board, pion) {
@@ -187,6 +227,14 @@ function find_the_best_move_all_pion (board, pion) {
             }
         }
     }
+   // check if the game finish :
+   if (max_heuristic == -999) {
+      if (score_player(board, pion) > score_AI(board, pion)) {
+         console.log("Congratulation ! You won the game!!!")
+      } else {
+         console.log("AI won the game! Let's try again");
+      }
+   }
 
     console.log("--------------------------------------------------------")
     console.log("Before move:")
@@ -201,13 +249,39 @@ function find_the_best_move_all_pion (board, pion) {
     console.log("--------------------------------------------------------")
     action_move(max_actions);
     console.log("After move:")
+    display(board)
     display(Pion, "Pion");
+   console.log("Your score:", score_player(board, pion));
+   console.log("AI's score:", score_AI(board, pion));
+
     //return the list
+
 
 }
 
-//function playe
-find_the_best_move_all_pion(Board, Pion);
+function play_with_AI() {
+      //var name = readline();
+      //console.log(name);
+      while (true) {
+         find_the_best_move_all_pion(Board, Pion);
+            let readlineSync = require('readline-sync');
+            let res = readlineSync.question("Your turn:");
+            console.log(res);
+             res = res.split(" ");
+            let l = []
+            for (let i = 0; i<res.length; i++) {
+               let ni = parseInt(res[i]); 
+               let nj = parseInt(res[i+1]);
+               l.push([ni, nj]);
+               i++;
+               action_move(l);
+            }
+             console.log(res);
+            
+            //process.exit();
+         }
+}
+play_with_AI();
 //find_the_best_move_one_pion(Board, Pion, 6, 0)
 
 // calculate all next possible status in case of multi-jump: 
@@ -221,8 +295,8 @@ find_the_best_move_all_pion(Board, Pion);
 // calculate the next
 // 
 
-// check if a pion can't not jump 
-//function can_not_jump_any_more (board, pion, i, j ) {
+   // check if a pion can't not jump 
+   //function can_not_jump_any_more (board, pion, i, j ) {
 
 //}
 
