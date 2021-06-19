@@ -23,22 +23,23 @@ _pion  = [[ 3,  5,  3,  3,  3,  3,  3,  3,  5],
 ]
 const Pion = Object.freeze(_pion)
 
-function heuristic (board, pion) {
-    let ans = 0;
+function make_clone_pion (pion) {
+    let clone_pion = []
     for (let i = 0; i<SIZE_BOARD; i++) {
+        let row = [];
         for (let j = 0; j<SIZE_BOARD; j++) {
-            ans += board[i][j] * Pion[i][j];
+            row.push(pion[i][j]);
         }
+        clone_pion.push(row);
     }
-    return ans;
+    return clone_pion;
 }
-
-console.log(heuristic(Board, Pion));
 
 function display(table, text="BOARD") {
     console.log("Display", text);
     for (let i = 0; i<SIZE_BOARD; i++) {
         for (let j = 0; j<SIZE_BOARD; j++) {
+            //console.log(table[i][j]);
             if (table[i][j] >= 0) 
                 process.stdout.write(" "+ table[i][j].toString()+ " " );
             else
@@ -47,6 +48,25 @@ function display(table, text="BOARD") {
         console.log();
     }
 }
+
+function heuristic (board, pion) {
+    //console.log();
+    //console.log("---------------------")
+    //console.log(pion);
+    //display(pion, "Calculate heuristic PION");
+    let ans = 0;
+    for (let i = 0; i<SIZE_BOARD; i++) {
+        for (let j = 0; j<SIZE_BOARD; j++) {
+            ans += board[i][j] * pion[i][j];
+        }
+    }
+    //console.log("---------------------")
+    //console.log();
+    return ans;
+}
+
+//console.log(heuristic(Board, Pion));
+
 
 // direction table 
 //          [right, left,   up,  down]
@@ -73,13 +93,11 @@ function sleep(milliseconds) {
   }
 }
 
-function find_the_best_move_one_pion (board, pion, i, j, actions=[]) {
-    let max_heuristic = heuristic(board, pion);  // init
-    let max_actions = actions
+function find_the_best_move_one_pion (board, pion, i, j, actions=[], max_heuristic=-999) {
+    let max_actions = [...actions]
     let can_not_move = true;
     let first = true;
     for (let dir = 0; dir < 4; dir++ ) {
-        display(pion, "PION")
         //sleep(1000);
         // position next and next*2
         let nexti = i + direction_i[dir];
@@ -91,15 +109,16 @@ function find_the_best_move_one_pion (board, pion, i, j, actions=[]) {
             // check if : the next case has a pion, and the next of next case is empty
             if (pion[nexti][nextj] != 0 && pion[next2i][next2j] == 0)  {
                 // Jump , and remove the pion which is jumped
-                let clone_actions = [...actions]
-                let clone_pion = [...pion];
+                let clone_actions = actions.slice();
+                let clone_pion = make_clone_pion(pion);
                 clone_pion[next2i][next2j] = clone_pion[i][j];
                 clone_pion[i][j] = 0;
                 clone_pion[nexti][nextj] = 0;
                 clone_actions.push([next2i, next2j])
-                console.log(clone_actions)
-                let ans = find_the_best_move_one_pion(board, clone_pion,next2i, next2j, clone_actions)
-                console.log("ans", ans,"!")
+                //display(clone_pion)
+                //console.log("new heuristic", heuristic(board, clone_pion));
+                //console.log(clone_actions)
+                let ans = find_the_best_move_one_pion(board, clone_pion,next2i, next2j, clone_actions,heuristic(board, clone_pion))
                 let tmp_heuristic = ans[0]
                 let tmp_actions = ans[1]
                 if (first || tmp_heuristic > max_heuristic) {
@@ -122,6 +141,13 @@ function find_the_best_move_one_pion (board, pion, i, j, actions=[]) {
 
 }
 
+function action_move(list_actions) {
+  for (let i = 0; i<list_actions.length; i++) {
+
+  }
+
+}
+
 // calculate the the next best move 
 //      argument : status of board, status of pion
 //      return   : a list contient a succession of position of the best move [(i, j), (i1, j1), (j2, j2) ...]
@@ -137,17 +163,17 @@ function find_the_best_move_all_pion (board, pion) {
         // if it can be jumped any more : calculate heuristic and return the list of actions
     //
     let first = true;
-    let max_heuristic = heuristic(board);
+    let max_heuristic = heuristic(board, pion);
     let max_actions = [];
     
     for (let i = 0; i<SIZE_BOARD; i++) {
         for (let j = 0; j<SIZE_BOARD; j++) {
             if (pion[i][j] == 0) continue;
-            console.log("Pion :", i, j, "=>", board[i][j]);
-            let ans = find_the_best_move_one_pion(Board, Pion, i, j, [[i,j]] )
+            //console.log("Pion :", i, j, "=>", board[i][j]);
+            let ans = find_the_best_move_one_pion(board, pion, i, j, [[i,j]] )
             let tmp_heuristic = ans[0];
             let tmp_actions = ans[1];
-            console.log(ans)
+            //console.log(ans)
             if (first || max_heuristic < tmp_heuristic ) {
                 first = false;
                 max_heuristic = tmp_heuristic ;
@@ -155,18 +181,24 @@ function find_the_best_move_all_pion (board, pion) {
             }
         }
     }
-    display(Board)
-    display(Pion, "Pion")
-    console.log("Current heuristic :", heuristic(board));
+
+    console.log("--------------------------------------------------------")
+    console.log("Before move:")
+    display(board)
+    display(pion, "Pion")
+    console.log()
+    console.log("--------------------------------------------------------")
+    console.log("Current heuristic :", heuristic(board, pion));
     console.log("AI analyse:");
     console.log("The best heuristic can be reached : ", max_heuristic);
     console.log("The best moves:", max_actions);
-
+    console.log("--------------------------------------------------------")
+    console.log("After move:")
     //return the list
 
 }
 
-find_the_best_move_all_pion(Board, Pion)
+find_the_best_move_all_pion(Board, Pion);
 //find_the_best_move_one_pion(Board, Pion, 6, 0)
 
 // calculate all next possible status in case of multi-jump: 
