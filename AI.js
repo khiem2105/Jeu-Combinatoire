@@ -1,4 +1,5 @@
 SIZE_BOARD = 9
+
 _board = [[-2, -1, -2, -2, -1, -2, -2, -1, -2],
          [-1, -2, -1, -1, -1, -1, -1, -2, -1],
          [-1, -1, -2, -1, -3, -1, -2, -1, -1],
@@ -62,7 +63,7 @@ function heuristic (board, pion) {
     }
     //console.log("---------------------")
     //console.log();
-    return ans;
+   return ans;
 }
 
 //console.log(heuristic(Board, Pion));
@@ -85,12 +86,12 @@ function pos_is_valid(i, j) {
 //}
 
 function sleep(milliseconds) {
-  var start = new Date().getTime();
-  for (var i = 0; i < 1e7; i++) {
-    if ((new Date().getTime() - start) > milliseconds){
-      break;
+    var start = new Date().getTime();
+    for (var i = 0; i < 1e7; i++) {
+        if ((new Date().getTime() - start) > milliseconds){
+            break;
+        }
     }
-  }
 }
 
 function find_the_best_move_one_pion (board, pion, i, j, actions=[], max_heuristic=-999) {
@@ -142,10 +143,15 @@ function find_the_best_move_one_pion (board, pion, i, j, actions=[], max_heurist
 }
 
 function action_move(list_actions) {
-  for (let i = 0; i<list_actions.length; i++) {
-
-  }
-
+    for (let k = 1; k<list_actions.length; k++) {
+        let i = list_actions[k-1][0];
+        let j = list_actions[k-1][1];
+        let ni = list_actions[k][0];
+        let nj = list_actions[k][1];
+        Pion[ni][nj] = Pion[i][j];
+        Pion[i][j] = 0;
+        Pion[i+(ni-i)/2][j+(nj-j)/2] = 0;
+    }
 }
 
 // calculate the the next best move 
@@ -193,11 +199,14 @@ function find_the_best_move_all_pion (board, pion) {
     console.log("The best heuristic can be reached : ", max_heuristic);
     console.log("The best moves:", max_actions);
     console.log("--------------------------------------------------------")
+    action_move(max_actions);
     console.log("After move:")
+    display(Pion, "Pion");
     //return the list
 
 }
 
+//function playe
 find_the_best_move_all_pion(Board, Pion);
 //find_the_best_move_one_pion(Board, Pion, 6, 0)
 
