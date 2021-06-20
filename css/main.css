@@ -72,3 +72,68 @@ body {
     font-family: cursive;
     color: #222222;
 }
+
+.welcome{
+    /* background-color:rgba(0,0,0,0.7); */
+    z-index:+99;
+    width:575px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.welcome .setting{
+    width:2000px;
+    background-color: rgb(255, 255, 255);
+    text-align: center;
+    padding-top:20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.7),inset 0px 0px 10px rgba(0,0,0,0.4);
+    border:0.5px solid rgba(0,0,0,0.2);
+    transform: translate(0.5%, -200%);
+}
+.setting .name{
+    padding-bottom: 12px;
+    border-bottom: 0.5px solid black;
+}
+
+.setting .footer{
+    font-size: 12px;
+    padding: 6px 0px;
+    color:rgba(0,0,0,0.9);
+}
+.welcome .setting .name input{
+    border-radius: 5px;
+    padding:5px;
+    outline:none;
+    width:80%;
+    margin:10px 0px;
+}
+
+.play{
+    outline: none;
+    border:0.5px solid black;
+    font-size: 18px;
+    padding:5px 15px;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0);
+    cursor:pointer;
+}
+.play:hover{
+    background-color: rgba(0,0,0,0.2);
+}
+
+#playername{
+    background-color:rgba(22, 63, 247, 0.6);
+    border:0.5px solid rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 4px rgba(22, 63, 247, 0.6),inset 0px 0px 10px rgba(22, 63, 247, 0.6);
+}
+
+input::placeholder{
+    color:rgba(0,0,0,0.8);
+}
+
+.welcome .setting .logo img{
+    width:20%;
+}
+
