@@ -25,7 +25,8 @@ class AI {
       // direction table 
       //          [right, left,   up,  down]
       this.direction_i = [1,    -1,    0,    0];
-      this.direction_j = [0,     0,    -1,   1]
+      this.direction_j = [0,     0,    -1,   1];
+      this.INFINITY = 9999
    }
    
    minimax_pseudo_code () {
@@ -50,6 +51,24 @@ class AI {
          //                  minEval = min(minEval, eval)
          //                  beta = min (beta, eval) 
          //          return minEval
+   }
+
+   game_over(pionner) {
+
+      return true ;
+   }
+
+   generate_all_possible_staete
+ssssasdsad
+   minimax(pionneer, depth, alpha, beta, miximizingPlayer) {
+      if (depth == 0 || this.game_over()) {
+         return this.heuristic(pionneer);
+      }
+
+      if (maximizingPlayer) {
+         maxEval = -this.INFINITY;
+
+      }
    }
 
    display_pionneer(pionneer) {
@@ -102,12 +121,12 @@ class AI {
       return -ans;
    }
 
-   function make_clone_pionneer (pion) {
+   make_clone_pionneer (pionneer) {
       let clone_pion = []
-      for (let i = 0; i<SIZE_BOARD; i++) {
+      for (let i = 0; i<this.SIZE_BOARD; i++) {
          let row = [];
-         for (let j = 0; j<SIZE_BOARD; j++) {
-            row.push(pion[i][j]);
+         for (let j = 0; j<this.SIZE_BOARD; j++) {
+            row.push(pionneer[i][j]);
          }
          clone_pion.push(row);
       }
@@ -118,7 +137,7 @@ class AI {
       let ans = 0;
       for (let i = 0; i<this.SIZE_BOARD; i++) {
          for (let j = 0; j<this.SIZE_BOARD; j++) {
-            ans += this.Board[i][j] * this.Pionneer[i][j];
+            ans += this.Board[i][j] * pionneer[i][j];
          }
       }
       return ans;
@@ -130,7 +149,7 @@ class AI {
       return 0 <= i && i < this.SIZE_BOARD && 0 <= j && j < this.SIZE_BOARD;
    }
 
-   find_the_best_move_one_pionneer ( i, j, actions=[], max_heuristic=-999) {
+   find_the_best_move_one_pionneer (pionneer, i, j, actions=[], max_heuristic=-999) {
       let max_actions = [...actions]
       let can_not_move = true;
       let first = true;
@@ -143,15 +162,15 @@ class AI {
          // check if it's valid
          if (this.pos_is_valid(nexti, nextj) && this.pos_is_valid(next2i, next2j)) {
             // check if : the next case has a this.Pionneer, and the next of next case is empty
-            if (this.Pionneer[nexti][nextj] != 0 && this.Pionneer[next2i][next2j] == 0)  {
+            if (pionneer[nexti][nextj] != 0 && pionneer[next2i][next2j] == 0)  {
                // Jump , and remove the this.Pionneer which is jumped
                let clone_actions = actions.slice();
-               let clone_pionneer= this.make_clone_pionneer();
-               clone_pionner[next2i][next2j] = clone_pionneer[i][j];
+               let clone_pionneer= this.make_clone_pionneer(pionneer);
+               clone_pionneer[next2i][next2j] = clone_pionneer[i][j];
                clone_pionneer[i][j] = 0;
                clone_pionneer[nexti][nextj] = 0;
                clone_actions.push([next2i, next2j])
-               let ans = find_the_best_move_one_pionneer(next2i, next2j, clone_actions,heuristic(this.Board, clone_pionneer))
+               let ans = this.find_the_best_move_one_pionneer(clone_pionneer, next2i, next2j, clone_actions, this.heuristic(clone_pionneer))
                let tmp_heuristic = ans[0]
                let tmp_actions = ans[1]
                if (first || tmp_heuristic > max_heuristic) {
@@ -172,9 +191,9 @@ class AI {
          let j = list_actions[k-1][1];
          let ni = list_actions[k][0];
          let nj = list_actions[k][1];
-         Pion[ni][nj] = Pion[i][j];
-         Pion[i][j] = 0;
-         Pion[i+(ni-i)/2][j+(nj-j)/2] = 0;
+         this.Pionneer[ni][nj] = this.Pionneer[i][j];
+         this.Pionneer[i][j] = 0;
+         this.Pionneer[i+(ni-i)/2][j+(nj-j)/2] = 0;
       }
    }
 
@@ -193,7 +212,7 @@ class AI {
       // if it can be jumped any more : calculate heuristic and return the list of actions
       //
       let first = true;
-      let max_heuristic = this.heuristic();
+      let max_heuristic = this.heuristic(this.Pionneer);
       let max_actions = [];
 
       for (let i = 0; i<this.SIZE_BOARD; i++) {
@@ -213,7 +232,7 @@ class AI {
       }
       // check if the game finish :
       if (max_heuristic == -999) {
-         if (score_player(this.Board, this.Pionneer) > score_AI(this.Board, this.Pionneer)) {
+         if (this.score_player( this.Pionneer) > this.score_AI(this.Pionneer)) {
             console.log("Congratulation ! You won the game!!!")
          } else {
             console.log("AI won the game! Let's try again");
@@ -222,21 +241,19 @@ class AI {
 
       console.log("--------------------------------------------------------")
       console.log("Before move:")
-      this.display(this.Board)
-      this.display(this.Pionneer, "Pion")
+      this.display_pionneer(this.Pionneer);
       console.log()
       console.log("--------------------------------------------------------")
-      console.log("Current heuristic :", heuristic(this.Board, this.Pionneer));
+      console.log("Current heuristic :", this.heuristic( this.Pionneer));
       console.log("AI analyse:");
       console.log("The best heuristic can be reached : ", max_heuristic);
       console.log("The best moves:", max_actions);
       console.log("--------------------------------------------------------")
       this.action_move(max_actions);
       console.log("After move:")
-      this.display(this.Board)
-      this.display(Pion, "Pion");
-      console.log("Your score:", score_player(this.Board, this.Pionneer));
-      console.log("AI's score:", score_AI(this.Board, this.Pionneer));
+      this.display_pionneer(this.Pionneer);
+      console.log("Your score:", this.score_player( this.Pionneer));
+      console.log("AI's score:", this.score_AI(this.Pionneer));
       //return the list
    }
 
@@ -255,18 +272,19 @@ class AI {
             let nj = parseInt(res[i+1]);
             l.push([ni, nj]);
             i++;
-            action_move(l);
+            this.action_move(l);
          }
          console.log(res);
 
          //process.exit();
       }
    }
+
 }
 
-let ai = new AI();
-console.log(ai.Board);
-ai.display_pionneer(ai.Pionneer)
-console.log(ai.score_AI(ai.Pionneer))
-console.log(ai.score_player(ai.Pionneer))
-ai.play_with_AI()
+//let ai = new AI();
+//console.log(ai.Board);
+//ai.display_pionneer(ai.Pionneer)
+//console.log(ai.score_AI(ai.Pionneer))
+//console.log(ai.score_player(ai.Pionneer))
+//ai.play_with_AI()
