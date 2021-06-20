@@ -13,3 +13,5 @@ for(var i = 0; i < game.size; i++) {
 }
 
 view.updateBoard(game)
+console.log(game.board)
+console.log(game.pioneer)

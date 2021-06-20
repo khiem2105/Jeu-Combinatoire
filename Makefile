@@ -1,2 +1,2 @@
 run:
-	node AI.js
+	node classAI.js
