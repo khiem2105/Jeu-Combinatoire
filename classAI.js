@@ -55,12 +55,59 @@ class AI {
 
    game_over(pionner) {
 
+
       return true ;
    }
 
-   generate_all_possible_staete
-ssssasdsad
-   minimax(pionneer, depth, alpha, beta, miximizingPlayer) {
+   generate_support(start_pionneer, pionneer, i, j) {
+      let has_no_move = true;
+      for (let dir = 0; dir < 4; dir++ ) {
+         let nexti = i + this.direction_i[dir];
+         let nextj = j + this.direction_j[dir];
+         let next2i = i + 2*this.direction_i[dir];
+         let next2j = j + 2*this.direction_j[dir];
+         if (this.pos_is_valid(nexti, nextj) && this.pos_is_valid(next2i, next2j)) {
+            if (pionneer[nexti][nextj] != 0 && pionneer[next2i][next2j] == 0)  {
+               let clone_pionneer= this.make_clone_pionneer(pionneer);
+               // Update after jump
+               clone_pionneer[next2i][next2j] = clone_pionneer[i][j];
+               clone_pionneer[i][j] = 0;
+               clone_pionneer[nexti][nextj] = 0;
+               has_no_move = false;
+               this.generate_support(start_pionneer, clone_pionneer, next2i, next2j);
+            }
+         }
+      }
+      if (has_no_move) {
+         if (start_pionneer == pionneer) { return; }
+         else {
+            this.all_possible_positions.push(pionneer);
+         }
+         //return pionneer;
+      }
+   }
+
+   run() {
+      this.generate_all_possible_move(this.Pionneer);
+   }
+
+   generate_all_possible_move(pionneer) {
+      this.all_possible_positions = new Array();
+      // option multi jump
+      for (let i = 0; i<this.SIZE_BOARD; i++) {
+         for (let j = 0; j<this.SIZE_BOARD; j++) {
+            this.generate_support(pionneer, pionneer, i, j);
+         }
+      }
+      console.log("Number possibles possition :", this.all_possible_positions.length);
+      // display all the possible positions :
+      for (let i=0; i<this.all_possible_positions.length; i++) {
+         this.display_pionneer( this.all_possible_positions[i])
+      }
+      return this.all_possible_positions;
+   }
+
+   minimax(pionneer, depth, alpha, beta, miximizingPlayer) { 
       if (depth == 0 || this.game_over()) {
          return this.heuristic(pionneer);
       }
@@ -282,7 +329,8 @@ ssssasdsad
 
 }
 
-//let ai = new AI();
+let ai = new AI();
+ai.run();
 //console.log(ai.Board);
 //ai.display_pionneer(ai.Pionneer)
 //console.log(ai.score_AI(ai.Pionneer))
