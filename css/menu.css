@@ -15,7 +15,7 @@ body {
 }
 
 #title { 
-    margin: 10px auto;
+    margin: 30px auto;
     text-align: center;
 }
 .button{
@@ -33,16 +33,48 @@ body {
     cursor: pointer;
     box-shadow: 0 12px 16px 0 rgba(39, 66, 3, 0.24),0 17px 50px 0 rgba(16, 114, 54, 0.19);    outline: 2px solid;
     outline-color: rgba(255,255,255,0);
+    background-size: 1px 300%;
+    -webkit-transition:0.5s;
+     transition:0.5s;
+
 }
+
 #start{
-    top: 150px;
+    top: 200px;
+}
+#start:hover{
+    background:#0b2d09;
+    color:white;
+    -webkit-transform:rotate(-1deg);
+    transform:rotate(-2deg);
 }
 #scores{
-    top: 250px;
+    top: 300px;
+}
+#scores:hover{
+    background:#0b2d09;
+    color:white;
+    -webkit-transform:rotate(-1deg);
+    transform:rotate(-2deg);
 }
 #rules{
-    top: 350px;
+    top: 400px;
+}
+#rules:hover{
+    background:#0b2d09;
+    color:white;
+    -webkit-transform:rotate(-1deg);
+    transform:rotate(-2deg);
 }
 #about{
-    top: 450px;
+    top: 500px;
+}
+#about:hover{
+    background:#0b2d09;
+    color:white;
+    -webkit-transform:rotate(-1deg);
+    transform:rotate(-2deg);
+}
+#bottom{
+    margin: 500px;
 }
