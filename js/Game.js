@@ -113,13 +113,6 @@ export default class Game {
         if(j >= 2 &&  0 <= i < this.size && this.pioneer[i][j-1] != 0 && this.pioneer[i][j-2] == 0)
             possiblePosition.push([i, j-2])
         
-        if(i == 3 || i == 5) {
-            if(i == 3 && 0 <= j < this.size && this.pioneer[i+1][j] == 0)
-                possiblePosition.push([i+1, j])
-            else if(i == 5 &&  0 <= j < this.size && this.pioneer[i-1][j] == 0)
-                possiblePosition.push([i-1, j])
-        }
-        
         return possiblePosition
     }
 
