@@ -19,4 +19,22 @@ export default class GameView {
             }
         }
     }
+
+    updateColors(game){
+        for(var i = 0; i < game.size; i++) {
+            for(let j = 0; j < game.size; j++) {
+                const cell = this.board.querySelector(`.cell[data-index="${i*9+j}"`)
+
+                if (game.board[i][j] == 1) cell.classList.add("light")
+
+                else{
+                    if(game.board[i][j] == 2) cell.classList.add("medium")
+                    else{
+                        if (game.board[i][j] == 3) cell.classList.add("dark")
+                        else cell.classList.add("neutral")
+                    }
+                }
+            }
+        }
+    }
 }

@@ -4,6 +4,7 @@ import View from "./View.js"
 
 let view = new View(document.getElementById("game-board"))
 let game = new Game()
+view.updateColors(game)
 
 for(var i = 0; i < game.size; i++) {
     console.log("Line " + i + "th:")

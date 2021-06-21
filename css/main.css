@@ -85,6 +85,27 @@ body {
     color: #222222;
 }
 
+.cell.light{
+    background: #aaf7a0; 
+}
+
+.cell.medium{
+    background:#44fc28;
+}
+
+.cell.dark{
+    background: #309b20; 
+}
+
+.cell.neutral{
+    background: white;
+}
+
+.cell:hover{
+    cursor: pointer;
+    background: #f0b67f;
+}
+
 .welcome{
     z-index:+99;
     width:575px;
