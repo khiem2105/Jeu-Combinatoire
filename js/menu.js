@@ -26,15 +26,21 @@ pauseButton.addEventListener("click",function(){
 
     pauseMenu.className = "pause";
     continueButton.className = "pauseButtons";
-    //quitButton.className = "pauseButtons";
+    quitButton.className = "pauseButtons";
     paragraph.id = "parag";
     pauseMenu.appendChild(paragraph);
     pauseMenu.appendChild(continueButton);
-    //pauseMenu.appendChild(quitButton);
-    continueButton.addEventListener("click", function(){
+    pauseMenu.appendChild(quitButton);
+
+    quitButton.addEventListener("click", function(){
         window.opener = self;
         window.close();
     });
+
+    continueButton.addEventListener("click", function(){
+        pauseButton.disabled = false;
+        mainDiv.removeChild(pauseMenu);
+    })
 
     mainDiv.appendChild(pauseMenu);
 
