@@ -10,6 +10,9 @@
 <body>
     <div id="app">
         <h1 id="title">Solitaire Game</h1>
+        <button type="button" id="pause" disabled>
+            <i class="material-icons">pause</i>
+        </button>
         <div id="status">
             <div id="turn">P1's turn</div>
             <div id="winner">Winner:</div>
@@ -37,17 +40,7 @@
                 </div>
             </div>
     </div>
-    <script>
-        welcomeScreen = document.getElementsByClassName("welcome")[0];
-        playButton = document.getElementsByClassName("play")[0];
-        playerName = document.getElementById("turn");
-        nameP = document.getElementById("playername");
-
-        playButton.addEventListener("click",function(){
-            playerName.innerHTML = nameP.value + "'s turn";
-            welcomeScreen.remove();
-        });
-    </script>
+    <script src="./js/menu.js"></script>
     <script src="./js/main.js" type="module"></script>
 </body>
 </html>
