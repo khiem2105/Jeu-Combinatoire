@@ -13,6 +13,12 @@ body {
     justify-content: center;
     background: #eef5db
 }
+#app {
+    background: #bad9b5;
+    margin: 50px;
+    padding: 50px;
+    border-radius: 25px;
+}
 
 .splash{
     position: fixed;
@@ -130,4 +136,9 @@ body {
 }
 #bottom{
     margin: 600px;
+}
+#bottom1{
+    margin: 300px;
+    position: absolute;
+    text-align: center;
 }
