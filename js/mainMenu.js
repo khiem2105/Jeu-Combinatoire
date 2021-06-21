@@ -17,4 +17,10 @@ aboutButton.addEventListener("click",function(){
     window.location.href = 'about.html';
     });
 
+var rulesButton = document.getElementById("rules");
+rulesButton.addEventListener("click",function(){
+    window.location.href = 'rules.html';
+    });
+    
+
 

@@ -138,7 +138,6 @@ body {
     margin: 600px;
 }
 #bottom1{
-    margin: 300px;
-    position: absolute;
+    margin: 200px auto;
     text-align: center;
 }
