@@ -1,9 +1,10 @@
 import Game from "./Game.js"
 import View from "./View.js"
+import AI from "./classAI.js"
 
-
+let ai = new AI()
 let view = new View(document.getElementById("app"))
-let game = new Game()
+let game = new Game(ai)
 view.update(game)
 
 // for(var i = 0; i < game.size; i++) {
@@ -49,7 +50,7 @@ view.onCellClick = function(i) {
             })
             view.clickCounter = 0
             view.cellClicked.length = 0
-            
+
         }
         view.update(game)
         // console.log(game.turn)

@@ -1,5 +1,7 @@
 export default class Game {
-    constructor() {
+    constructor(ai) {
+        // link to AI
+        this.ai = ai
         // Size of the board
         this.size = 9
         // Turn: 
@@ -84,6 +86,7 @@ export default class Game {
                     this.pioneer[i][j] = 0    
             }
         }
+        
     }
 
     //Calculate points for both players
@@ -129,6 +132,11 @@ export default class Game {
         return true
     }
 
+    // AI Make a jump from index (i, j) to index (k, l)
+    AImakeMove([i, j], [k, l]) {
+
+    }
+
     // Make a jump from index (i, j) to index (k, l)
     makeMove([i, j], [k, l]) {
         if(this.checkTerminalState())
@@ -162,11 +170,40 @@ export default class Game {
         }
     }
 
+
+    AI_make_move_from_list(list_actions) {
+        for (let k = 1; k<list_actions.length; k++) {
+            let i = list_actions[k-1][0];
+            let j = list_actions[k-1][1];
+            let ni = list_actions[k][0];
+            let nj = list_actions[k][1];
+            this.pioneer[ni][nj] = this.pioneer[i][j];
+            this.pioneer[i][j] = 0;
+            this.pioneer[i+(ni-i)/2][j+(nj-j)/2] = 0;
+        }
+    }
+
+    testingAI() {
+        console.log(this.ai.Pioneer);
+        console.log(this.pioneer)
+        this.ai.sync_data(this.pioneer);
+        console.log(this.ai.Pioneer);
+        let list_actions = this.ai.find_the_best_move_all_pioneer()
+        this.AI_make_move_from_list(list_actions)
+        //for (let i = 0 ; i<list_actions.length - 1; i++) {
+            ////this.AImakeMove(list_actions[i], list_actions[i+1]);
+
+        //}
+    }
+
     changeTurn() {
         this.moveLeft = 2
         this.lastIndex.fill(null)
         this.turnCount++
         this.turn = this.turn == "P1" ? "P2":"P1"
+        // Testing AI
+        this.testingAI()
+        //this.turn = this.turn == "P1" ? "AI":"P1"
     }
 }
 
