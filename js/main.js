@@ -1,9 +1,10 @@
 import Game from "./Game.js"
 import View from "./View.js"
+import AI from "./classAI.js"
 
-
+let ai = new AI()
 let view = new View(document.getElementById("app"))
-let game = new Game()
+let game = new Game(ai)
 view.update(game)
 
 // for(var i = 0; i < game.size; i++) {

@@ -1,4 +1,4 @@
-class AI {
+export default class AI {
    constructor() {
       this.Board =  [[-2, -1, -2, -2, -1, -2, -2, -1, -2],
                      [-1, -2, -1, -1, -1, -1, -1, -2, -1],
@@ -10,7 +10,7 @@ class AI {
                      [ 1,  2,  1,  1,  1,  1,  1,  2,  1],
                      [ 2,  1,  2,  2,  1,  2,  2,  1,  2]
                ]
-      this.Pionneer =  [[ 3,  5,  3,  3,  3,  3,  3,  3,  5],
+      this.Pioneer =  [[ 3,  5,  3,  3,  3,  3,  3,  3,  5],
                   [ 1,  1,  1,  1,  5,  1,  1,  1,  1],
                   [ 3,  3,  5,  3,  3,  3,  5,  3,  3],
                   [ 1,  1,  1,  1,  1,  1,  1,  1,  1],
@@ -27,6 +27,14 @@ class AI {
       this.direction_i = [1,    -1,    0,    0];
       this.direction_j = [0,     0,    -1,   1];
       this.INFINITY = 9999
+   }
+
+   sync_data(pioneer) {
+      for (let i = 0; i<this.SIZE_BOARD; i++) {
+         for (let j = 0; j<this.SIZE_BOARD; j++) {
+            this.Pioneer[i][j] = pioneer[i][j];
+         }
+      }
    }
    
    minimax_pseudo_code () {
@@ -59,7 +67,7 @@ class AI {
       return true ;
    }
 
-   generate_support(start_pionneer, pionneer, i, j) {
+   generate_support(start_pioneer, pioneer, i, j) {
       let has_no_move = true;
       for (let dir = 0; dir < 4; dir++ ) {
          let nexti = i + this.direction_i[dir];
@@ -67,49 +75,49 @@ class AI {
          let next2i = i + 2*this.direction_i[dir];
          let next2j = j + 2*this.direction_j[dir];
          if (this.pos_is_valid(nexti, nextj) && this.pos_is_valid(next2i, next2j)) {
-            if (pionneer[nexti][nextj] != 0 && pionneer[next2i][next2j] == 0)  {
-               let clone_pionneer= this.make_clone_pionneer(pionneer);
+            if (pioneer[nexti][nextj] != 0 && pioneer[next2i][next2j] == 0)  {
+               let clone_pioneer= this.make_clone_pioneer(pioneer);
                // Update after jump
-               clone_pionneer[next2i][next2j] = clone_pionneer[i][j];
-               clone_pionneer[i][j] = 0;
-               clone_pionneer[nexti][nextj] = 0;
+               clone_pioneer[next2i][next2j] = clone_pioneer[i][j];
+               clone_pioneer[i][j] = 0;
+               clone_pioneer[nexti][nextj] = 0;
                has_no_move = false;
-               this.generate_support(start_pionneer, clone_pionneer, next2i, next2j);
+               this.generate_support(start_pioneer, clone_pioneer, next2i, next2j);
             }
          }
       }
       if (has_no_move) {
-         if (start_pionneer == pionneer) { return; }
+         if (start_pioneer == pioneer) { return; }
          else {
-            this.all_possible_positions.push(pionneer);
+            this.all_possible_positions.push(pioneer);
          }
-         //return pionneer;
+         //return pioneer;
       }
    }
 
    run() {
-      this.generate_all_possible_move(this.Pionneer);
+      this.generate_all_possible_move(this.Pioneer);
    }
 
-   generate_all_possible_move(pionneer) {
+   generate_all_possible_move(pioneer) {
       this.all_possible_positions = new Array();
       // option multi jump
       for (let i = 0; i<this.SIZE_BOARD; i++) {
          for (let j = 0; j<this.SIZE_BOARD; j++) {
-            this.generate_support(pionneer, pionneer, i, j);
+            this.generate_support(pioneer, pioneer, i, j);
          }
       }
       console.log("Number possibles possition :", this.all_possible_positions.length);
       // display all the possible positions :
       for (let i=0; i<this.all_possible_positions.length; i++) {
-         this.display_pionneer( this.all_possible_positions[i])
+         this.display_pioneer( this.all_possible_positions[i])
       }
       return this.all_possible_positions;
    }
 
-   minimax(pionneer, depth, alpha, beta, miximizingPlayer) { 
+   minimax(pioneer, depth, alpha, beta, miximizingPlayer) { 
       if (depth == 0 || this.game_over()) {
-         return this.heuristic(pionneer);
+         return this.heuristic(pioneer);
       }
 
       if (maximizingPlayer) {
@@ -118,26 +126,27 @@ class AI {
       }
    }
 
-   display_pionneer(pionneer) {
+   display_pioneer(pioneer) {
+      console.log(pioneer)
       console.log("Display PIONNEER");
       console.log("    0  1  2  3  4  5  6  7  8");
       console.log("_____________________________");
       for (let i = 0; i<this.SIZE_BOARD; i++) {
          process.stdout.write(i.toString() + " |");
          for (let j = 0; j<this.SIZE_BOARD; j++) {
-            //console.log(pionneer[i][j]);
+            //console.log(pioneer[i][j]);
             if (j%2==0) {
-               if (pionneer[i][j] >= 0)  {
-                  process.stdout.write(" "+ pionneer[i][j].toString()+ " " );
+               if (pioneer[i][j] >= 0)  {
+                  process.stdout.write(" "+ pioneer[i][j].toString()+ " " );
                }
                else
-                  process.stdout.write(pionneer[i][j].toString() + " " );
+                  process.stdout.write(pioneer[i][j].toString() + " " );
             } else {
-               if (pionneer[i][j] >= 0)  {
-                  process.stdout.write(" "+ pionneer[i][j].toString()+ "|" );
+               if (pioneer[i][j] >= 0)  {
+                  process.stdout.write(" "+ pioneer[i][j].toString()+ "|" );
                }
                else
-                  process.stdout.write(pionneer[i][j].toString() + "|" );
+                  process.stdout.write(pioneer[i][j].toString() + "|" );
             }
          }
          console.log();
@@ -146,45 +155,45 @@ class AI {
       }
    }
 
-   score_player (pionneer) {
+   score_player (pioneer) {
       let ans = 0;
       for (let i = 0; i<this.SIZE_BOARD; i++) {
          for (let j = 0; j<this.SIZE_BOARD; j++) {
             if (this.Board[i][j] <= 0 ) continue;
-            ans += this.Board[i][j] * pionneer[i][j];
+            ans += this.Board[i][j] * pioneer[i][j];
          }
       }
       return ans;
    }
 
-   score_AI ( pionneer) {
+   score_AI ( pioneer) {
       let ans = 0;
       for (let i = 0; i<this.SIZE_BOARD; i++) {
          for (let j = 0; j<this.SIZE_BOARD; j++) {
             if (this.Board[i][j] >= 0 ) continue;
-            ans += this.Board[i][j] * pionneer[i][j];
+            ans += this.Board[i][j] * pioneer[i][j];
          }
       }
       return -ans;
    }
 
-   make_clone_pionneer (pionneer) {
+   make_clone_pioneer (pioneer) {
       let clone_pion = []
       for (let i = 0; i<this.SIZE_BOARD; i++) {
          let row = [];
          for (let j = 0; j<this.SIZE_BOARD; j++) {
-            row.push(pionneer[i][j]);
+            row.push(pioneer[i][j]);
          }
          clone_pion.push(row);
       }
       return clone_pion;
    }
 
-   heuristic (pionneer) {
+   heuristic (pioneer) {
       let ans = 0;
       for (let i = 0; i<this.SIZE_BOARD; i++) {
          for (let j = 0; j<this.SIZE_BOARD; j++) {
-            ans += this.Board[i][j] * pionneer[i][j];
+            ans += this.Board[i][j] * pioneer[i][j];
          }
       }
       return ans;
@@ -196,7 +205,7 @@ class AI {
       return 0 <= i && i < this.SIZE_BOARD && 0 <= j && j < this.SIZE_BOARD;
    }
 
-   find_the_best_move_one_pionneer (pionneer, i, j, actions=[], max_heuristic=-999) {
+   find_the_best_move_one_pioneer (pioneer, i, j, actions=[], max_heuristic=-999) {
       let max_actions = [...actions]
       let can_not_move = true;
       let first = true;
@@ -208,16 +217,16 @@ class AI {
          let next2j = j + 2*this.direction_j[dir];
          // check if it's valid
          if (this.pos_is_valid(nexti, nextj) && this.pos_is_valid(next2i, next2j)) {
-            // check if : the next case has a this.Pionneer, and the next of next case is empty
-            if (pionneer[nexti][nextj] != 0 && pionneer[next2i][next2j] == 0)  {
-               // Jump , and remove the this.Pionneer which is jumped
+            // check if : the next case has a this.Pioneer, and the next of next case is empty
+            if (pioneer[nexti][nextj] != 0 && pioneer[next2i][next2j] == 0)  {
+               // Jump , and remove the this.Pioneer which is jumped
                let clone_actions = actions.slice();
-               let clone_pionneer= this.make_clone_pionneer(pionneer);
-               clone_pionneer[next2i][next2j] = clone_pionneer[i][j];
-               clone_pionneer[i][j] = 0;
-               clone_pionneer[nexti][nextj] = 0;
+               let clone_pioneer= this.make_clone_pioneer(pioneer);
+               clone_pioneer[next2i][next2j] = clone_pioneer[i][j];
+               clone_pioneer[i][j] = 0;
+               clone_pioneer[nexti][nextj] = 0;
                clone_actions.push([next2i, next2j])
-               let ans = this.find_the_best_move_one_pionneer(clone_pionneer, next2i, next2j, clone_actions, this.heuristic(clone_pionneer))
+               let ans = this.find_the_best_move_one_pioneer(clone_pioneer, next2i, next2j, clone_actions, this.heuristic(clone_pioneer))
                let tmp_heuristic = ans[0]
                let tmp_actions = ans[1]
                if (first || tmp_heuristic > max_heuristic) {
@@ -238,38 +247,38 @@ class AI {
          let j = list_actions[k-1][1];
          let ni = list_actions[k][0];
          let nj = list_actions[k][1];
-         this.Pionneer[ni][nj] = this.Pionneer[i][j];
-         this.Pionneer[i][j] = 0;
-         this.Pionneer[i+(ni-i)/2][j+(nj-j)/2] = 0;
+         this.Pioneer[ni][nj] = this.Pioneer[i][j];
+         this.Pioneer[i][j] = 0;
+         this.Pioneer[i+(ni-i)/2][j+(nj-j)/2] = 0;
       }
    }
 
    // calculate the the next best move 
-   //      argument : status of this.Board, status of this.Pionneer
+   //      argument : status of this.Board, status of this.Pioneer
    //      return   : a list contient a succession of position of the best move [(i, j), (i1, j1), (j2, j2) ...]
-   find_the_best_move_all_pionneer() {
+   find_the_best_move_all_pioneer() {
       // declaration of variable, we need : 
-      //let max_heuristic = heuristic(this.Board, this.Pionneer)
+      //let max_heuristic = heuristic(this.Board, this.Pioneer)
 
-      // for each this.Pionneer
+      // for each this.Pioneer
       // for each direction
       // check if it can be jump
-      // if yes, update the status of this.Pionneer, then recursive
+      // if yes, update the status of this.Pioneer, then recursive
       // 
       // if it can be jumped any more : calculate heuristic and return the list of actions
       //
       let first = true;
-      let max_heuristic = this.heuristic(this.Pionneer);
+      let max_heuristic = this.heuristic(this.Pioneer);
       let max_actions = [];
 
       for (let i = 0; i<this.SIZE_BOARD; i++) {
          for (let j = 0; j<this.SIZE_BOARD; j++) {
-            if (this.Pionneer[i][j] == 0) continue;
+            if (this.Pioneer[i][j] == 0) continue;
             //console.log("Pion :", i, j, "=>", this.Board[i][j]);
-            let ans = this.find_the_best_move_one_pionneer(i, j, [[i,j]] )
+            let ans = this.find_the_best_move_one_pioneer(this.Pioneer, i, j, [[i,j]] )
             let tmp_heuristic = ans[0];
             let tmp_actions = ans[1];
-            //console.log(ans)
+            console.log(ans)
             if (first || max_heuristic < tmp_heuristic ) {
                first = false;
                max_heuristic = tmp_heuristic ;
@@ -279,7 +288,7 @@ class AI {
       }
       // check if the game finish :
       if (max_heuristic == -999) {
-         if (this.score_player( this.Pionneer) > this.score_AI(this.Pionneer)) {
+         if (this.score_player( this.Pioneer) > this.score_AI(this.Pioneer)) {
             console.log("Congratulation ! You won the game!!!")
          } else {
             console.log("AI won the game! Let's try again");
@@ -287,28 +296,29 @@ class AI {
       }
 
       console.log("--------------------------------------------------------")
-      console.log("Before move:")
-      this.display_pionneer(this.Pionneer);
+      //console.log("Before move:")
+      //this.display_pioneer(this.Pioneer);
       console.log()
       console.log("--------------------------------------------------------")
-      console.log("Current heuristic :", this.heuristic( this.Pionneer));
+      console.log("Current heuristic :", this.heuristic( this.Pioneer));
       console.log("AI analyse:");
       console.log("The best heuristic can be reached : ", max_heuristic);
       console.log("The best moves:", max_actions);
       console.log("--------------------------------------------------------")
-      this.action_move(max_actions);
-      console.log("After move:")
-      this.display_pionneer(this.Pionneer);
-      console.log("Your score:", this.score_player( this.Pionneer));
-      console.log("AI's score:", this.score_AI(this.Pionneer));
+      //this.action_move(max_actions);
+      //console.log("After move:")
+      //this.display_pioneer(this.Pioneer);
+      console.log("Your score:", this.score_player( this.Pioneer));
+      console.log("AI's score:", this.score_AI(this.Pioneer));
       //return the list
+      return max_actions;
    }
 
    play_with_AI() {
       //var name = readline();
       //console.log(name);
       while (true) {
-         this.find_the_best_move_all_pionneer();
+         this.find_the_best_move_all_pioneer();
          let readlineSync = require('readline-sync');
          let res = readlineSync.question("Your turn:");
          console.log(res);
@@ -329,10 +339,13 @@ class AI {
 
 }
 
-let ai = new AI();
-ai.run();
+//let ai = new AI();
+//ai.find_the_best_move_all_pioneer()
+//let k = ai.find_the_best_move_one_pioneer(ai.Pioneer, 6, 0 )
+//console.log(k)
+//ai.run();
 //console.log(ai.Board);
-//ai.display_pionneer(ai.Pionneer)
-//console.log(ai.score_AI(ai.Pionneer))
-//console.log(ai.score_player(ai.Pionneer))
+//ai.display_pioneer(ai.Pioneer)
+//console.log(ai.score_AI(ai.Pioneer))
+//console.log(ai.score_player(ai.Pioneer))
 //ai.play_with_AI()
