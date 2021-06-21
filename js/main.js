@@ -4,6 +4,7 @@ import View from "./View.js"
 
 let view = new View(document.getElementById("app"))
 let game = new Game()
+view.updateColors(game)
 view.update(game)
 
 // for(var i = 0; i < game.size; i++) {
