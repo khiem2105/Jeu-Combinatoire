@@ -92,18 +92,19 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    transform: translate(0%, -150%);
 }
 .welcome .setting{
     width:2000px;
     background-color: rgb(255, 255, 255);
+    color: white;
     text-align: center;
     padding-top:20px;
     border-radius: 10px;
     box-shadow: 0px 0px 4px rgba(0,0,0,0.7),inset 0px 0px 10px rgba(0,0,0,0.4);
     border:0.5px solid rgba(0,0,0,0.2);
     transform: translate(0.5%, -200%);
-}
-.setting .name{
+    background-image: url("https://images.unsplash.com/photo-1591962412935-a302ea764366?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
     padding-bottom: 12px;
     border-bottom: 0.5px solid black;
 }
@@ -111,7 +112,7 @@ body {
 .setting .footer{
     font-size: 12px;
     padding: 6px 0px;
-    color:rgba(0,0,0,0.9);
+    color:white;
 }
 .welcome .setting .name input{
     border-radius: 5px;
@@ -123,28 +124,30 @@ body {
 
 .play{
     outline: none;
-    border:0.5px solid black;
+    border:0.5px solid white;
     font-size: 18px;
     padding:5px 15px;
     border-radius: 5px;
     background-color: rgba(0,0,0,0);
     cursor:pointer;
+    color:rgb(0, 255, 149);
 }
 .play:hover{
     background-color: rgba(0,0,0,0.2);
 }
 
 #playername{
-    background-color:rgba(22, 63, 247, 0.6);
-    border:0.5px solid rgba(0,0,0,0.2);
+    background-color:white;
+    height: 40px;
+    border:0.5px solid rgb(255, 255, 255);
     box-shadow: 0px 0px 4px rgba(22, 63, 247, 0.6),inset 0px 0px 10px rgba(22, 63, 247, 0.6);
 }
 
 input::placeholder{
-    color:rgba(0,0,0,0.8);
+    color:rgb(50, 233, 157);
 }
 
-.welcome .setting .logo img{
+.welcome .setting img{
     width:20%;
 }
 
@@ -159,7 +162,7 @@ input::placeholder{
     border:0.5px solid rgb(255, 255, 255);
     transform: translate(8%, -250%); 
     justify-content: center;
-    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNSFrXn7oDPGF2FfZZoZd80hfObrHd5FEc3fzEBpVTHFZJ6lGwC0tAdjpv_Mnn5Mx9ixk&usqp=CAU");
+    background-image: url("https://images.unsplash.com/photo-1591962412935-a302ea764366?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
 }
 
 .pauseButtons{
@@ -173,12 +176,12 @@ input::placeholder{
     height: 50px;
     cursor:pointer;
     font-family: "COPPERPLATE", "Courier New", monospace;
-    color: aquamarine;
+    color: rgb(50, 233, 157);
 }
 
 #parag{
     padding-bottom:20px;
     font-family: "COPPERPLATE", "Courier New", monospace;
     font-size: 40px;
-    color: aquamarine;
+    color: rgb(50, 233, 157);
 }
