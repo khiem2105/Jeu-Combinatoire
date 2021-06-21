@@ -9,16 +9,12 @@ document.addEventListener("DOMContentLoaded", (e) =>{
 var startButton = document.getElementById("starts");
 
 startButton.addEventListener("click",function(){
-        window.opener = self;
-        window.close();
-        window.open("index.html");
+        window.location.href = 'index.html';
     });
 var aboutButton = document.getElementById("about");
 
 aboutButton.addEventListener("click",function(){
-        window.opener = self;
-        window.close();
-        window.open("about.html");
+    window.location.href = 'about.html';
     });
 
 
