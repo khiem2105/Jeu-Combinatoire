@@ -104,7 +104,7 @@ body {
     box-shadow: 0px 0px 4px rgba(0,0,0,0.7),inset 0px 0px 10px rgba(0,0,0,0.4);
     border:0.5px solid rgba(0,0,0,0.2);
     transform: translate(0.5%, -200%);
-    background-image: url("https://images.unsplash.com/photo-1591962412935-a302ea764366?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNSFrXn7oDPGF2FfZZoZd80hfObrHd5FEc3fzEBpVTHFZJ6lGwC0tAdjpv_Mnn5Mx9ixk&usqp=CAU");
     padding-bottom: 12px;
     border-bottom: 0.5px solid black;
 }
@@ -162,7 +162,7 @@ input::placeholder{
     border:0.5px solid rgb(255, 255, 255);
     transform: translate(8%, -250%); 
     justify-content: center;
-    background-image: url("https://images.unsplash.com/photo-1591962412935-a302ea764366?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80");
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNSFrXn7oDPGF2FfZZoZd80hfObrHd5FEc3fzEBpVTHFZJ6lGwC0tAdjpv_Mnn5Mx9ixk&usqp=CAU");
 }
 
 .pauseButtons{
