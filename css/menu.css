@@ -82,17 +82,26 @@ body {
 
 }
 
-#start{
+#starts{
     top: 200px;
 }
-#start:hover{
+#starts:hover{
+    background:#0b2d09;
+    color:white;
+    -webkit-transform:rotate(-1deg);
+    transform:rotate(-2deg);
+}
+#startm{
+    top: 300px;
+}
+#startm:hover{
     background:#0b2d09;
     color:white;
     -webkit-transform:rotate(-1deg);
     transform:rotate(-2deg);
 }
 #scores{
-    top: 300px;
+    top: 400px;
 }
 #scores:hover{
     background:#0b2d09;
@@ -101,8 +110,9 @@ body {
     transform:rotate(-2deg);
 }
 #rules{
-    top: 400px;
+    top: 500px;
 }
+
 #rules:hover{
     background:#0b2d09;
     color:white;
@@ -110,7 +120,7 @@ body {
     transform:rotate(-2deg);
 }
 #about{
-    top: 500px;
+    top: 600px;
 }
 #about:hover{
     background:#0b2d09;
@@ -119,5 +129,5 @@ body {
     transform:rotate(-2deg);
 }
 #bottom{
-    margin: 500px;
+    margin: 600px;
 }
