@@ -155,27 +155,30 @@ input::placeholder{
     text-align: center;
     padding-top:20px;
     border-radius: 10px;
-    box-shadow: 0px 0px 4px rgba(0,0,0,0.7),inset 0px 0px 10px rgba(0,0,0,0.4);
-    border:0.5px solid rgba(0,0,0,0.2);
+    box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.7),inset 0px 0px 10px rgba(248, 246, 246, 0.4);
+    border:0.5px solid rgb(255, 255, 255);
     transform: translate(8%, -250%); 
     justify-content: center;
+    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNSFrXn7oDPGF2FfZZoZd80hfObrHd5FEc3fzEBpVTHFZJ6lGwC0tAdjpv_Mnn5Mx9ixk&usqp=CAU");
 }
 
 .pauseButtons{
     outline: none;
-    border:0.5px solid black;
+    border:0.5px solid rgba(255, 253, 253, 0.664);
     font-size: 30px;
     padding:5px 20px;
     border-radius: 5px;
-    background-color: rgba(0,0,0,0);
+    background-color: rgb(0, 0, 0);
     width: 300px;
     height: 50px;
     cursor:pointer;
     font-family: "COPPERPLATE", "Courier New", monospace;
+    color: aquamarine;
 }
 
 #parag{
     padding-bottom:20px;
     font-family: "COPPERPLATE", "Courier New", monospace;
     font-size: 40px;
+    color: aquamarine;
 }
