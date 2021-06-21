@@ -189,12 +189,15 @@ export default class Game {
     }
 
     testingAI() {
-        console.log(this.ai.Pioneer);
-        console.log(this.pioneer)
+        //console.log(this.ai.Pioneer);
+        //console.log(this.pioneer)
         this.ai.sync_data(this.pioneer);
-        console.log(this.ai.Pioneer);
-        let list_actions = this.ai.find_the_best_move_all_pioneer()
-        this.AI_make_move_from_list(list_actions)
+        //console.log(this.ai.Pioneer);
+        let ai_pioneer_moved = this.ai.run();
+        this.pioneer = ai_pioneer_moved;
+
+        //let list_actions = this.ai.find_the_best_move_all_pioneer()
+        //this.AI_make_move_from_list(list_actions)
         //for (let i = 0 ; i<list_actions.length - 1; i++) {
             ////this.AImakeMove(list_actions[i], list_actions[i+1]);
 
@@ -220,3 +223,5 @@ function arrayIncludesArray(a1, a2) {
     }
     return false
 }
+
+
