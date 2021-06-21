@@ -37,6 +37,17 @@ class AI {
          }
       }
    }
+
+
+   minimax(pioneer, depth, alpha, beta, miximizingPlayer) { 
+      if (depth == 0 || this.game_over()) {
+         return this.heuristic(pioneer);
+      }
+
+      if (maximizingPlayer) {
+         maxEval = -this.INFINITY;
+      }
+   }
    
    minimax_pseudo_code () {
          // Minimax pseudo code :
@@ -62,13 +73,60 @@ class AI {
          //          return minEval
    }
 
-   game_over(pionner) {
-
-
+   game_over(pioneer) {
+      for (let i=0; i<this.SIZE_BOARD; i++) {
+         for (let j=0; j<this.SIZE_BOARD; j++) {
+            for (let dir = 0; dir < 4; dir++ ) {
+               let nexti = i + this.direction_i[dir];
+               let nextj = j + this.direction_j[dir];
+               let next2i = i + 2*this.direction_i[dir];
+               let next2j = j + 2*this.direction_j[dir];
+               if (this.pos_is_valid(nexti, nextj) && this.pos_is_valid(next2i, next2j)) {
+                  if (pioneer[nexti][nextj] != 0 && pioneer[next2i][next2j] == 0)  {
+                     return false;
+                  }
+               }
+            }
+         }
+      }
       return true ;
    }
 
-   generate_support(start_pioneer, pioneer, i, j, actions) {
+   make_clone_action(actions) {
+      let clone = [];
+      for (let i =0; i<actions.length; i++) {
+         clone.push(actions[i]);
+      }
+      return clone;
+   }
+
+   generate_jump_two_times(pioneer, actions) {
+      for (let i = 0; i<this.SIZE_BOARD; i++) {
+         for (let j = 0; j<this.SIZE_BOARD; j++) {
+            for (let dir = 0; dir < 4; dir++ ) {
+               let nexti = i + this.direction_i[dir];
+               let nextj = j + this.direction_j[dir];
+               let next2i = i + 2*this.direction_i[dir];
+               let next2j = j + 2*this.direction_j[dir];
+               if (this.pos_is_valid(nexti, nextj) && this.pos_is_valid(next2i, next2j)) {
+                  if (pioneer[nexti][nextj] != 0 && pioneer[next2i][next2j] == 0)  {
+                     let clone_actions = this.make_clone_action(actions) ;
+                     let clone_pioneer = this.make_clone_pioneer(pioneer);
+                     // Update after jump
+                     clone_pioneer[next2i][next2j] = clone_pioneer[i][j];
+                     clone_pioneer[i][j] = 0;
+                     clone_pioneer[nexti][nextj] = 0;
+                     clone_actions.push([i, j]);
+                     clone_actions.push([next2i, next2j]);
+                     this.all_possible_positions.push(clone_pioneer);
+                  }
+               }
+            }
+         }
+      }
+   }
+
+   generate_multiple_jump(start_pioneer, pioneer, i, j, actions) {
       let has_no_move = true;
       for (let dir = 0; dir < 4; dir++ ) {
          let nexti = i + this.direction_i[dir];
@@ -77,36 +135,46 @@ class AI {
          let next2j = j + 2*this.direction_j[dir];
          if (this.pos_is_valid(nexti, nextj) && this.pos_is_valid(next2i, next2j)) {
             if (pioneer[nexti][nextj] != 0 && pioneer[next2i][next2j] == 0)  {
-               //this.make_clone_action
-               let clone_pioneer= this.make_clone_pioneer(pioneer);
+               let clone_actions = this.make_clone_action(actions) ;
+               let clone_pioneer = this.make_clone_pioneer(pioneer);
                // Update after jump
                clone_pioneer[next2i][next2j] = clone_pioneer[i][j];
                clone_pioneer[i][j] = 0;
                clone_pioneer[nexti][nextj] = 0;
                has_no_move = false;
-               this.generate_support(start_pioneer, clone_pioneer, next2i, next2j);
+               clone_actions.push([i, j]);
+               clone_actions.push([next2i, next2j]);
+               this.generate_multiple_jump(start_pioneer, clone_pioneer, next2i, next2j, clone_actions);
             }
          }
       }
       if (has_no_move) {
+         if (actions.length == 2) this.display_pioneer(pioneer);
          if (start_pioneer == pioneer) { return; }
          else {
-            this.all_possible_positions.push(pioneer);
-         }
+            // check whether the actions is not a multiple-jump
+            if (actions.length > 2) {
+               this.all_possible_positions.push(pioneer);
+            }  else if (actions.length == 2) {
+		this.generate_jump_two_times(pioneer, actions);
+            }
          //return pioneer;
+         }
       }
    }
 
    run() {
       this.generate_all_possible_move(this.Pioneer);
+      console.log("Number of possible position: ", this.all_possible_positions.length);
    }
 
    generate_all_possible_move(pioneer) {
+      //if (pioneer)
       this.all_possible_positions = new Array();
       // option multi jump
       for (let i = 0; i<this.SIZE_BOARD; i++) {
          for (let j = 0; j<this.SIZE_BOARD; j++) {
-            this.generate_support(pioneer, pioneer, i, j, [[i,j]]);
+            this.generate_multiple_jump(pioneer, pioneer, i, j, []);
          }
       }
       console.log("Number possibles possition :", this.all_possible_positions.length);
@@ -117,16 +185,6 @@ class AI {
       return this.all_possible_positions;
    }
 
-   minimax(pioneer, depth, alpha, beta, miximizingPlayer) { 
-      if (depth == 0 || this.game_over()) {
-         return this.heuristic(pioneer);
-      }
-
-      if (maximizingPlayer) {
-         maxEval = -this.INFINITY;
-
-      }
-   }
 
    display_pioneer(pioneer) {
       console.log(pioneer)
@@ -341,8 +399,8 @@ class AI {
 
 }
 
-let ai = new AI();
-ai.run();
+//let ai = new AI();
+//ai.run();
 
 //ai.find_the_best_move_all_pioneer()
 //let k = ai.find_the_best_move_one_pioneer(ai.Pioneer, 6, 0 )
