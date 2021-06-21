@@ -1,4 +1,5 @@
-export default class AI {
+//export default 
+class AI {
    constructor() {
       this.Board =  [[-2, -1, -2, -2, -1, -2, -2, -1, -2],
                      [-1, -2, -1, -1, -1, -1, -1, -2, -1],
@@ -67,7 +68,7 @@ export default class AI {
       return true ;
    }
 
-   generate_support(start_pioneer, pioneer, i, j) {
+   generate_support(start_pioneer, pioneer, i, j, actions) {
       let has_no_move = true;
       for (let dir = 0; dir < 4; dir++ ) {
          let nexti = i + this.direction_i[dir];
@@ -76,6 +77,7 @@ export default class AI {
          let next2j = j + 2*this.direction_j[dir];
          if (this.pos_is_valid(nexti, nextj) && this.pos_is_valid(next2i, next2j)) {
             if (pioneer[nexti][nextj] != 0 && pioneer[next2i][next2j] == 0)  {
+               //this.make_clone_action
                let clone_pioneer= this.make_clone_pioneer(pioneer);
                // Update after jump
                clone_pioneer[next2i][next2j] = clone_pioneer[i][j];
@@ -104,7 +106,7 @@ export default class AI {
       // option multi jump
       for (let i = 0; i<this.SIZE_BOARD; i++) {
          for (let j = 0; j<this.SIZE_BOARD; j++) {
-            this.generate_support(pioneer, pioneer, i, j);
+            this.generate_support(pioneer, pioneer, i, j, [[i,j]]);
          }
       }
       console.log("Number possibles possition :", this.all_possible_positions.length);
@@ -339,7 +341,9 @@ export default class AI {
 
 }
 
-//let ai = new AI();
+let ai = new AI();
+ai.run();
+
 //ai.find_the_best_move_all_pioneer()
 //let k = ai.find_the_best_move_one_pioneer(ai.Pioneer, 6, 0 )
 //console.log(k)
