@@ -104,14 +104,16 @@ export default class Game {
         // An array to store the possible positions that a pioneer can move to
         let possiblePosition = new Array()
             
-        if(i <= this.size- 3 && 0 <= j < this.size && this.pioneer[i+1][j] != 0 && this.pioneer[i+2][j] == 0)
-            possiblePosition.push([i+2, j])
-        if(i >= 2 && 0 <= j < this.size && this.pioneer[i-1][j] != 0 && this.pioneer[i-2][j] == 0)
-            possiblePosition.push([i-2, j])
-        if(j <= this.size-3 &&  0 <= i < this.size && this.pioneer[i][j+1] != 0 && this.pioneer[i][j+2] == 0)
-            possiblePosition.push([i, j+2])
-        if(j >= 2 &&  0 <= i < this.size && this.pioneer[i][j-1] != 0 && this.pioneer[i][j-2] == 0)
-            possiblePosition.push([i, j-2])
+        if(this.pioneer[i][j] != 0) {
+            if(i <= this.size- 3 && 0 <= j < this.size && this.pioneer[i+1][j] != 0 && this.pioneer[i+2][j] == 0)
+                possiblePosition.push([i+2, j])
+            if(i >= 2 && 0 <= j < this.size && this.pioneer[i-1][j] != 0 && this.pioneer[i-2][j] == 0)
+                possiblePosition.push([i-2, j])
+            if(j <= this.size-3 &&  0 <= i < this.size && this.pioneer[i][j+1] != 0 && this.pioneer[i][j+2] == 0)
+                possiblePosition.push([i, j+2])
+            if(j >= 2 &&  0 <= i < this.size && this.pioneer[i][j-1] != 0 && this.pioneer[i][j-2] == 0)
+                possiblePosition.push([i, j-2])
+        }
         
         return possiblePosition
     }

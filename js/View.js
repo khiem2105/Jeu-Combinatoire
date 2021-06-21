@@ -48,16 +48,17 @@ export default class GameView {
     }
 
     updateStatus(game) {
-        const winner = this.root.querySelector("#winner")
-        winner.textContent = "Winner: "
         if(game.checkTerminalState()) {
+            const winner = this.root.querySelector("#winner")
+            winner.textContent = "Winner: "
             let pointArray = game.calculatePoint()
-            if(pointArray[0] > point[1])
-                winner.textContent += "Player 1"
-            else if(pointArray[1] > point[0])
-                winner.textContent += "Player 2"
+            if(pointArray[0] > pointArray[1])
+                winner.textContent += "P1"
+            else if(pointArray[1] > pointArray[0])
+                winner.textContent += "P2"
             else
                 winner.textContent +=  "Tie"
+            console.log(winner.textContent)
         }
     }
 
@@ -74,7 +75,7 @@ export default class GameView {
     update(game) {
         this.updateTurn(game)
         this.updateBoard(game)
-        this.updateStatus(game)
         this.updatePoint(game)
+        this.updateStatus(game)
     }
 }
