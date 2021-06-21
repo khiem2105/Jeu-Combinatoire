@@ -35,6 +35,7 @@ pauseButton.addEventListener("click",function(){
     quitButton.addEventListener("click", function(){
         window.opener = self;
         window.close();
+        window.open('menu.html')
     });
 
     continueButton.addEventListener("click", function(){
