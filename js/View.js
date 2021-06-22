@@ -52,9 +52,9 @@ export default class GameView {
             const winner = this.root.querySelector("#winner")
             winner.textContent = "Winner: "
             let pointArray = game.calculatePoint()
-            if(pointArray[0] > pointArray[1])
+            if(pointArray[0] < pointArray[1])
                 winner.textContent += "P1"
-            else if(pointArray[1] > pointArray[0])
+            else if(pointArray[1] < pointArray[0])
                 winner.textContent += "P2"
             else
                 winner.textContent +=  "Tie"
