@@ -185,16 +185,18 @@ export default class Game {
             this.pioneer[ni][nj] = this.pioneer[i][j];
             this.pioneer[i][j] = 0;
             this.pioneer[i+(ni-i)/2][j+(nj-j)/2] = 0;
+            k++;
         }
     }
+
 
     testingAI() {
         //console.log(this.ai.Pioneer);
         //console.log(this.pioneer)
         this.ai.sync_data(this.pioneer);
         //console.log(this.ai.Pioneer);
-        let ai_pioneer_moved = this.ai.run();
-        this.pioneer = ai_pioneer_moved;
+        let ai_calculated_actions = this.ai.run();
+        this.AI_make_move_from_list(ai_calculated_actions);
 
         //let list_actions = this.ai.find_the_best_move_all_pioneer()
         //this.AI_make_move_from_list(list_actions)
