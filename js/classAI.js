@@ -66,7 +66,7 @@ export default  class AI {
 
       this.first_turn = false;
       this.count_evaluation = 0;
-      let ans = this.minimax(this.Pioneer, 3, -this.INFINITY, this.INFINITY, true, []);
+      let ans = this.minimax(this.Pioneer, 2, -this.INFINITY, this.INFINITY, true, []);
       console.log("minimax :",ans);
       //this.display_pioneer(ans.pioneer);
       console.log("actions :", ans.Actions);
