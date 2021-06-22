@@ -1,5 +1,5 @@
 //export default 
-class AI {
+export default class AI {
    constructor() {
       this.Board =  [[-2, -1, -2, -2, -1, -2, -2, -1, -2],
                      [-1, -2, -1, -1, -1, -1, -1, -2, -1],
@@ -341,8 +341,8 @@ class AI {
 
 }
 
-let ai = new AI();
-ai.run();
+// let ai = new AI();
+// ai.run();
 
 //ai.find_the_best_move_all_pioneer()
 //let k = ai.find_the_best_move_one_pioneer(ai.Pioneer, 6, 0 )

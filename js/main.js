@@ -5,10 +5,10 @@ import AI from "./classAI.js"
 let ai = new AI()
 let view = new View(document.getElementById("app"))
 
-let game = new Game()
+// let game = new Game()
+let game = new Game(ai)
 view.updateColors(game)
 
-let game = new Game(ai)
 
 view.update(game)
 
