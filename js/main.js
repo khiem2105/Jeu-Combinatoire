@@ -4,12 +4,12 @@ import AI from "./classAI.js"
 
 let ai = new AI()
 let view = new View(document.getElementById("app"))
-<<<<<<< HEAD
+
 let game = new Game()
 view.updateColors(game)
-=======
+
 let game = new Game(ai)
->>>>>>> 7ae9656709052453ae45e20cf91a600dab8533b9
+
 view.update(game)
 
 // for(var i = 0; i < game.size; i++) {
