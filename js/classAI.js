@@ -11,15 +11,15 @@ export default  class AI {
                      [ 2,  1,  2,  2,  1,  2,  2,  1,  2]
                ]
       this.Pioneer =  [
-               [ 3,  0,  0,  0,  0,  0,  0,  0,  0],
-               [ 0,  0,  0,  1,  0,  0,  0,  0,  1],
+               [ 3,  0,  0,  0,  3,  0,  0,  0,  0],
+               [ 0,  0,  0,  0,  0,  0,  1,  0,  1],
                [ 0,  0,  0,  0,  0,  0,  0,  0,  3],
-               [ 0,  0,  1,  0,  0,  0,  0,  1,  0],
-               [ 3,  0,  0,  0,  0,  3,  0,  3,  0],
+               [ 0,  0,  0,  0,  0,  0,  0,  0,  0],
+               [ 3,  0,  5,  3,  3,  0,  3,  0,  0],
+               [ 0,  0,  0,  1,  0,  0,  0,  1,  1],
+               [ 0,  0,  0,  0,  3,  0,  0,  0,  0],
                [ 0,  0,  0,  0,  0,  0,  0,  0,  1],
-               [ 0,  0,  0,  0,  0,  0,  5,  0,  0],
-               [ 0,  0,  1,  0,  0,  0,  0,  0,  0],
-               [ 0,  0,  0,  0,  0,  0,  0,  0,  0]
+               [ 0,  0,  0,  5,  0,  3,  0,  0,  0]
                ]
       //this.Pioneer =  [[ 3,  5,  3,  3,  3,  3,  3,  3,  5],
                   //[ 1,  1,  1,  1,  5,  1,  1,  1,  1],
@@ -61,29 +61,12 @@ export default  class AI {
    }
 
    run() {
-      //this.generate_all_possible_move(this.Pioneer);
-      //for (let i=0; i<this.all_possible_positions.length; i++) {
-         //this.display_pioneer(this.all_possible_positions[i]);
-      //}
-      //console.log(this.all_possible_positions);
-      //console.log(this.all_possible_actions);
+      //let ans = this.minimax(this.Pioneer, 2, -this.INFINITY, this.INFINITY, true, []);
       //return;
-      //this.generate_all_possible_move(this.Pioneer);
-      //
-      //console.log("Number of possible position: ", this.all_possible_positions.length);
-      
-      //let all_moves = this.generate_all_possible_move(this.Pioneer);
-      //let all_actions = this.generate_all_possible_actions();
-
-      //for (let i=0; i<all_moves.length; i++) {
-         //this.display_pioneer(all_moves[i])
-         //console.log(all_actions[i])
-      //}
-      //this.display_pioneer(this.Pioneer);
 
       this.first_turn = false;
       this.count_evaluation = 0;
-      let ans = this.minimax(this.Pioneer, 2, -this.INFINITY, this.INFINITY, true, []);
+      let ans = this.minimax(this.Pioneer, 3, -this.INFINITY, this.INFINITY, true, []);
       console.log("minimax :",ans);
       //this.display_pioneer(ans.pioneer);
       console.log("actions :", ans.Actions);
@@ -110,6 +93,15 @@ export default  class AI {
 
       let all_moves = this.generate_all_possible_move(pioneer);
       let all_actions = this.generate_all_possible_actions();
+
+      // Special case : when we have there is only one more move to do
+      // So we can create new all_moves and all_actions for this coin-case
+      if (all_moves.length == 0) {
+         this.generate_jump_two_times(pioneer, []);
+         all_moves = this.return_all_possible_positions();
+         all_actions = this.generate_all_possible_actions();
+      }
+
       let save_actions = this.make_clone_action(actions);
       if (maximizingPlayer) {
          let maxHeuristic = -this.INFINITY;
@@ -286,6 +278,10 @@ export default  class AI {
    // Idea is avoid using this.<shared variables>
    generate_all_possible_actions() {
       return this.all_possible_actions;
+   }
+
+   return_all_possible_positions() {
+      return this.all_possible_positions;
    }
 
 
