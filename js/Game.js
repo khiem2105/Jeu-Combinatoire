@@ -155,8 +155,13 @@ export default class Game {
         if(!this.checkTerminalState() && possibleMove.length > 0 && arrayIncludesArray(possibleMove, [k, l])) {
             this.pioneer[k][l] = this.pioneer[i][j]
             this.pioneer[i][j] = 0
-            if(k-i == 2 || l-j == 2 || k-i == -2 || l-j == -2)
+            if(k-i == 2 || l-j == 2 || k-i == -2 || l-j == -2) {
                 this.pioneer[i+0.5*(k-i)][j+0.5*(l-j)] = 0
+                this.view.updateMove(this, [i, j], [k, l])
+            }
+
+            // console.log("Update in make move")
+            // this.view.updateBoard(this)
             
             // If the player move a different pioneer than the previous one
             if((this.lastIndex[0] == null && this.lastIndex[1] == null) || (this.lastIndex[0] != i || this.lastIndex [1] != j)) {
@@ -164,6 +169,7 @@ export default class Game {
                 // If the player has moved 2 different pioneer in his turn
                 if(this.moveLeft == 0) {
                     this.changeTurn()
+                    this.testingAI()
                     return
                 }
             }
@@ -172,8 +178,10 @@ export default class Game {
             if(this.lastIndex[0] == i && this.lastIndex[1] == j) {
                 this.inMultiJump = true
                 this.lastIndex[0] = k, this.lastIndex[1] = l
-                if(this.checkPioneerCanJump(k, l).length == 0)
+                if(this.checkPioneerCanJump(k, l).length == 0) {
                     this.changeTurn()
+                    this.testingAI()
+                }
                 return
             }
 
@@ -217,7 +225,7 @@ export default class Game {
         this.inMultiJump = false
         // this.view.update(this)
         // Run AI
-        this.testingAI()
+        // this.testingAI()
     }
 }
 

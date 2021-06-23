@@ -8,6 +8,8 @@ let ai = new AI()
 let game = new Game(ai, view)
 view.updateColors(game)
 view.update(game)
+view.updateBoard(game)
+view.updateTurn(game)
 
 // Cell click function
 view.onCellClick = function(i) {
@@ -19,8 +21,8 @@ view.onCellClick = function(i) {
             game.makeMove(view.cellClicked[0], view.cellClicked[1])
             view.clickCounter = 0
             view.cellClicked.length = 0
-
         }
+
         view.update(game)
     }
 }
@@ -29,6 +31,8 @@ view.onCellClick = function(i) {
 view.onRestartClick = function() {
     game = new Game(ai, view)
     view.update(game)
+    view.updateBoard(game)
+    view.updateTurn(game)
 }
 
 // Listen for "P" pressed then pass the turn
@@ -36,5 +40,6 @@ document.addEventListener("keypress", (e) => {
     if(e.key === "p" && game.inMultiJump) {
         console.log("Pass the turn")
         game.changeTurn()
+        // game.testingAI()
     }
 })

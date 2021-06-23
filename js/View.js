@@ -42,6 +42,18 @@ export default class GameView {
         }
     }
 
+    updateMove(game, [i, j], [k, l]) {
+        console.log("Update move")
+        const cellSrc = this.board.querySelector(`.cell[data-index="${i*9+j}"`)
+        const cellDst = this.board.querySelector(`.cell[data-index="${k*9+l}"`)
+        let iBetween = i + (k-i)/2
+        let jBetween = j + (l-j)/2
+        const cellBetween = this.board.querySelector(`.cell[data-index="${iBetween*9+jBetween}"`)
+        cellSrc.textContent = ""
+        cellBetween.textContent = ""
+        cellDst.textContent = game.pioneer[k][l]
+    }
+
     updateTurn(game) {
         const turn = this.root.querySelector("#turn")
         turn.textContent = `${game.turn} turn`
@@ -91,8 +103,8 @@ export default class GameView {
     }
 
     update(game) {
-        this.updateTurn(game)
-        this.updateBoard(game)
+        // this.updateTurn(game)
+        // this.updateBoard(game)
         this.updatePoint(game)
         this.updateStatus(game)
     }
