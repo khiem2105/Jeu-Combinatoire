@@ -14,7 +14,7 @@ body {
 
 #app {
     background: #bad9b5;
-    margin: 50px;
+    margin: 40px;
     padding: 50px;
     border-radius: 25px;
 
@@ -75,30 +75,14 @@ body {
 }
 
 .cell {
-    height: 60px;
-    width: 60px;
+    height: 70px;
+    width: 70px;
     display: flex;
-    background: #bad9b5;
     justify-content: center;
     align-items: center;
     font-size: 30px;
     font-family: cursive;
     color: #222222;
-    /*box-shadow: 1px 1px 1px rgb(79, 240, 79), 
-    1px 2px 1px rgb(18, 209, 18), 
-    1px 3px 1px rgb(18, 209, 18),
-    1px 4px 1px rgb(18, 209, 18),
-    1px 5px 1px rgb(18, 209, 18),
-    1px 6px 1px rgb(18, 209, 18),
-    1px 7px 1px rgb(18, 209, 18),
-    1px 8px 1px rgb(18, 209, 18),
-    1px 9px 1px rgb(18, 209, 18),
-    1px 10px 1px rgb(18, 209, 18),
-    1px 18px 6px green,
-    1px 22px 10px green,
-    1px 25px 35px green,
-    1px 20px 60px green;
-    */
 }
 
 .cell.light{
@@ -116,12 +100,10 @@ body {
 .cell.neutral{
     background: rgb(226, 233, 213);
 }
-
 .cell:hover{
     cursor: pointer;
     background: #f0b67f;
 }
-
 .welcome{
     z-index:+99;
     width:575px;
@@ -246,4 +228,27 @@ input::placeholder{
     font-family: "COPPERPLATE", "Courier New", monospace;
     font-size: 40px;
     color: rgb(252, 252, 252);
+}
+=======
+.cellClicked {
+    background: #f0b67f !important;
+}
+
+#log{
+    background: #bad9b5;
+    width: 400px;
+    height: 400px;
+    margin: 40px;
+    padding: 50px;
+    border-radius: 25px;
+    text-align: center;
+    font-size: 30px;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.7),inset 0px 0px 10px rgba(0,0,0,0.4);
+    border:0.5px solid rgba(0,0,0,0.2);
+    overflow: scroll;
+}
+
+.log{
+    font-size: 20px;
+    padding: 20px;
 }
