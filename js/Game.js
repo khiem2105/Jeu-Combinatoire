@@ -141,7 +141,7 @@ export default class Game {
 
         let possibleMove = this.checkPioneerCanJump(i, j)
 
-        if(!this.checkTerminalState() && possibleMove.length > 0 && arrayIncludesArray(possibleMove, [k, l])) {
+        if(!this.checkTerminalState() && possibleMove.length > 0 && arrayIncludesArray(possibleMove, [k, l]) && this.turn=="Your") {
             this.pioneer[k][l] = this.pioneer[i][j]
             this.pioneer[i][j] = 0
             if(k-i == 2 || l-j == 2 || k-i == -2 || l-j == -2)
