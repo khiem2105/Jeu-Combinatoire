@@ -7,7 +7,7 @@
 body {
     display: flex;
     color: #545454;
-    font-family: sans-serif;
+    font-family: "COPPERPLATE", "Courier New", monospace;
     justify-content: center;
     background: #eef5db
 }
@@ -17,6 +17,7 @@ body {
     margin: 40px;
     padding: 50px;
     border-radius: 25px;
+
 }
 
 #title {
@@ -52,6 +53,18 @@ body {
     color: #eff7cf;
 }
 
+#pause{
+    color:#eff7cf;
+    width:50px;
+    height:40px;
+    border: 2px solid #bad9b5;
+    transform: translate(970%, -95%);
+}
+
+#pause:hover {
+    box-shadow: 0 12px 16px 0 rgba(39, 66, 3, 0.24),0 17px 50px 0 rgba(16, 114, 54, 0.19);
+  }
+
 #game-board {
     margin-top: 20px;
     display: grid;
@@ -77,22 +90,146 @@ body {
 }
 
 .cell.medium{
-    background:#44fc28;
+    background:#56ae48;
 }
 
 .cell.dark{
-    background: #309b20; 
+    background: #226d16; 
 }
 
 .cell.neutral{
-    background: white;
+    background: rgb(226, 233, 213);
 }
-
 .cell:hover{
     cursor: pointer;
     background: #f0b67f;
 }
+.welcome{
+    z-index:+99;
+    width:575px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translate(0%, -150%);
+}
+.welcome .setting{
+    width:1000px;
+    height:200px;
+    background: #bad9b5;
+    color: #545454;
+    text-align: center;
+    padding-top:20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px rgba(0,0,0,0.7),inset 0px 0px 10px rgba(0,0,0,0.4);
+    border:0.5px solid rgba(0,0,0,0.2);
+    transform: translate(0.5%, -100%);
+    /*background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNSFrXn7oDPGF2FfZZoZd80hfObrHd5FEc3fzEBpVTHFZJ6lGwC0tAdjpv_Mnn5Mx9ixk&usqp=CAU");*/
+    padding-bottom: 12px;
+    border-bottom: 0.5px solid black;
+}
 
+.setting .footer{
+    font-size: 12px;
+    text-align: center;
+
+    /* padding: 6px 0px; */
+    color:#545454;
+}
+.setting >.footer{
+    margin: 60px;
+    transform: translateX(-45%);
+
+    /* padding: 6px 20px; */
+}
+.welcome .setting .name input{
+    border-radius: 5px;
+    padding:5px;
+    outline:none;
+    width:80%;
+    margin:10px 0px;
+}
+.setting .logo{
+    font-weight:bold;
+    font-size: 23px;
+    transform: translateX(-21%);
+}
+
+.play{
+    outline: none;
+    border:0.5px solid #545454;
+    font-size: 18px;
+    padding:5px 15px;
+    border-radius: 5px;
+    background-color: rgba(0,0,0,0);
+    cursor:pointer;
+    color:#545454;
+    transform: translateY(300%);
+    font-family: "COPPERPLATE", "Courier New", monospace;
+
+
+}
+.play:hover{
+    background-color: rgba(0,0,0,0.2);
+}
+
+#playername{
+
+    background-color:white;
+    height: 40px;
+    border:0.5px solid rgb(255, 255, 255);
+    box-shadow: 0px 0px 4px #7b7979,inset 0px 0px 10px #7b7979;
+    transform: translate(0%,60%);
+
+}
+
+input::placeholder{
+    font-family: "COPPERPLATE", "Courier New", monospace;
+    color:#545454;
+}
+
+.welcome .setting img{
+    width:20%;
+}
+
+.pause{    
+    background-color: #bad9b5;
+    /* color: #545454; */
+
+    /* background-color:white; */
+    width: 500px;
+    height:200px;
+    text-align: center;
+    padding-top:20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.7),inset 0px 0px 10px rgba(248, 246, 246, 0.4);
+    border:0.5px solid rgb(255, 255, 255);
+    transform: translate(8%, -250%); 
+    justify-content: center;
+    /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNSFrXn7oDPGF2FfZZoZd80hfObrHd5FEc3fzEBpVTHFZJ6lGwC0tAdjpv_Mnn5Mx9ixk&usqp=CAU"); */
+}
+
+.pauseButtons{
+    outline: none;
+    border:0.5px solid rgba(255, 253, 253, 0.664);
+    font-size: 30px;
+    padding:5px 20px;
+    border-radius: 5px;
+    background-color: rgb(0, 0, 0);
+    width: 300px;
+    height: 50px;
+    cursor:pointer;
+    font-family: "COPPERPLATE", "Courier New", monospace;
+    color: rgb(255, 255, 255);
+}
+
+#parag{
+    padding-bottom:20px;
+    font-family: "COPPERPLATE", "Courier New", monospace;
+    font-size: 40px;
+    color: rgb(252, 252, 252);
+}
+=======
 .cellClicked {
     background: #f0b67f !important;
 }

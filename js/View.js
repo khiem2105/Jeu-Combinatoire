@@ -41,7 +41,6 @@ export default class GameView {
             }
         }
     }
-
     updateTurn(game) {
         const turn = this.root.querySelector("#turn")
         turn.textContent = `${game.turn} turn`
@@ -71,12 +70,10 @@ export default class GameView {
         p2Point.textContent = `Your points: ${pointArray[1]}`
 
     }
-
     updateColors(game){
         for(var i = 0; i < game.size; i++) {
             for(let j = 0; j < game.size; j++) {
                 const cell = this.board.querySelector(`.cell[data-index="${i*9+j}"`)
-                
                 if (game.board[i][j] == 1) cell.classList.add("light")
 
                 else{

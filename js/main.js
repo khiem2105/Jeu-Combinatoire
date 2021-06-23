@@ -9,6 +9,10 @@ let game = new Game(ai, view)
 view.updateColors(game)
 view.update(game)
 
+
+let view = new View(document.getElementById("game-board"))
+let game = new Game()
+view.updateColors(game)
 // Cell click function
 view.onCellClick = function(i) {
     let index = [(i - i % view.size) / view.size, i % view.size]
