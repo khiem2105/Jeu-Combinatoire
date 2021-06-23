@@ -23,15 +23,6 @@ rulesButton.addEventListener("click",function(){
     window.location.href = 'rules.html';
     });
 
-var levelButton = document.getElementById("starts");
-levelButton.addEventListener("click",function(){
-    window.location.href = 'level.html';
-    });
-
-var hardButton = document.getElementById("hard");
-hardButton.addEventListener("click",function(){
-    window.location.href = 'index.html';
-    });
 
     
 
