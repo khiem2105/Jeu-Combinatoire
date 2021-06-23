@@ -10,8 +10,8 @@ view.updateColors(game)
 view.update(game)
 
 
-let view = new View(document.getElementById("game-board"))
-let game = new Game()
+// let view = new View(document.getElementById("game-board"))
+// let game = new Game()
 view.updateColors(game)
 // Cell click function
 view.onCellClick = function(i) {
