@@ -44,7 +44,7 @@ export default class AI {
                //];
       this.SIZE_BOARD = 9
 
-      // direction table 
+      // direction table
       //          [right, left,   up,  down]
       this.direction_i = [1,    -1,    0,    0];
       this.direction_j = [0,     0,    -1,   1];
@@ -74,10 +74,18 @@ export default class AI {
 
       this.first_turn = false;
       this.count_evaluation = 0;
-   let ans = this.minimax(this.Pioneer, 3, -this.INFINITY, this.INFINITY, true, []);
-   console.log("minimax :",ans);
-   //this.display_pioneer(ans.pioneer);
-   console.log("actions :", ans.Actions);
+      let ans = this.minimax(this.Pioneer, 3, -this.INFINITY, this.INFINITY, true, []);
+
+      const log = document.getElementById("log")
+      let moves = ''
+      for(let i=0; i<ans.Actions.length; i++){
+         moves += ' row: '+ ans.Actions[i][0] +' column: '+ans.Actions[i][1] + " | "
+      }
+      log.innerHTML = log.innerHTML + `<p class="log">AI Actions: ` + moves + `<br> Bilan analyzation: `+ this.count_evaluation+ ` possibilities calculated<\p>`
+
+      console.log("minimax :",ans);
+      //this.display_pioneer(ans.pioneer);
+      console.log("actions :", ans.Actions);
       console.log("bilan analyzation :", this.count_evaluation, " possibilities calculated");
       //this.display_pioneer(ans.Pioneer);
       //this.first_turn = false;
@@ -87,7 +95,7 @@ export default class AI {
 
    create_object_for_minimax(pioneer, actions) {
       let obj = {
-         Heuristic : this.heuristic(pioneer), 
+         Heuristic : this.heuristic(pioneer),
          Pioneer : pioneer,
          Actions : actions
       };
@@ -386,7 +394,7 @@ export default class AI {
       return ans;
    }
 
-   // function check if a position (i, j) is valid 
+   // function check if a position (i, j) is valid
    // it's mean that 0 < i, j  < SIZE_BOARD
    pos_is_valid(i, j) {
       return 0 <= i && i < this.SIZE_BOARD && 0 <= j && j < this.SIZE_BOARD;
@@ -405,6 +413,12 @@ export default class AI {
    }
 }
 
+<<<<<<< HEAD
+=======
+
+//let ai = new AI();
+//ai.run();
+>>>>>>> c101cdd342d3badf0dc2f2011b01f08e1242ee21
 
 class State {
   constructor(heuristic, pioneer, actions) {

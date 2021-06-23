@@ -66,8 +66,8 @@ export default class GameView {
         const p1Point = this.root.querySelector("#player1")
         const p2Point = this.root.querySelector("#player2")
 
-        p1Point.textContent = `P1 points: ${pointArray[0]}`
-        p2Point.textContent = `P2 points: ${pointArray[1]}`
+        p1Point.textContent = `P1 points: ${pointArray[1]}`
+        p2Point.textContent = `AI points: ${pointArray[0]}`
 
     }
 
