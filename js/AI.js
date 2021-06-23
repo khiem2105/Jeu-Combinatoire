@@ -48,16 +48,11 @@ export default  class AI {
        this.count_evaluation = 0;
        let ans = this.minimax(this.Pioneer, 2, -this.INFINITY, this.INFINITY, true, []);
 
-       let moves = 'First pioneer: '
+       let moves = ''
        for(let i=0; i<ans.Actions.length; i++){
-         if(i>0){
-            if(ans.Actions[i][0] != ans.Actions[i-1][0] && ans.Actions[i][1] != ans.Actions[i-1][1]){
-               moves += ' Second pioneer: '
-            }
-         }
-         moves += ans.Actions[i][0] +'/'+ans.Actions[i][1] + " | "
+         moves += '('+ans.Actions[i][0] +','+ans.Actions[i][1]+')'+ '=>'
        }
-       log.innerHTML = log.innerHTML + `<p class="log">AI Actions: ` + moves + `<br> Bilan analyzation: `+ this.count_evaluation+ ` possibilities calculated<\p>`
+       log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
        
        console.log("minimax :",ans);
        //this.display_pioneer(ans.pioneer);
