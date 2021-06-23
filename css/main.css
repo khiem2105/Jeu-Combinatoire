@@ -7,7 +7,7 @@
 body {
     display: flex;
     color: #545454;
-    font-family: sans-serif;
+    font-family: "COPPERPLATE", "Courier New", monospace;
     justify-content: center;
     background: #eef5db
 }
@@ -17,6 +17,7 @@ body {
     margin: 50px;
     padding: 50px;
     border-radius: 25px;
+
 }
 
 #title {
@@ -56,7 +57,7 @@ body {
     color:#eff7cf;
     width:50px;
     height:40px;
-    border: 2px solid #4CAF50;
+    border: 2px solid #bad9b5;
     transform: translate(970%, -95%);
 }
 
@@ -83,7 +84,7 @@ body {
     font-size: 30px;
     font-family: cursive;
     color: #222222;
-    box-shadow: 1px 1px 1px rgb(79, 240, 79), 
+    /*box-shadow: 1px 1px 1px rgb(79, 240, 79), 
     1px 2px 1px rgb(18, 209, 18), 
     1px 3px 1px rgb(18, 209, 18),
     1px 4px 1px rgb(18, 209, 18),
@@ -97,6 +98,7 @@ body {
     1px 22px 10px green,
     1px 25px 35px green,
     1px 20px 60px green;
+    */
 }
 
 .cell.light{
@@ -104,15 +106,15 @@ body {
 }
 
 .cell.medium{
-    background:#44fc28;
+    background:#56ae48;
 }
 
 .cell.dark{
-    background: #309b20; 
+    background: #226d16; 
 }
 
 .cell.neutral{
-    background: white;
+    background: rgb(226, 233, 213);
 }
 
 .cell:hover{
@@ -130,24 +132,33 @@ body {
     transform: translate(0%, -150%);
 }
 .welcome .setting{
-    width:2000px;
-    background-color: rgb(255, 255, 255);
-    color: white;
+    width:1000px;
+    height:200px;
+    background: #bad9b5;
+    color: #545454;
     text-align: center;
     padding-top:20px;
     border-radius: 10px;
     box-shadow: 0px 0px 4px rgba(0,0,0,0.7),inset 0px 0px 10px rgba(0,0,0,0.4);
     border:0.5px solid rgba(0,0,0,0.2);
-    transform: translate(0.5%, -200%);
-    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNSFrXn7oDPGF2FfZZoZd80hfObrHd5FEc3fzEBpVTHFZJ6lGwC0tAdjpv_Mnn5Mx9ixk&usqp=CAU");
+    transform: translate(0.5%, -100%);
+    /*background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNSFrXn7oDPGF2FfZZoZd80hfObrHd5FEc3fzEBpVTHFZJ6lGwC0tAdjpv_Mnn5Mx9ixk&usqp=CAU");*/
     padding-bottom: 12px;
     border-bottom: 0.5px solid black;
 }
 
 .setting .footer{
     font-size: 12px;
-    padding: 6px 0px;
-    color:white;
+    text-align: center;
+
+    /* padding: 6px 0px; */
+    color:#545454;
+}
+.setting >.footer{
+    margin: 60px;
+    transform: translateX(-45%);
+
+    /* padding: 6px 20px; */
 }
 .welcome .setting .name input{
     border-radius: 5px;
@@ -156,38 +167,54 @@ body {
     width:80%;
     margin:10px 0px;
 }
+.setting .logo{
+    font-weight:bold;
+    font-size: 23px;
+    transform: translateX(-21%);
+}
 
 .play{
     outline: none;
-    border:0.5px solid white;
+    border:0.5px solid #545454;
     font-size: 18px;
     padding:5px 15px;
     border-radius: 5px;
     background-color: rgba(0,0,0,0);
     cursor:pointer;
-    color:rgb(0, 255, 149);
+    color:#545454;
+    transform: translateY(300%);
+    font-family: "COPPERPLATE", "Courier New", monospace;
+
+
 }
 .play:hover{
     background-color: rgba(0,0,0,0.2);
 }
 
 #playername{
+
     background-color:white;
     height: 40px;
     border:0.5px solid rgb(255, 255, 255);
-    box-shadow: 0px 0px 4px rgba(22, 63, 247, 0.6),inset 0px 0px 10px rgba(22, 63, 247, 0.6);
+    box-shadow: 0px 0px 4px #7b7979,inset 0px 0px 10px #7b7979;
+    transform: translate(0%,60%);
+
 }
 
 input::placeholder{
-    color:rgb(50, 233, 157);
+    font-family: "COPPERPLATE", "Courier New", monospace;
+    color:#545454;
 }
 
 .welcome .setting img{
     width:20%;
 }
 
-.pause{
-    background-color:white;
+.pause{    
+    background-color: #bad9b5;
+    /* color: #545454; */
+
+    /* background-color:white; */
     width: 500px;
     height:200px;
     text-align: center;
@@ -197,7 +224,7 @@ input::placeholder{
     border:0.5px solid rgb(255, 255, 255);
     transform: translate(8%, -250%); 
     justify-content: center;
-    background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNSFrXn7oDPGF2FfZZoZd80hfObrHd5FEc3fzEBpVTHFZJ6lGwC0tAdjpv_Mnn5Mx9ixk&usqp=CAU");
+    /* background-image: url("https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTNSFrXn7oDPGF2FfZZoZd80hfObrHd5FEc3fzEBpVTHFZJ6lGwC0tAdjpv_Mnn5Mx9ixk&usqp=CAU"); */
 }
 
 .pauseButtons{
@@ -211,12 +238,12 @@ input::placeholder{
     height: 50px;
     cursor:pointer;
     font-family: "COPPERPLATE", "Courier New", monospace;
-    color: rgb(50, 233, 157);
+    color: rgb(255, 255, 255);
 }
 
 #parag{
     padding-bottom:20px;
     font-family: "COPPERPLATE", "Courier New", monospace;
     font-size: 40px;
-    color: rgb(50, 233, 157);
+    color: rgb(252, 252, 252);
 }
