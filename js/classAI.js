@@ -67,8 +67,14 @@ export default  class AI {
       this.first_turn = false;
       this.count_evaluation = 0;
       let ans = this.minimax(this.Pioneer, 2, -this.INFINITY, this.INFINITY, true, []);
+      
       const log = document.getElementById("log")
-      log.innerHTML = log.innerHTML + `<p class="log">AI Actions: `+ ans.Actions+ ` <br> Bilan analyzation: `+ this.count_evaluation+ ` possibilities calculated<\p>` 
+      let moves = ''
+      for(let i=0; i<ans.Actions.length; i++){
+         moves += ' row: '+ ans.Actions[i][0] +' column: '+ans.Actions[i][1] + " | "
+      }
+      log.innerHTML = log.innerHTML + `<p class="log">AI Actions: ` + moves + `<br> Bilan analyzation: `+ this.count_evaluation+ ` possibilities calculated<\p>`
+      
       console.log("minimax :",ans);
       //this.display_pioneer(ans.pioneer);
       console.log("actions :", ans.Actions);
@@ -378,6 +384,7 @@ export default  class AI {
       }
    }
 }
+
 
 //let ai = new AI();
 //ai.run();
