@@ -33,7 +33,7 @@ pauseButton.addEventListener("click",function(){
     pauseMenu.appendChild(quitButton);
 
     quitButton.addEventListener("click", function(){
-        window.location.href = 'menu.html';
+        window.location.href = 'index.html';
     });
 
     continueButton.addEventListener("click", function(){
