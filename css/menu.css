@@ -104,9 +104,17 @@ body {
     border-radius: 10px;
 
 }
-
-#starts{
+#start{
     top: 200px;
+}
+#start:hover{
+    background:#0b2d09;
+    color:white;
+    -webkit-transform:rotate(-1deg);
+    transform:rotate(-2deg);
+}
+#starts{
+    top: 300px;
 }
 #starts:hover{
     background:#0b2d09;
@@ -115,7 +123,7 @@ body {
     transform:rotate(-2deg);
 }
 #startm{
-    top: 300px;
+    top: 400px;
 }
 #startm:hover{
     background:#0b2d09;
@@ -123,8 +131,37 @@ body {
     -webkit-transform:rotate(-1deg);
     transform:rotate(-2deg);
 }
+#easy{
+    top: 250px;
+}
+#easy:hover{
+    background:#0b2d09;
+    color:white;
+    -webkit-transform:rotate(-1deg);
+    transform:rotate(-2deg);
+}
+
+#medium{
+    top: 350px;
+}
+#medium:hover{
+    background:#0b2d09;
+    color:white;
+    -webkit-transform:rotate(-1deg);
+    transform:rotate(-2deg);
+}
+
+#hard{
+    top: 450px;
+}
+#hard:hover{
+    background:#0b2d09;
+    color:white;
+    -webkit-transform:rotate(-1deg);
+    transform:rotate(-2deg);
+}
 #scores{
-    top: 400px;
+    top: 300px;
 }
 #scores:hover{
     background:#0b2d09;
@@ -133,7 +170,7 @@ body {
     transform:rotate(-2deg);
 }
 #rules{
-    top: 500px;
+    top: 400px;
 }
 
 #rules:hover{
@@ -143,7 +180,7 @@ body {
     transform:rotate(-2deg);
 }
 #about{
-    top: 600px;
+    top: 500px;
 }
 #about:hover{
     background:#0b2d09;
@@ -152,7 +189,7 @@ body {
     transform:rotate(-2deg);
 }
 #bottom{
-    margin: 600px;
+    margin: 500px;
 }
 #bottom1{
     margin: 200px auto;

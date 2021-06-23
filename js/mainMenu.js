@@ -6,11 +6,12 @@ document.addEventListener("DOMContentLoaded", (e) =>{
     }, 6000);
 })
 
-var startButton = document.getElementById("starts");
+var startButton = document.getElementById("start");
 
 startButton.addEventListener("click",function(){
-        window.location.href = 'index.html';
+        window.location.href = 'menusm.html';
     });
+    
 var aboutButton = document.getElementById("about");
 
 aboutButton.addEventListener("click",function(){
@@ -21,6 +22,17 @@ var rulesButton = document.getElementById("rules");
 rulesButton.addEventListener("click",function(){
     window.location.href = 'rules.html';
     });
+
+var levelButton = document.getElementById("starts");
+levelButton.addEventListener("click",function(){
+    window.location.href = 'level.html';
+    });
+
+var hardButton = document.getElementById("hard");
+hardButton.addEventListener("click",function(){
+    window.location.href = 'index.html';
+    });
+
     
 
 
