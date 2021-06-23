@@ -44,7 +44,7 @@ export default class GameView {
 
     updateTurn(game) {
         const turn = this.root.querySelector("#turn")
-        turn.textContent = `${game.turn}'s turn`
+        turn.textContent = `${game.turn} turn`
     }
 
     updateStatus(game) {
@@ -53,9 +53,9 @@ export default class GameView {
             winner.textContent = "Winner: "
             let pointArray = game.calculatePoint()
             if(pointArray[0] < pointArray[1])
-                winner.textContent += "P1"
+                winner.textContent += "AI"
             else if(pointArray[1] < pointArray[0])
-                winner.textContent += "P2"
+                winner.textContent += "You"
             else
                 winner.textContent +=  "Tie"
             console.log(winner.textContent)
@@ -67,8 +67,8 @@ export default class GameView {
         const p1Point = this.root.querySelector("#player1")
         const p2Point = this.root.querySelector("#player2")
 
-        p1Point.textContent = `P1 points: ${pointArray[0]}`
-        p2Point.textContent = `P2 points: ${pointArray[1]}`
+        p1Point.textContent = `AI points: ${pointArray[0]}`
+        p2Point.textContent = `Your points: ${pointArray[1]}`
 
     }
 

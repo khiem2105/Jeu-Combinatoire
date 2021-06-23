@@ -1,10 +1,11 @@
 import Game from "./Game.js"
 import View from "./View.js"
+import AI from "./AI.js"
 
 let view = new View(document.getElementById("app"))
-
+let ai = new AI()
 // let game = new Game()
-let game = new Game()
+let game = new Game(ai, view)
 view.updateColors(game)
 view.update(game)
 
@@ -30,7 +31,7 @@ view.onCellClick = function(i) {
 
 //Restart function
 view.onRestartClick = function() {
-    game = new Game()
+    game = new Game(ai, view)
     view.update(game)
 }
 

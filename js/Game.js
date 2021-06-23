@@ -1,10 +1,13 @@
 export default class Game {
-    constructor() {
+    constructor(ai, view) {
         // link to AI
+        this.ai = ai
+        // View
+        this.view = view
         // Size of the board
         this.size = 9
         // Turn: 
-        this.turn = "P1";
+        this.turn = "Your";
         // Turn count
         this.turnCount = 1
         // the index that the pioneer from the previous turn moved to
@@ -131,11 +134,6 @@ export default class Game {
         return true
     }
 
-    // AI Make a jump from index (i, j) to index (k, l)
-    AImakeMove([i, j], [k, l]) {
-
-    }
-
     // Make a jump from index (i, j) to index (k, l)
     makeMove([i, j], [k, l]) {
         if(this.checkTerminalState())
@@ -168,14 +166,37 @@ export default class Game {
             this.lastIndex[0] = k, this.lastIndex[1] = l
         }
     }
+
+    async AI_make_move_from_list(list_actions) {
+        for (let k = 1; k<list_actions.length; k++) {
+            let i = list_actions[k-1][0];
+            let j = list_actions[k-1][1];
+            let ni = list_actions[k][0];
+            let nj = list_actions[k][1];
+            this.pioneer[ni][nj] = this.pioneer[i][j];
+            this.pioneer[i][j] = 0;
+            this.pioneer[i+(ni-i)/2][j+(nj-j)/2] = 0;
+            k++;
+            this.view.updateBoard(this)
+            await new Promise(r => setTimeout(r, 2000))
+        }
+        this.turn = "Player"
+        this.view.updateTurn(this)
+    }
+
+    testingAI() {
+        this.ai.sync_data(this.pioneer);
+        let ai_calculated_actions = this.ai.run();
+        this.AI_make_move_from_list(ai_calculated_actions)
+    }
     
     changeTurn() {
         this.moveLeft = 2
         this.lastIndex.fill(null)
         this.turnCount++
-        this.turn = this.turn == "P1" ? "P2":"P1"
-        // Testing AI
-        //this.turn = this.turn == "P1" ? "AI":"P1"
+        this.turn = "AI"
+        // Run AI
+        this.testingAI()
     }
 }
 
