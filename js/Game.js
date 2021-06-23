@@ -15,7 +15,10 @@ export default class Game {
         this.lastIndex = new Array(2).fill(null)
         // move left in a turn
         // for making 2 move in a turn
-        this.moveLeft = 2 
+        this.moveLeft = 1
+        // Move option(1 for multijump, 2 for 2 jump seperate)
+        this.inMultiJump = false
+         
         // matrix 9x9 for the board 
         this.board = new Array(this.size).fill(null)
         for(let i = 0; i < this.size; i++) {
@@ -136,12 +139,15 @@ export default class Game {
 
     // Make a jump from index (i, j) to index (k, l)
     makeMove([i, j], [k, l]) {
-        if(this.checkTerminalState())
+        if(this.checkTerminalState() || this.turn != "Your" || (this.inMultiJump && (this.lastIndex[0] != i || this.lastIndex [1] != j))) {
+            console.log("Can not make move")
+            console.log(this.turn, this.inMultiJump, (this.lastIndex[0] != i || this.lastIndex [1] != j))
             return
+        }
 
         let possibleMove = this.checkPioneerCanJump(i, j)
 
-        if(!this.checkTerminalState() && possibleMove.length > 0 && arrayIncludesArray(possibleMove, [k, l]) && this.turn=="Your") {
+        if(!this.checkTerminalState() && possibleMove.length > 0 && arrayIncludesArray(possibleMove, [k, l])) {
             this.pioneer[k][l] = this.pioneer[i][j]
             this.pioneer[i][j] = 0
             if(k-i == 2 || l-j == 2 || k-i == -2 || l-j == -2)
@@ -158,8 +164,11 @@ export default class Game {
             }
             // If the player continue to move the same pioneer that he has moved previously and after that
             // no more move can be made, change turn
-            if(this.lastIndex[0] == i && this.lastIndex[1] == j && this.checkPioneerCanJump(k, l).length == 0) {
-                this.changeTurn()
+            if(this.lastIndex[0] == i && this.lastIndex[1] == j) {
+                this.inMultiJump = true
+                this.lastIndex[0] = k, this.lastIndex[1] = l
+                if(this.checkPioneerCanJump(k, l).length == 0)
+                    this.changeTurn()
                 return
             }
 
@@ -173,12 +182,15 @@ export default class Game {
             let j = list_actions[k-1][1];
             let ni = list_actions[k][0];
             let nj = list_actions[k][1];
+            await new Promise(r => setTimeout(r, 500))
+            this.view.visualizeAIMove([i, j], [ni, nj])
             this.pioneer[ni][nj] = this.pioneer[i][j];
             this.pioneer[i][j] = 0;
             this.pioneer[i+(ni-i)/2][j+(nj-j)/2] = 0;
             k++;
-            this.view.updateBoard(this)
             await new Promise(r => setTimeout(r, 2000))
+            this.view.updateBoard(this)
+            await new Promise(r => setTimeout(r, 1000))
         }
         this.turn = "Your"
         this.view.updateTurn(this)
@@ -191,10 +203,13 @@ export default class Game {
     }
     
     changeTurn() {
-        this.moveLeft = 2
         this.lastIndex.fill(null)
         this.turnCount++
+        if(this.turnCount > 1)
+            this.moveLeft = 2
         this.turn = "AI"
+        this.view.updateTurn(this)
+        this.inMultiJump = false
         // Run AI
         this.testingAI()
     }

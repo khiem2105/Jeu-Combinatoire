@@ -94,7 +94,7 @@ body {
 }
 
 .cellClicked {
-    background: #f0b67f;
+    background: #f0b67f !important;
 }
 
 #log{

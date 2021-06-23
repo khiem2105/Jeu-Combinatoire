@@ -19,7 +19,6 @@ export default class GameView {
         // Adding event listener for all the cells
         this.board.querySelectorAll(".cell").forEach(cell => {
             cell.addEventListener("click", () => {
-                cell.classList.add("cellClicked")
                 if(this.onCellClick)
                     this.onCellClick(cell.dataset.index)
             })
@@ -95,5 +94,15 @@ export default class GameView {
         this.updateBoard(game)
         this.updatePoint(game)
         this.updateStatus(game)
+    }
+
+    async visualizeAIMove([i, j], [k, l]) {
+        const cellSrc = this.board.querySelector(`.cell[data-index="${i*9+j}"`)
+        const cellDst = this.board.querySelector(`.cell[data-index="${k*9+l}"`)
+        cellSrc.classList.add("cellClicked")
+        cellDst.classList.add("cellClicked")
+        await new Promise(r => setTimeout(r, 1000))
+        cellSrc.classList.remove("cellClicked")
+        cellDst.classList.remove("cellClicked")
     }
 }

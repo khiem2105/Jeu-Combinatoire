@@ -17,10 +17,6 @@ view.onCellClick = function(i) {
         view.cellClicked.push(index)
         if(view.clickCounter == 2) {
             game.makeMove(view.cellClicked[0], view.cellClicked[1])
-            view.cellClicked.forEach(index => {
-                const cell = this.board.querySelector(`.cell[data-index="${index[0]*9+index[1]}"`)
-                cell.classList.remove("cellClicked")
-            })
             view.clickCounter = 0
             view.cellClicked.length = 0
 
@@ -35,4 +31,10 @@ view.onRestartClick = function() {
     view.update(game)
 }
 
-view.update(game)
+// Listen for "P" pressed then pass the turn
+document.addEventListener("keypress", (e) => {
+    if(e.key === "p" && game.inMultiJump) {
+        console.log("Pass the turn")
+        game.changeTurn()
+    }
+})
