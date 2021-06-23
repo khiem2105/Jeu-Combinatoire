@@ -210,7 +210,7 @@ export default class Game {
         this.moveLeft = 2
         this.lastIndex.fill(null)
         this.turnCount++
-        this.turn = this.turn == "P1" ? "P2":"P1"
+        this.turn = this.turn == "P1" ? "AI":"P1"
         // Testing AI
         this.testingAI()
         //this.turn = this.turn == "P1" ? "AI":"P1"
