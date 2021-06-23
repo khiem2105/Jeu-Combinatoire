@@ -102,7 +102,7 @@ export default class GameView {
         const cellDst = this.board.querySelector(`.cell[data-index="${k*9+l}"`)
         cellSrc.classList.add("cellClicked")
         cellDst.classList.add("cellClicked")
-        await new Promise(r => setTimeout(r, 1000))
+        await new Promise(r => setTimeout(r, 500))
         cellSrc.classList.remove("cellClicked")
         cellDst.classList.remove("cellClicked")
     }

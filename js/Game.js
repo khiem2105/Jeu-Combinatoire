@@ -193,9 +193,9 @@ export default class Game {
             this.pioneer[i][j] = 0;
             this.pioneer[i+(ni-i)/2][j+(nj-j)/2] = 0;
             k++;
-            await new Promise(r => setTimeout(r, 2000))
+            await new Promise(r => setTimeout(r, 500))
             this.view.updateBoard(this)
-            await new Promise(r => setTimeout(r, 1000))
+            await new Promise(r => setTimeout(r, 500))
         }
         this.turn = "Your"
         this.view.updateTurn(this)
@@ -215,6 +215,7 @@ export default class Game {
         this.turn = "AI"
         this.view.updateTurn(this)
         this.inMultiJump = false
+        // this.view.update(this)
         // Run AI
         this.testingAI()
     }
