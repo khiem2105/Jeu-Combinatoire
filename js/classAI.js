@@ -1,4 +1,4 @@
-export default  class AI {
+export default class AI {
    constructor() {
       this.Board =  [[-2, -1, -2, -2, -1, -2, -2, -1, -2],
                      [-1, -2, -1, -1, -1, -1, -1, -2, -1],
@@ -10,28 +10,28 @@ export default  class AI {
                      [ 1,  2,  1,  1,  1,  1,  1,  2,  1],
                      [ 2,  1,  2,  2,  1,  2,  2,  1,  2]
                ]
-      this.Pioneer =  [
-               [ 3,  0,  0,  0,  3,  0,  0,  0,  0],
-               [ 0,  0,  0,  0,  0,  0,  1,  0,  1],
-               [ 0,  0,  0,  0,  0,  0,  0,  0,  3],
-               [ 0,  0,  0,  0,  0,  0,  0,  0,  0],
-               [ 3,  0,  5,  3,  3,  0,  3,  0,  0],
-               [ 0,  0,  0,  1,  0,  0,  0,  1,  1],
-               [ 0,  0,  0,  0,  3,  0,  0,  0,  0],
-               [ 0,  0,  0,  0,  0,  0,  0,  0,  1],
-               [ 0,  0,  0,  5,  0,  3,  0,  0,  0]
-               ]
-      //this.Pioneer =  [[ 3,  5,  3,  3,  3,  3,  3,  3,  5],
-                  //[ 1,  1,  1,  1,  5,  1,  1,  1,  1],
-                  //[ 3,  3,  5,  3,  3,  3,  5,  3,  3],
-                  //[ 1,  1,  1,  1,  1,  1,  1,  1,  1],
-                  //[ 0,  0,  0,  0,  0,  0,  0,  0,  0],
-                  //[ 1,  1,  1,  1,  1,  1,  1,  1,  1],
-                  //[ 3,  3,  5,  3,  3,  3,  5,  3,  3],
-                  //[ 1,  1,  1,  1,  5,  1,  1,  1,  1],
-                  //[ 3,  5,  3,  3,  3,  3,  3,  3,  5]
+      //this.Pioneer =  [
+               //[ 3,  0,  0,  0,  3,  0,  0,  0,  0],
+               //[ 0,  0,  0,  0,  0,  0,  1,  0,  1],
+               //[ 0,  0,  0,  0,  0,  0,  0,  0,  3],
+               //[ 0,  0,  0,  0,  0,  0,  0,  0,  0],
+               //[ 3,  0,  5,  3,  3,  0,  3,  0,  0],
+               //[ 0,  0,  0,  1,  0,  0,  0,  1,  1],
+               //[ 0,  0,  0,  0,  3,  0,  0,  0,  0],
+               //[ 0,  0,  0,  0,  0,  0,  0,  0,  1],
+               //[ 0,  0,  0,  5,  0,  3,  0,  0,  0]
                //]
-      //this.pioneer =  [
+      this.Pioneer =  [[ 3,  5,  3,  3,  3,  3,  3,  3,  5],
+                  [ 1,  1,  1,  1,  5,  1,  1,  1,  1],
+                  [ 3,  3,  5,  3,  3,  3,  5,  3,  3],
+                  [ 1,  1,  1,  1,  1,  1,  1,  1,  1],
+                  [ 0,  0,  0,  0,  0,  0,  0,  0,  0],
+                  [ 1,  1,  1,  1,  1,  1,  1,  1,  1],
+                  [ 3,  3,  5,  3,  3,  3,  5,  3,  3],
+                  [ 1,  1,  1,  1,  5,  1,  1,  1,  1],
+                  [ 3,  5,  3,  3,  3,  3,  3,  3,  5]
+               ]
+      //this.Pioneer =  [
                   //[ 0,  1,  1,  1,  0,  0,  0,  0,  0],
                   //[ 0,  0,  0,  0,  0,  0,  0,  0,  0],
                   //[ 0,  0,  0,  0,  0,  0,  0,  0,  0],
@@ -39,7 +39,7 @@ export default  class AI {
                   //[ 0,  0,  0,  0,  0,  0,  0,  0,  0],
                   //[ 0,  0,  0,  0,  0,  0,  0,  0,  0],
                   //[ 0,  0,  0,  0,  0,  0,  0,  0,  0],
-                  //[ 0,  0,  0,  0,  0,  0,  0,  0,  0],
+                  //[ 0,  1,  1,  1,  0,  1,  0,  0,  0],
                   //[ 0,  0,  0,  0,  0,  0,  0,  0,  0]
                //];
       this.SIZE_BOARD = 9
@@ -49,7 +49,6 @@ export default  class AI {
       this.direction_i = [1,    -1,    0,    0];
       this.direction_j = [0,     0,    -1,   1];
       this.INFINITY = 9999999
-      this.DEPTH_DEBUG = 2;
    }
 
    sync_data(pioneer) {
@@ -63,14 +62,24 @@ export default  class AI {
    run() {
       //let ans = this.minimax(this.Pioneer, 2, -this.INFINITY, this.INFINITY, true, []);
       //return;
+      //let arr = this.generate_all_possible_move(this.Pioneer);
+      ////console.log(arr);
+      //for (let i=0; i<arr.length; i++) {
+         //console.log("i = ", i)
+         //console.log(arr[i].heuristic)
+         //console.log(arr[i].pioneer)
+         //console.log(arr[i].actions);
+      //}
+
 
       this.first_turn = false;
       this.count_evaluation = 0;
-      let ans = this.minimax(this.Pioneer, 2, -this.INFINITY, this.INFINITY, true, []);
-      console.log("minimax :",ans);
-      //this.display_pioneer(ans.pioneer);
-      console.log("actions :", ans.Actions);
+   let ans = this.minimax(this.Pioneer, 3, -this.INFINITY, this.INFINITY, true, []);
+   console.log("minimax :",ans);
+   //this.display_pioneer(ans.pioneer);
+   console.log("actions :", ans.Actions);
       console.log("bilan analyzation :", this.count_evaluation, " possibilities calculated");
+      //this.display_pioneer(ans.Pioneer);
       //this.first_turn = false;
       ////console.log(ans)
       return ans.Actions;
@@ -85,21 +94,25 @@ export default  class AI {
       return obj;
    }
 
+   return_all_possibilities() {
+      return this.all_possibilites;
+   }
+
    minimax(pioneer, depth, alpha, beta, maximizingPlayer, actions) {
       this.count_evaluation++
       if (depth == 0 || this.game_over(pioneer)) {
          return this.create_object_for_minimax(pioneer, actions);
       }
 
-      let all_moves = this.generate_all_possible_move(pioneer);
-      let all_actions = this.generate_all_possible_actions();
+      let all_pos = this.generate_all_possible_move(pioneer);
+      //if (all_pos.length == 0) console.log("err")
+      //let all_actions = this.generate_all_possible_actions();
 
       // Special case : when we have there is only one more move to do
       // So we can create new all_moves and all_actions for this coin-case
-      if (all_moves.length == 0) {
+      if (all_pos.length == 0) {
          this.generate_jump_two_times(pioneer, []);
-         all_moves = this.return_all_possible_positions();
-         all_actions = this.generate_all_possible_actions();
+         all_pos = this.return_all_possibilities();
       }
 
       let save_actions = this.make_clone_action(actions);
@@ -108,11 +121,11 @@ export default  class AI {
          let maxPosition = [];
          let maxActions = [];
 
-         for (let i=0; i<all_moves.length; i++) {
+         for (let i=all_pos.length-1; i>=0; i--) {
             if (actions.length == 0) {
-               save_actions = this.make_clone_action(all_actions[i]);
+               save_actions = this.make_clone_action(all_pos[i].actions);
             }
-            let obj_evaluation = this.minimax(all_moves[i], depth-1, alpha,beta, false, save_actions);
+            let obj_evaluation = this.minimax(all_pos[i].pioneer, depth-1, alpha,beta, false, save_actions);
             let heuristic_eval = obj_evaluation.Heuristic;
             let pioneer_eval = obj_evaluation.Pioneer;
             let actions_eval = obj_evaluation.Actions;
@@ -133,11 +146,11 @@ export default  class AI {
          let minHeuristic = this.INFINITY;
          let minPosition = [];
          let minActions = [];
-         for (let i=0; i<all_moves.length; i++) {
+         for (let i=0; i<all_pos.length; i++) {
             if (actions.length == 0) {
-               save_actions = this.make_clone_action(all_actions[i]);
+               save_actions = this.make_clone_action(all_pos[i].actions);
             }
-            let obj_evaluation = this.minimax(all_moves[i], depth-1, alpha,beta, true, save_actions);
+            let obj_evaluation = this.minimax(all_pos[i].pioneer, depth-1, alpha,beta, true, save_actions);
             let heuristic_eval = obj_evaluation.Heuristic;
             let pioneer_eval = obj_evaluation.Pioneer;
             let actions_eval = obj_evaluation.Actions;
@@ -147,7 +160,6 @@ export default  class AI {
                minPosition = pioneer_eval;
                minActions = actions_eval;
             }
-
             beta = Math.min(beta, heuristic_eval);
             if (beta <= alpha) break;
          }
@@ -200,13 +212,17 @@ export default  class AI {
                      clone_pioneer[nexti][nextj] = 0;
                      clone_actions.push([i, j]);
                      clone_actions.push([next2i, next2j]);
-                     this.all_possible_positions.push(clone_pioneer);
-                     this.all_possible_actions.push(clone_actions);
+                     this.all_possibilities.push(this.create_state(clone_pioneer, clone_actions))
                   }
                }
             }
          }
       }
+   }
+
+   create_state( pioneer, actions) {
+      let state = new State(this.heuristic(pioneer), pioneer, actions);
+      return state;
    }
 
    generate_multiple_jump(start_pioneer, pioneer, i, j, actions) {
@@ -232,8 +248,7 @@ export default  class AI {
                clone_actions.push([i, j]);
                clone_actions.push([next2i, next2j]);
                if (clone_actions.length > 2) {
-                  this.all_possible_positions.push(clone_pioneer);
-                  this.all_possible_actions.push(clone_actions);
+                  this.all_possibilities.push(this.create_state(clone_pioneer, clone_actions))
                }
                this.generate_multiple_jump(start_pioneer, clone_pioneer, next2i, next2j, clone_actions);
             }
@@ -244,8 +259,7 @@ export default  class AI {
          else {
             // check whether the actions is not a multiple-jump
             if (actions.length > 2) {
-               this.all_possible_positions.push(pioneer);
-               this.all_possible_actions.push(actions);
+               this.all_possibilities.push(this.create_state(pioneer, actions))
             }  else if (actions.length == 2) {
 		this.generate_jump_two_times(pioneer, actions);
             }
@@ -264,24 +278,38 @@ export default  class AI {
 
 
    generate_all_possible_move(pioneer) {
-      this.all_possible_positions = new Array();
-      this.all_possible_actions = new Array();
+      this.all_possibilities = new Array();
+      //this.all_possible_positions = new Array();
+      //this.all_possible_actions = new Array();
       // option multi jump
       for (let i = 0; i<this.SIZE_BOARD; i++) {
          for (let j = 0; j<this.SIZE_BOARD; j++) {
             this.generate_multiple_jump(pioneer, pioneer, i, j, []);
          }
       }
-      return this.all_possible_positions;
+      // Sort the array
+      this.all_possibilities.sort(this.function_sort);
+      return this.all_possibilities;
+   }
+
+   function_sort(a, b) {
+      if (a.heuristic === b.heuristic) {
+         return 0;
+      } else {
+         return (a.heuristic < b.heuristic ) ? -1 : 1;
+      }
    }
 
    // Idea is avoid using this.<shared variables>
-   generate_all_possible_actions() {
-      return this.all_possible_actions;
-   }
+   //generate_all_possible_actions() {
+      //return this.all_possible_actions;
+   //}
 
-   return_all_possible_positions() {
-      return this.all_possible_positions;
+   //return_all_possible_positions() {
+      //return this.all_possible_positions;
+   //}
+   return_all_possibilities() {
+      return this.all_possibilities;
    }
 
 
@@ -377,15 +405,21 @@ export default  class AI {
    }
 }
 
+
+class State {
+  constructor(heuristic, pioneer, actions) {
+     this.heuristic = heuristic
+     this.pioneer = pioneer
+     this.actions = actions
+  }
+}
+
+//pq = new PriorityQueue()
+//pq.enqueue("1", 1)
+//pq.enqueue("5", 5)
+//pq.enqueue("3", 3)
+//pq.enqueue("2", 2)
+//console.log(pq.values)
 //let ai = new AI();
 //ai.run();
-
-//ai.find_the_best_move_all_pioneer()
-//let k = ai.find_the_best_move_one_pioneer(ai.Pioneer, 6, 0 )
-//console.log(k)
-//ai.run();
-//console.log(ai.Board);
-//ai.display_pioneer(ai.Pioneer)
-//console.log(ai.score_AI(ai.Pioneer))
-//console.log(ai.score_player(ai.Pioneer))
-//ai.play_with_AI()
+//https://javascript.plainenglish.io/introduction-to-priority-queues-in-javascript-30cfc49b01ee
