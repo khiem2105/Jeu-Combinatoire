@@ -38,14 +38,6 @@ body {
     background: #bad9b5;
 }
 
-#reset {
-    background: #bad9b5;
-    border: none;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-}
-
 .material-icons {
     color: #545454;
     vertical-align: middle;

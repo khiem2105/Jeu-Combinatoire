@@ -23,12 +23,7 @@ export default class GameView {
                 if(this.onCellClick)
                     this.onCellClick(cell.dataset.index)
             })
-        })
-        // Adding event listener for the restart button
-        this.root.querySelector("#reset").addEventListener("click", () => {
-            if(this.onRestartClick)
-                this.onRestartClick();
-        })        
+        })  
     }
 
     updateBoard(game) {
