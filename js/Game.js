@@ -139,6 +139,11 @@ export default class Game {
 
     // Make a jump from index (i, j) to index (k, l)
     makeMove([i, j], [k, l]) {
+        let cell1 = this.view.board.querySelector(`.cell[data-index="${i*9+j}"`)
+        let cell2 = this.view.board.querySelector(`.cell[data-index="${k*9+l}"`)
+        cell1.classList.remove("cellClicked")
+        cell2.classList.remove("cellClicked")
+
         if(this.checkTerminalState() || this.turn != "Your" || (this.inMultiJump && (this.lastIndex[0] != i || this.lastIndex [1] != j))) {
             console.log("Can not make move")
             console.log(this.turn, this.inMultiJump, (this.lastIndex[0] != i || this.lastIndex [1] != j))
