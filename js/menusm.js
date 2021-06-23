@@ -7,5 +7,5 @@ startsButton.addEventListener("click",function(){
 var startmpButton = document.getElementById("startm")
 
 startmpButton.addEventListener("click", function(){
-    window.location.href = 'indexMP.html';
+    window.location.href = 'gameMP.html';
 })
