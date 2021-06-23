@@ -79,9 +79,9 @@ export default class AI {
       const log = document.getElementById("log")
       let moves = ''
       for(let i=0; i<ans.Actions.length; i++){
-         moves += ' row: '+ ans.Actions[i][0] +' column: '+ans.Actions[i][1] + " | "
+        moves += '('+ans.Actions[i][0] +','+ans.Actions[i][1]+')'+ '=>'
       }
-      log.innerHTML = log.innerHTML + `<p class="log">AI Actions: ` + moves + `<br> Bilan analyzation: `+ this.count_evaluation+ ` possibilities calculated<\p>`
+      log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
 
       console.log("minimax :",ans);
       //this.display_pioneer(ans.pioneer);

@@ -42,21 +42,9 @@ export default class GameView {
         }
     }
 
-    updateMove(game, [i, j], [k, l]) {
-        console.log("Update move")
-        const cellSrc = this.board.querySelector(`.cell[data-index="${i*9+j}"`)
-        const cellDst = this.board.querySelector(`.cell[data-index="${k*9+l}"`)
-        let iBetween = i + (k-i)/2
-        let jBetween = j + (l-j)/2
-        const cellBetween = this.board.querySelector(`.cell[data-index="${iBetween*9+jBetween}"`)
-        cellSrc.textContent = ""
-        cellBetween.textContent = ""
-        cellDst.textContent = game.pioneer[k][l]
-    }
-
     updateTurn(game) {
         const turn = this.root.querySelector("#turn")
-        turn.textContent = `${game.turn} turn`
+        turn.textContent = `${game.turn}'s turn`
     }
 
     updateStatus(game) {
@@ -65,9 +53,9 @@ export default class GameView {
             winner.textContent = "Winner: "
             let pointArray = game.calculatePoint()
             if(pointArray[0] < pointArray[1])
-                winner.textContent += "AI"
+                winner.textContent += "P1"
             else if(pointArray[1] < pointArray[0])
-                winner.textContent += "You"
+                winner.textContent += "P2"
             else
                 winner.textContent +=  "Tie"
             console.log(winner.textContent)
@@ -79,14 +67,16 @@ export default class GameView {
         const p1Point = this.root.querySelector("#player1")
         const p2Point = this.root.querySelector("#player2")
 
-        p1Point.textContent = `AI points: ${pointArray[0]}`
-        p2Point.textContent = `Your points: ${pointArray[1]}`
+        p1Point.textContent = `P1 points: ${pointArray[0]}`
+        p2Point.textContent = `P2 points: ${pointArray[1]}`
 
     }
+
     updateColors(game){
         for(var i = 0; i < game.size; i++) {
             for(let j = 0; j < game.size; j++) {
                 const cell = this.board.querySelector(`.cell[data-index="${i*9+j}"`)
+                
                 if (game.board[i][j] == 1) cell.classList.add("light")
 
                 else{
@@ -101,19 +91,9 @@ export default class GameView {
     }
 
     update(game) {
-        // this.updateTurn(game)
-        // this.updateBoard(game)
+        this.updateTurn(game)
+        this.updateBoard(game)
         this.updatePoint(game)
         this.updateStatus(game)
-    }
-
-    async visualizeAIMove([i, j], [k, l]) {
-        const cellSrc = this.board.querySelector(`.cell[data-index="${i*9+j}"`)
-        const cellDst = this.board.querySelector(`.cell[data-index="${k*9+l}"`)
-        cellSrc.classList.add("cellClicked")
-        cellDst.classList.add("cellClicked")
-        await new Promise(r => setTimeout(r, 500))
-        cellSrc.classList.remove("cellClicked")
-        cellDst.classList.remove("cellClicked")
     }
 }
