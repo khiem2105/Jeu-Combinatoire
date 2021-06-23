@@ -180,7 +180,7 @@ export default class Game {
             this.view.updateBoard(this)
             await new Promise(r => setTimeout(r, 2000))
         }
-        this.turn = "Player"
+        this.turn = "Your"
         this.view.updateTurn(this)
     }
 
