@@ -1,6 +1,9 @@
 export default class Game {
-    constructor(ai, view, mode) {
+    constructor(ai, view, mode,endTurnButton) {
+        this.endTurnButton = endTurnButton
         this.current_display_tour = -1;
+        this.canEndTurn = false;
+        this.block_movement = false;
         this.log_board = []
         // add mode of AI
         this.mode = mode
@@ -148,7 +151,7 @@ export default class Game {
         cell1.classList.remove("cellClicked")
         cell2.classList.remove("cellClicked")
 
-        if(this.checkTerminalState() || this.turn != "Your" || (this.inMultiJump && (this.lastIndex[0] != i || this.lastIndex [1] != j))) {
+        if(this.blockMovement || this.checkTerminalState() || this.turn != "Your" || (this.inMultiJump && (this.lastIndex[0] != i || this.lastIndex [1] != j))) {
             console.log("Can not make move")
             console.log(this.turn, this.inMultiJump, (this.lastIndex[0] != i || this.lastIndex [1] != j))
             return
@@ -172,7 +175,10 @@ export default class Game {
                 this.moveLeft--
                 // If the player has moved 2 different pioneer in his turn
                 if(this.moveLeft == 0) {
-                    this.changeTurn()
+                    //this.changeTurn()
+                    this.canEndTurn = true;
+                    this.blockMovement = true;
+                    this.endTurnButton.disabled = false;
                     return
                 }
             }
@@ -182,7 +188,10 @@ export default class Game {
                 this.inMultiJump = true
                 this.lastIndex[0] = k, this.lastIndex[1] = l
                 if(this.checkPioneerCanJump(k, l).length == 0) {
-                    this.changeTurn()
+                    //this.changeTurn()
+                    this.canEndTurn = true;
+                    this.blockMovement = true;
+                    this.endTurnButton.disabled = false;
                 }
                 return
             }
@@ -269,6 +278,8 @@ export default class Game {
         //this.view.updateTurn(this)
         this.view.update(this)
         this.inMultiJump = false
+        this.canEndTurn = false;
+        this.blockMovement = false;
         // this.view.update(this)
         // Run AI
         this.save_log(this.pioneer)

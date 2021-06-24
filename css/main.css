@@ -47,13 +47,26 @@ body {
     color: #eff7cf;
 }
 
+#endturn{
+    position: relative;
+    width:130px;
+    height:40px;
+    border: 2px solid #bad9b5;
+    font-size: 20px;
+    /* transform: translate(12px, -50%); */
+}
+
+#endturn:hover {
+    box-shadow: 0 12px 16px 0 rgba(39, 66, 3, 0.24),0 17px 50px 0 rgba(16, 114, 54, 0.19);
+}
+
 #next{
     position: relative;
     color:#eff7cf;
     width:50px;
     height:40px;
     border: 2px solid #bad9b5;
-    transform: translate(0%, -95%);
+    /* transform: translate(0%, -95%); */
 }
 
 #next:hover {
@@ -66,7 +79,7 @@ body {
     width:50px;
     height:40px;
     border: 2px solid #bad9b5;
-    transform: translate(0%, -95%);
+    /* transform: translate(0%, -95%); */
 }
 
 #before:hover {
@@ -78,7 +91,7 @@ body {
     width:50px;
     height:40px;
     border: 2px solid #bad9b5;
-    transform: translate(0%, -95%);
+    /* transform: translate(0%, -95%); */
 }
 
 #pause:hover {
@@ -106,7 +119,7 @@ body {
 }
 
 .cell.light{
-    background: #aaf7a0; 
+    background: #aaf7a0;
 }
 
 .cell.medium{
@@ -114,7 +127,7 @@ body {
 }
 
 .cell.dark{
-    background: #226d16; 
+    background: #226d16;
 }
 
 .cell.neutral{
@@ -194,7 +207,6 @@ body {
 }
 
 #playername{
-
     background-color:white;
     height: 40px;
     border:0.5px solid rgb(255, 255, 255);
@@ -212,7 +224,22 @@ input::placeholder{
     width:20%;
 }
 
-.next{    
+.endturn{
+  /* background-color: #bad9b5; */
+  /* width: 1000px;
+  height:200px; */
+  /* padding-top:20px; */
+
+}
+
+.endturnButtons{
+  /* width: 1000px;
+  height: 50px; */
+
+}
+
+
+.next{
     background-color: #bad9b5;
     width: 500px;
     height:200px;
@@ -221,7 +248,7 @@ input::placeholder{
     border-radius: 10px;
     box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.7),inset 0px 0px 10px rgba(248, 246, 246, 0.4);
     border:0.5px solid rgb(255, 255, 255);
-    transform: translate(30%, -300%); 
+    transform: translate(30%, -300%);
     justify-content: center;
 }
 
@@ -238,7 +265,7 @@ input::placeholder{
     font-family: "COPPERPLATE", "Courier New", monospace;
     color: rgb(255, 255, 255);
 }
-.before{    
+.before{
     background-color: #bad9b5;
     width: 500px;
     height:200px;
@@ -247,7 +274,7 @@ input::placeholder{
     border-radius: 10px;
     box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.7),inset 0px 0px 10px rgba(248, 246, 246, 0.4);
     border:0.5px solid rgb(255, 255, 255);
-    transform: translate(30%, -300%); 
+    transform: translate(30%, -300%);
     justify-content: center;
 }
 
@@ -265,7 +292,7 @@ input::placeholder{
     color: rgb(255, 255, 255);
 }
 
-.pause{    
+.pause{
     background-color: #bad9b5;
     width: 500px;
     height:200px;
@@ -274,7 +301,7 @@ input::placeholder{
     border-radius: 10px;
     box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.7),inset 0px 0px 10px rgba(248, 246, 246, 0.4);
     border:0.5px solid rgb(255, 255, 255);
-    transform: translate(30%, -300%); 
+    transform: translate(30%, -300%);
     justify-content: center;
 }
 
@@ -321,11 +348,8 @@ input::placeholder{
     font-size: 20px;
     padding: 20px;
 }
-<<<<<<< HEAD
-=======
 
 #playernameDiv{
     font-size: 25px;
     text-align: center;
 }
->>>>>>> 572f7781cdf8da1004d3f0afb692b203eb8c1e92

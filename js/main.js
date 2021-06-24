@@ -4,6 +4,7 @@ import AI from "./AI.js"
 
 var beforeButton = document.getElementById("before");
 var nextButton = document.getElementById("next");
+var endTurnButton = document.getElementById("endturn");
 
 let view = new View(document.getElementById("app"))
 let ai = new AI()
@@ -12,7 +13,7 @@ var mode = element_mode.getAttribute("name")
 //var name = element.getAttribute("name");
 //console.log("mode", mode)
 // let game = new Game()
-let game = new Game(ai, view, mode)
+let game = new Game(ai, view, mode, endTurnButton)
 view.updateColors(game)
 view.update(game)
 view.updateBoard(game)
@@ -78,3 +79,13 @@ document.addEventListener("keypress", (e) => {
         // game.testingAI()
     }
 })
+
+endTurnButton.addEventListener("click", function(){
+    if (game.inMultiJump || game.canEndTurn) {
+        console.log("Pass the turn")
+        game.changeTurn()
+        // game.testingAI()
+    } else {
+        console.log("Cant not end turn")
+    }
+});
