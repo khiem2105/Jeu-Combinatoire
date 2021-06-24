@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/main.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+    <title>Solitaire Game</title>
+</head>
+<body>
+    <div id="app">
+        <h1 id="title">Solitaire Game</h1>
+        <button type="button" id="pause" disabled>
+            <i class="material-icons">pause</i>
+        </button>
+        <div id="status">
+            <div id="turn">Your turn</div>
+            <div id="winner">Winner:</div>
+            <div id="player1">AI points:</div>
+            <div id="player2">Your points:</div>
+        </div>
+        <div id="game-board">
+             
+        </div>
+        <div class="fixed">
+            <div class="welcome">
+                <div class="setting">
+                    <div class="logo">
+                        <p>Please enter your name</p>
+                    </div>
+                    <div class="name">
+                        <input type="text" id="playername" placeholder="Your name ... ">
+                        <button class="play">Play</button><br>
+                    </div>
+                    <div class="footer">
+                        Made by STI 3A with ❤ 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="mode" name="hard"></div>
+    <div id="log">
+        Log
+    </div>
+    <script src="./js/menu.js"></script>
+    <script src="./js/main.js" type="module"></script>
+</body>
+</html>
