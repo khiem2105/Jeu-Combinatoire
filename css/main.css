@@ -47,6 +47,32 @@ body {
     color: #eff7cf;
 }
 
+#next{
+    position: relative;
+    color:#eff7cf;
+    width:50px;
+    height:40px;
+    border: 2px solid #bad9b5;
+    transform: translate(0%, -95%);
+}
+
+#next:hover {
+    box-shadow: 0 12px 16px 0 rgba(39, 66, 3, 0.24),0 17px 50px 0 rgba(16, 114, 54, 0.19);
+  }
+
+#before{
+    position: relative;
+    color:#eff7cf;
+    width:50px;
+    height:40px;
+    border: 2px solid #bad9b5;
+    transform: translate(0%, -95%);
+}
+
+#before:hover {
+    box-shadow: 0 12px 16px 0 rgba(39, 66, 3, 0.24),0 17px 50px 0 rgba(16, 114, 54, 0.19);
+  }
+
 #pause{
     color:#eff7cf;
     width:50px;
@@ -184,6 +210,59 @@ input::placeholder{
 
 .welcome .setting img{
     width:20%;
+}
+
+.next{    
+    background-color: #bad9b5;
+    width: 500px;
+    height:200px;
+    text-align: center;
+    padding-top:20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.7),inset 0px 0px 10px rgba(248, 246, 246, 0.4);
+    border:0.5px solid rgb(255, 255, 255);
+    transform: translate(30%, -300%); 
+    justify-content: center;
+}
+
+.nextButtons{
+    outline: none;
+    border:0.5px solid rgba(255, 253, 253, 0.664);
+    font-size: 30px;
+    padding:5px 20px;
+    border-radius: 5px;
+    background-color: rgb(0, 0, 0);
+    width: 300px;
+    height: 50px;
+    cursor:pointer;
+    font-family: "COPPERPLATE", "Courier New", monospace;
+    color: rgb(255, 255, 255);
+}
+.before{    
+    background-color: #bad9b5;
+    width: 500px;
+    height:200px;
+    text-align: center;
+    padding-top:20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 4px rgba(255, 255, 255, 0.7),inset 0px 0px 10px rgba(248, 246, 246, 0.4);
+    border:0.5px solid rgb(255, 255, 255);
+    transform: translate(30%, -300%); 
+    justify-content: center;
+}
+
+.beforeButtons{
+    outline: none;
+    border:0.5px solid rgba(255, 253, 253, 0.664);
+    font-size: 30px;
+    padding:5px 20px;
+    border-radius: 5px;
+    background-color: rgb(0, 0, 0);
+    width: 300px;
+    height: 50px;
+    cursor:pointer;
+    font-family: "COPPERPLATE", "Courier New", monospace;
+    color: rgb(255, 255, 255);
 }
 
 .pause{    

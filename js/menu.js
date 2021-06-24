@@ -3,6 +3,8 @@ var playButton = document.getElementsByClassName("play")[0];
 var playerName = document.getElementById("turn");
 var nameP = document.getElementById("playername");
 var pauseButton = document.getElementById("pause");
+//var beforeButton = document.getElementById("before");
+//var nextButton = document.getElementById("next");
 var mainDiv = document.getElementById("app");
 
 playButton.addEventListener("click",function(){
@@ -44,3 +46,4 @@ pauseButton.addEventListener("click",function(){
     mainDiv.appendChild(pauseMenu);
 
 });
+

@@ -1,5 +1,7 @@
 export default class Game {
     constructor(ai, view, mode) {
+        this.current_display_tour = 0;
+        this.log_board = []
         // add mode of AI
         this.mode = mode
         // link to AI
@@ -201,26 +203,52 @@ export default class Game {
         }
         this.turn = "Your"
         this.view.updateTurn(this)
+        console.log("after AI", this.pioneer)
+        this.save_log(this.pioneer)
     }
 
     hard_mode() {
         this.ai.sync_data(this.pioneer);
-        //let ai_calculated_actions = this.ai.run();
         let ai_calculated_actions = this.ai.run();
         this.AI_make_move_from_list(ai_calculated_actions)
     }
 
     medium_mode() {
         this.ai.sync_data(this.pioneer);
-        //let ai_calculated_actions = this.ai.run();
         let ai_calculated_actions = this.ai.medium_mode();
         this.AI_make_move_from_list(ai_calculated_actions)
     }
     easy_mode() {
         this.ai.sync_data(this.pioneer);
-        //let ai_calculated_actions = this.ai.run();
         let ai_calculated_actions = this.ai.easy_mode();
         this.AI_make_move_from_list(ai_calculated_actions)
+    }
+
+    runAI() {
+        if (this.mode == 'hard') {
+            this.hard_mode()
+        } else if (this.mode == 'medium' ) {
+            this.medium_mode();
+        } else if (this.mode == 'easy') {
+            this.easy_mode();
+        }
+    }
+
+    save_log(pioneer) {
+        this.current_display_tour++
+        console.log("pionneer",pioneer)
+        //const clone = this.pioneer.map(x => ({...x}));
+        let clone = this.clone_pioneer(pioneer)
+        this.log_board.push(clone);
+        console.log("clone", clone)
+    }
+
+    clone_pioneer(a) {
+        let cloneArray = new Array()
+        for(let i = 0; i < a.length; i++) {
+            cloneArray[i] = a[i].map((e) => e)
+        }
+        return cloneArray
     }
     
     changeTurn() {
@@ -229,17 +257,13 @@ export default class Game {
         if(this.turnCount > 1)
             this.moveLeft = 2
         this.turn = "AI"
-        this.view.updateTurn(this)
+        //this.view.updateTurn(this)
+        this.view.update(this)
         this.inMultiJump = false
         // this.view.update(this)
         // Run AI
-        if (this.mode == 'hard') {
-            this.hard_mode()
-        } else if (this.mode == 'medium' ) {
-            this.medium_mode();
-        } else if (this.mode == 'easy') {
-            this.easy_mode();
-        }
+        this.save_log(this.pioneer)
+        this.runAI();
     }
 }
 
