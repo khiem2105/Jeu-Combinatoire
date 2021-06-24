@@ -1,15 +1,5 @@
-var welcomeScreen = document.getElementsByClassName("welcome")[0];
-var playButton = document.getElementsByClassName("play")[0];
-var playerName = document.getElementById("playernameDiv");
-var nameP = document.getElementById("playername");
 var pauseButton = document.getElementById("pause");
 var mainDiv = document.getElementById("app");
-
-playButton.addEventListener("click",function(){
-    pauseButton.disabled = false;
-    playerName.innerHTML = nameP.value;
-    welcomeScreen.remove();
-});
 
 pauseButton.addEventListener("click",function(){
     var pauseMenu = document.createElement("div");

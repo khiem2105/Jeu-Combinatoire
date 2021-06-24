@@ -23,12 +23,7 @@ export default class GameView {
                 if(this.onCellClick)
                     this.onCellClick(cell.dataset.index)
             })
-        })
-        // Adding event listener for the restart button
-        this.root.querySelector("#reset").addEventListener("click", () => {
-            if(this.onRestartClick)
-                this.onRestartClick();
-        })        
+        })  
     }
 
     updateBoard(game) {
@@ -61,15 +56,17 @@ export default class GameView {
 
     updateStatus(game) {
         if(game.checkTerminalState()) {
-            const winner = this.root.querySelector("#winner")
-            winner.textContent = "Winner: "
+            const gameOver = this.root.querySelector("#playernameDiv")
             let pointArray = game.calculatePoint()
-            if(pointArray[0] < pointArray[1])
-                winner.textContent += "AI"
-            else if(pointArray[1] < pointArray[0])
-                winner.textContent += "You"
-            else
-                winner.textContent +=  "Tie"
+            if(pointArray[0] < pointArray[1]) {
+                gameOver.textContent += " lost"
+            }
+            else if(pointArray[1] < pointArray[0]) {
+                gameOver.textContent += " won"
+            }
+            else {
+                gameOver.textContent += " tie"
+            }
             console.log(winner.textContent)
         }
     }

@@ -4,8 +4,12 @@ import AI from "./AI.js"
 
 let view = new View(document.getElementById("app"))
 let ai = new AI()
+var element_mode = document.getElementById("mode");
+var mode = element_mode.getAttribute("name")
+//var name = element.getAttribute("name");
+//console.log("mode", mode)
 // let game = new Game()
-let game = new Game(ai, view)
+let game = new Game(ai, view, mode)
 view.updateColors(game)
 view.update(game)
 view.updateBoard(game)

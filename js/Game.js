@@ -1,5 +1,7 @@
 export default class Game {
-    constructor(ai, view) {
+    constructor(ai, view, mode) {
+        // add mode of AI
+        this.mode = mode
         // link to AI
         this.ai = ai
         // View
@@ -169,7 +171,6 @@ export default class Game {
                 // If the player has moved 2 different pioneer in his turn
                 if(this.moveLeft == 0) {
                     this.changeTurn()
-                    this.testingAI()
                     return
                 }
             }
@@ -180,7 +181,6 @@ export default class Game {
                 this.lastIndex[0] = k, this.lastIndex[1] = l
                 if(this.checkPioneerCanJump(k, l).length == 0) {
                     this.changeTurn()
-                    this.testingAI()
                 }
                 return
             }
@@ -200,21 +200,35 @@ export default class Game {
             this.pioneer[ni][nj] = this.pioneer[i][j];
             this.pioneer[i][j] = 0;
             this.pioneer[i+(ni-i)/2][j+(nj-j)/2] = 0;
+            k++;
+            await new Promise(r => setTimeout(r, 500))
+            this.view.updateMove(this, [i, j], [ni, nj])
             this.view.updatePoint(this)
             if(this.checkTerminalState())
                 this.view.updateStatus(this)
-            k++;
-            await new Promise(r => setTimeout(r, 500))
-            this.view.updateBoard(this)
             await new Promise(r => setTimeout(r, 500))
         }
         this.turn = "Your"
         this.view.updateTurn(this)
     }
 
-    testingAI() {
+    hard_mode() {
         this.ai.sync_data(this.pioneer);
+        //let ai_calculated_actions = this.ai.run();
         let ai_calculated_actions = this.ai.run();
+        this.AI_make_move_from_list(ai_calculated_actions)
+    }
+
+    medium_mode() {
+        this.ai.sync_data(this.pioneer);
+        //let ai_calculated_actions = this.ai.run();
+        let ai_calculated_actions = this.ai.medium_mode();
+        this.AI_make_move_from_list(ai_calculated_actions)
+    }
+    easy_mode() {
+        this.ai.sync_data(this.pioneer);
+        //let ai_calculated_actions = this.ai.run();
+        let ai_calculated_actions = this.ai.easy_mode();
         this.AI_make_move_from_list(ai_calculated_actions)
     }
     
@@ -228,7 +242,13 @@ export default class Game {
         this.inMultiJump = false
         // this.view.update(this)
         // Run AI
-        // this.testingAI()
+        if (this.mode == 'hard') {
+            this.hard_mode()
+        } else if (this.mode == 'medium' ) {
+            this.medium_mode();
+        } else if (this.mode == 'easy') {
+            this.easy_mode();
+        }
     }
 }
 
