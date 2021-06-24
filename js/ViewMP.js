@@ -19,7 +19,6 @@ export default class GameView {
         // Adding event listener for all the cells
         this.board.querySelectorAll(".cell").forEach(cell => {
             cell.addEventListener("click", () => {
-                cell.classList.add("cellClicked")
                 if(this.onCellClick)
                     this.onCellClick(cell.dataset.index)
             })
@@ -31,8 +30,15 @@ export default class GameView {
             for(let j = 0; j < game.size; j++) {
                 const cell = this.board.querySelector(`.cell[data-index="${i*9+j}"`)
                 cell.textContent = ""
-                if(game.pioneer[i][j] != 0)
+                if(game.pioneer[i][j] != 0) {
                     cell.textContent = game.pioneer[i][j]
+                    cell.addEventListener("mouseover", mouseOn)
+                    cell.addEventListener("mouseout", mouseOut)
+                }
+                else {
+                    cell.removeEventListener("mouseover", mouseOn)
+                    cell.removeEventListener("mouseout", mouseOut)
+                }
             }
         }
     }
@@ -44,6 +50,7 @@ export default class GameView {
 
     updateStatus(game) {
         if(game.checkTerminalState()) {
+            this.removeColor()
             const winner = this.root.querySelector("#winner")
             winner.textContent = "Winner: "
             let pointArray = game.calculatePoint()
@@ -91,4 +98,21 @@ export default class GameView {
         this.updatePoint(game)
         this.updateStatus(game)
     }
+
+    removeColor() {
+        this.board.querySelectorAll(".cell").forEach((cell) => {
+            cell.classList.remove("cell-on")
+            cell.classList.remove("possible-move")
+            cell.classList.remove("cellClicked")
+        })
+    }
+}
+
+// mouse on function
+let mouseOn = function(event) {
+    event.currentTarget.classList.add("cell-on")
+}
+// mouse out function
+let mouseOut = function(event) {
+    event.currentTarget.classList.remove("cell-on")
 }

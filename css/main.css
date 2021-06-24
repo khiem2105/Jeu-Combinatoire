@@ -120,9 +120,11 @@ body {
 .cell.neutral{
     background: rgb(226, 233, 213);
 }
-.cell:hover{
+.cell-on {
+    background: #f0b67f !important;
+}
+.cell:hover {
     cursor: pointer;
-    background: #f0b67f;
 }
 .welcome{
     z-index:+99;

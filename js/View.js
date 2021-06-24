@@ -30,8 +30,11 @@ export default class GameView {
             for(let j = 0; j < game.size; j++) {
                 const cell = this.board.querySelector(`.cell[data-index="${i*9+j}"`)
                 cell.textContent = ""
-                if(game.pioneer[i][j] != 0)
+                if(game.pioneer[i][j] != 0) {
                     cell.textContent = game.pioneer[i][j]
+                    cell.addEventListener("mouseover", mouseOn)
+                    cell.addEventListener("mouseout", mouseOut)
+                }
             }
         }
     }
@@ -45,6 +48,12 @@ export default class GameView {
         cellSrc.textContent = ""
         cellBetween.textContent = ""
         cellDst.textContent = game.pioneer[k][l]
+        cellSrc.removeEventListener("mouseover", mouseOn)
+        cellSrc.removeEventListener("mouseout", mouseOut)
+        cellDst.addEventListener("mouseover", mouseOn)
+        cellDst.addEventListener("mouseout", mouseOut)
+        cellBetween.removeEventListener("mouseover", mouseOn)
+        cellBetween.removeEventListener("mouseout", mouseOut)
     }
 
     updateTurn(game) {
@@ -54,6 +63,7 @@ export default class GameView {
 
     updateStatus(game) {
         if(game.checkTerminalState()) {
+            this.removeColor()
             const gameOver = this.root.querySelector("#playernameDiv")
             let status = new String(gameOver.textContent)
             if(status.includes("lost") || status.includes("won") || status.includes("tie"))
@@ -143,4 +153,21 @@ export default class GameView {
         cellSrc.classList.remove("cellClickedAI")
         cellDst.classList.remove("cellClickedAI")
     }
+
+    removeColor() {
+        this.board.querySelectorAll(".cell").forEach((cell) => {
+            cell.classList.remove("cell-on")
+            cell.classList.remove("possible-move")
+            cell.classList.remove("cellClicked")
+        })
+    }
+}
+
+// mouse on function
+let mouseOn = function(event) {
+    event.currentTarget.classList.add("cell-on")
+}
+// mouse out function
+let mouseOut = function(event) {
+    event.currentTarget.classList.remove("cell-on")
 }
