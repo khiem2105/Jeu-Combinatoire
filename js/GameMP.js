@@ -1,6 +1,7 @@
 export default class Game {
     constructor() {
-        // link to AI
+        this.current_display_tour = -1;
+        this.log_board = []
         // Size of the board
         this.size = 9
         // Turn: 
@@ -169,6 +170,13 @@ export default class Game {
         }
     }
     
+    save_log(pioneer) {
+        this.current_display_tour++
+        //const clone = this.pioneer.map(x => ({...x}));
+        let clone = this.clone_pioneer(pioneer)
+        this.log_board.push(clone);
+    }
+
     changeTurn() {
         this.moveLeft = 2
         this.lastIndex.fill(null)
@@ -176,6 +184,7 @@ export default class Game {
         this.turn = this.turn == "P1" ? "P2":"P1"
         // Testing AI
         //this.turn = this.turn == "P1" ? "AI":"P1"
+        this.save_log(this.pioneer)
     }
 }
 

@@ -1,5 +1,6 @@
 import Game from "./GameMP.js"
 import View from "./ViewMP.js"
+console.log("heere")
 
 let view = new View(document.getElementById("app"))
 
@@ -7,6 +8,32 @@ let view = new View(document.getElementById("app"))
 let game = new Game()
 view.updateColors(game)
 view.update(game)
+
+var beforeButton = document.getElementById("before");
+var nextButton = document.getElementById("next");
+beforeButton.disabled = false;
+
+beforeButton.addEventListener("click", function(){
+    game.current_display_tour --;
+    console.log(game.current_display_tour, game.turnCount)
+    game.pioneer = game.clone_pioneer(game.log_board[game.current_display_tour])
+    view.updateBoard(game)
+    nextButton.disabled = false;
+    if (game.current_display_tour <= 0) {
+        beforeButton.disabled = true;
+    }
+});
+
+nextButton.addEventListener("click", function(){
+    game.current_display_tour ++;
+    console.log(game.current_display_tour, game.turnCount)
+    game.pioneer = game.clone_pioneer(game.log_board[game.current_display_tour])
+    view.updateBoard(game)
+    beforeButton.disabled = false;
+    if (game.current_display_tour >= game.turnCount-2) {
+        nextButton.disabled = true;
+    }
+});
 
 // Cell click function
 view.onCellClick = function(i) {
@@ -25,6 +52,9 @@ view.onCellClick = function(i) {
 
         }
         view.update(game)
+    }
+    if (game.log_board.length > 0)  {
+        beforeButton.disabled = false;
     }
 }
 
