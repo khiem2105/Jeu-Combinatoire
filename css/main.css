@@ -303,6 +303,10 @@ input::placeholder{
     background: #f0b67f !important;
 }
 
+.cellClickedAI {
+    background: #7f8af0 !important;
+}
+
 #log{
     background: #bad9b5;
     width: 400px;
