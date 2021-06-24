@@ -43,35 +43,40 @@ nextButton.addEventListener("click", function(){
 view.updateColors(game)
 // Cell click function
 view.onCellClick = function(i) {
-    let index = [(i - i % view.size) / view.size, i % view.size]
-    if(view.clickCounter == 0) {
-        view.clickCounter++
-        view.cellClicked.push(index)
-        addColorToPossibleMove(index)
-    }
-    else if(view.clickCounter == 1) {
-        if(arrayIncludesArray(game.checkPioneerCanJump(view.cellClicked[0][0], view.cellClicked[0][1]), index)) {
+    if(game.turn == "Your") {
+        view.board.querySelector(`.cell[data-index="${i}"]`).classList.add("cellClicked")
+        let index = [(i - i % view.size) / view.size, i % view.size]
+        if(view.clickCounter == 0) {
             view.clickCounter++
             view.cellClicked.push(index)
-            removeColorInPossibleMove(view.cellClicked[0])
-            game.makeMove(view.cellClicked[0], view.cellClicked[1])
-            removeColorInPossibleMove(view.cellClicked[0])
-            view.clickCounter = 0
-            view.cellClicked.length = 0
+            addColorToPossibleMove(index)
         }
-        else {
-            removeColorInPossibleMove(view.cellClicked[0])
-            let lastCellClicked = view.board.querySelector(`.cell[data-index="${view.cellClicked[0][0]*9+view.cellClicked[0][1]}"]`)
-            lastCellClicked.classList.remove("cellClicked")
-            view.cellClicked[0][0] = index[0], view.cellClicked[0][1] = index[1]
-            addColorToPossibleMove(view.cellClicked[0])
-        }
+        else if(view.clickCounter == 1) {
+            if(arrayIncludesArray(game.checkPioneerCanJump(view.cellClicked[0][0], view.cellClicked[0][1]), index)) {
+                view.clickCounter++
+                view.cellClicked.push(index)
+                removeColorInPossibleMove(view.cellClicked[0])
+                game.makeMove(view.cellClicked[0], view.cellClicked[1])
+                removeColorInPossibleMove(view.cellClicked[0])
+                view.clickCounter = 0
+                view.cellClicked.length = 0
+            }
+            else {
+                removeColorInPossibleMove(view.cellClicked[0])
+                let lastCellClicked = view.board.querySelector(`.cell[data-index="${view.cellClicked[0][0]*9+view.cellClicked[0][1]}"]`)
+                lastCellClicked.classList.remove("cellClicked")
+                view.cellClicked[0][0] = index[0], view.cellClicked[0][1] = index[1]
+                addColorToPossibleMove(view.cellClicked[0])
+            }
 
-        view.update(game)
+            view.update(game)
+        }
+        if (game.log_board.length > 0)  {
+            beforeButton.disabled = false;
+        }
     }
-    if (game.log_board.length > 0)  {
-        beforeButton.disabled = false;
-    }
+    else
+        console.log("it's not your turn")
 }
 
 //Restart function

@@ -19,7 +19,6 @@ export default class GameView {
         // Adding event listener for all the cells
         this.board.querySelectorAll(".cell").forEach(cell => {
             cell.addEventListener("click", () => {
-                cell.classList.add("cellClicked")
                 if(this.onCellClick)
                     this.onCellClick(cell.dataset.index)
             })

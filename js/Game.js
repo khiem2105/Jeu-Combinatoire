@@ -209,6 +209,7 @@ export default class Game {
                 return
             }
             await new Promise(r => setTimeout(r, 500))
+            console.log(this.turn)
         }
         this.turn = "Your"
         this.view.updateTurn(this)
