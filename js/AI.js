@@ -105,7 +105,7 @@ export default class AI {
         moves += '('+ans.Actions[i][0] +','+ans.Actions[i][1]+')=>' + '('+ans.Actions[i+1][0] +','+ans.Actions[i+1][1]+');'
         i++;
       }
-      log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
+      log.innerHTML = `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
 
       console.log("minimax :",ans);
       //this.display_pioneer(ans.pioneer);
@@ -126,7 +126,7 @@ export default class AI {
         moves += '('+ans.Actions[i][0] +','+ans.Actions[i][1]+')=>' + '('+ans.Actions[i+1][0] +','+ans.Actions[i+1][1]+');'
         i++;
       }
-      log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
+      log.innerHTML = `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
 
       console.log("minimax :",ans);
       //this.display_pioneer(ans.pioneer);
