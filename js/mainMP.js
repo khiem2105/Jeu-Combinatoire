@@ -58,12 +58,6 @@ view.onCellClick = function(i) {
     }
 }
 
-//Restart function
-view.onRestartClick = function() {
-    game = new Game()
-    view.update(game)
-}
-
 view.update(game)
 // Listen for "P" pressed then pass the turn
 document.addEventListener("keypress", (e) => {
