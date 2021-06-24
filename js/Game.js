@@ -266,8 +266,8 @@ export default class Game {
         if(this.turnCount > 1)
             this.moveLeft = 2
         this.turn = "AI"
-        //this.view.updateTurn(this)
-        this.view.update(this)
+        this.view.updateTurn(this)
+        // this.view.update(this)
         this.inMultiJump = false
         // this.view.update(this)
         // Run AI

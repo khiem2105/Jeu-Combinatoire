@@ -70,7 +70,6 @@ export default class GameView {
             else {
                 gameOver.textContent += " tie"
             }
-            console.log(winner.textContent)
         }
     }
 
