@@ -17,23 +17,23 @@ view.updateColors(game)
 view.update(game)
 
 beforeButton.addEventListener("click", function(){
-    console.log(game.log_board, game.current_display_tour)
-    game.pioneer = game.clone_pioneer(game.log_board[game.current_display_tour-1])
+    game.current_display_tour --;
+    console.log(game.current_display_tour, game.turnCount)
+    game.pioneer = game.clone_pioneer(game.log_board[game.current_display_tour])
     view.updateBoard(game)
     nextButton.disabled = false;
-    if (game.current_display_tour <= 1) {
+    if (game.current_display_tour <= 0) {
         beforeButton.disabled = true;
     }
-    game.current_display_tour --;
 });
 
 nextButton.addEventListener("click", function(){
     game.current_display_tour ++;
-    console.log(game.log_board, game.current_display_tour)
-    game.pioneer = game.log_board[game.current_display_tour-1].pioneer
+    console.log(game.current_display_tour, game.turnCount)
+    game.pioneer = game.clone_pioneer(game.log_board[game.current_display_tour])
     view.updateBoard(game)
     beforeButton.disabled = false;
-    if (game.current_display_tour >= game.turnCount) {
+    if (game.current_display_tour >= game.turnCount-2) {
         nextButton.disabled = true;
     }
 });

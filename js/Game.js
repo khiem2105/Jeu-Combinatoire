@@ -1,6 +1,6 @@
 export default class Game {
     constructor(ai, view, mode) {
-        this.current_display_tour = 0;
+        this.current_display_tour = -1;
         this.log_board = []
         // add mode of AI
         this.mode = mode
@@ -203,8 +203,8 @@ export default class Game {
         }
         this.turn = "Your"
         this.view.updateTurn(this)
-        console.log("after AI", this.pioneer)
         this.save_log(this.pioneer)
+        this.turnCount++
     }
 
     hard_mode() {
@@ -236,11 +236,9 @@ export default class Game {
 
     save_log(pioneer) {
         this.current_display_tour++
-        console.log("pionneer",pioneer)
         //const clone = this.pioneer.map(x => ({...x}));
         let clone = this.clone_pioneer(pioneer)
         this.log_board.push(clone);
-        console.log("clone", clone)
     }
 
     clone_pioneer(a) {
