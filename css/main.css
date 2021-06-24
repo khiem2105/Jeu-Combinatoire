@@ -242,3 +242,8 @@ input::placeholder{
     font-size: 20px;
     padding: 20px;
 }
+
+#playernameDiv{
+    font-size: 25px;
+    text-align: center;
+}
