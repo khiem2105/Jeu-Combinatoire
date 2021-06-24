@@ -204,8 +204,10 @@ export default class Game {
             await new Promise(r => setTimeout(r, 500))
             this.view.updateMove(this, [i, j], [ni, nj])
             this.view.updatePoint(this)
-            if(this.checkTerminalState())
+            if(this.checkTerminalState()) {
                 this.view.updateStatus(this)
+                return
+            }
             await new Promise(r => setTimeout(r, 500))
         }
         this.turn = "Your"

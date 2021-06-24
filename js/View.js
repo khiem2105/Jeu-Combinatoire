@@ -57,6 +57,9 @@ export default class GameView {
     updateStatus(game) {
         if(game.checkTerminalState()) {
             const gameOver = this.root.querySelector("#playernameDiv")
+            let status = new String(gameOver.textContent)
+            if(status.includes("lost") || status.includes("won") || status.includes("tie"))
+                return
             let pointArray = game.calculatePoint()
             if(pointArray[0] < pointArray[1]) {
                 gameOver.textContent += " lost"
