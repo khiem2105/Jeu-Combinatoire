@@ -1,5 +1,6 @@
 export default class AI {
    constructor() {
+      this.first_turn = true;
       this.Board =  [[-2, -1, -2, -2, -1, -2, -2, -1, -2],
                      [-1, -2, -1, -1, -1, -1, -1, -2, -1],
                      [-1, -1, -2, -1, -3, -1, -2, -1, -1],
@@ -60,7 +61,6 @@ export default class AI {
    }
 
   easy_mode() {
-    this.first_turn = false;
     this.count_evaluation = 1;
     let all_pos = this.generate_all_possible_move(this.Pioneer);
 
@@ -80,46 +80,35 @@ export default class AI {
     }
     log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
 
+    this.first_turn = false;
     return all_pos[i].actions;
   }
 
   medium_mode(){
-      this.first_turn = false;
+      console.log("Medium mode ")
       this.count_evaluation = 0;
       let ans = this.minimax(this.Pioneer, 1, -this.INFINITY, this.INFINITY, true, []);
 
-      const log = document.getElementById("log")
-      let moves = ''
-      for(let i=0; i<ans.Actions.length; i++){
-        moves += '('+ans.Actions[i][0] +','+ans.Actions[i][1]+')=>' + '('+ans.Actions[i+1][0] +','+ans.Actions[i+1][1]+');'
-        i++;
-      }
-      log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
+      //const log = document.getElementById("log")
+      //let moves = ''
+      //for(let i=0; i<ans.Actions.length; i++){
+        //moves += '('+ans.Actions[i][0] +','+ans.Actions[i][1]+')=>' + '('+ans.Actions[i+1][0] +','+ans.Actions[i+1][1]+');'
+        //i++;
+      //}
+      //log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
 
-      console.log("minimax :",ans);
-      //this.display_pioneer(ans.pioneer);
-      console.log("actions :", ans.Actions);
-      console.log("bilan analyzation :", this.count_evaluation, " possibilities calculated");
+      //console.log("minimax :",ans);
+      ////this.display_pioneer(ans.pioneer);
+      //console.log("actions :", ans.Actions);
+      //console.log("bilan analyzation :", this.count_evaluation, " possibilities calculated");
       //this.display_pioneer(ans.Pioneer);
       //this.first_turn = false;
       ////console.log(ans)
+      this.first_turn = false;
       return ans.Actions;
   }
 
    run() {
-      //let ans = this.minimax(this.Pioneer, 2, -this.INFINITY, this.INFINITY, true, []);
-      //return;
-      //let arr = this.generate_all_possible_move(this.Pioneer);
-      ////console.log(arr);
-      //for (let i=0; i<arr.length; i++) {
-         //console.log("i = ", i)
-         //console.log(arr[i].heuristic)
-         //console.log(arr[i].pioneer)
-         //console.log(arr[i].actions);
-      //}
-
-
-      this.first_turn = false;
       this.count_evaluation = 0;
       let ans = this.minimax(this.Pioneer, 3, -this.INFINITY, this.INFINITY, true, []);
 
@@ -138,6 +127,7 @@ export default class AI {
       //this.display_pioneer(ans.Pioneer);
       //this.first_turn = false;
       ////console.log(ans)
+      this.first_turn = false;
       return ans.Actions;
    }
 
@@ -335,9 +325,8 @@ export default class AI {
 
    generate_all_possible_move(pioneer) {
       this.all_possibilities = new Array();
-      //this.all_possible_positions = new Array();
-      //this.all_possible_actions = new Array();
-      // option multi jump
+
+     console.log("Im here")
       for (let i = 0; i<this.SIZE_BOARD; i++) {
          for (let j = 0; j<this.SIZE_BOARD; j++) {
             this.generate_multiple_jump(pioneer, pioneer, i, j, []);
