@@ -43,16 +43,18 @@ nextButton.addEventListener("click", function(){
 view.updateColors(game)
 // Cell click function
 view.onCellClick = function(i) {
-    if(game.turn == "Your") {
-        view.board.querySelector(`.cell[data-index="${i}"]`).classList.add("cellClicked")
-        let index = [(i - i % view.size) / view.size, i % view.size]
+    let index = [(i - i % view.size) / view.size, i % view.size]
+    if(game.turn == "Your" && (view.clickCounter != 0 || game.pioneer[index[0]][index[1]] != 0)) {
         if(view.clickCounter == 0) {
+            view.board.querySelector(`.cell[data-index="${i}"]`).classList.add("cellClicked")
             view.clickCounter++
             view.cellClicked.push(index)
             addColorToPossibleMove(index)
         }
         else if(view.clickCounter == 1) {
             if(arrayIncludesArray(game.checkPioneerCanJump(view.cellClicked[0][0], view.cellClicked[0][1]), index)) {
+                console.log("here")
+                view.board.querySelector(`.cell[data-index="${i}"]`).classList.add("cellClicked")
                 view.clickCounter++
                 view.cellClicked.push(index)
                 removeColorInPossibleMove(view.cellClicked[0])
@@ -62,10 +64,12 @@ view.onCellClick = function(i) {
                 view.cellClicked.length = 0
             }
             else {
+                console.log("no here")
                 removeColorInPossibleMove(view.cellClicked[0])
                 let lastCellClicked = view.board.querySelector(`.cell[data-index="${view.cellClicked[0][0]*9+view.cellClicked[0][1]}"]`)
                 lastCellClicked.classList.remove("cellClicked")
-                if(view.cellClicked[0][0] != index[0] || view.cellClicked[0][1] != index[1]) {
+                if((view.cellClicked[0][0] != index[0] || view.cellClicked[0][1] != index[1]) && (game.pioneer[index[0]][index[1]] != 0)) {
+                    view.board.querySelector(`.cell[data-index="${i}"]`).classList.add("cellClicked")
                     view.cellClicked[0][0] = index[0], view.cellClicked[0][1] = index[1]
                     addColorToPossibleMove(view.cellClicked[0])
                 }
@@ -97,6 +101,7 @@ view.onRestartClick = function() {
 document.addEventListener("keypress", (e) => {
     if(e.key === "p" && game.inMultiJump) {
         game.changeTurn()
+        view.removeColor()
         // game.testingAI()
     }
 })
@@ -123,7 +128,7 @@ function addColorToPossibleMove(index) {
 }
 
 function removeColorInPossibleMove(index) {
-    console.log("here")
+    // console.log("here")
     console.log(index)
     let possbileMoves = game.checkPioneerCanJump(index[0], index[1])
     if(possbileMoves.length > 0) {
