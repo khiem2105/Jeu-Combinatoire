@@ -61,13 +61,21 @@ export default class AI {
    }
 
   easy_mode() {
+      let all_pos = [];
+     if (this.first_turn) {
+         this.first_turn = false;
+          this.all_possibilities = new Array();
+         this.generate_jump_two_times(this.Pioneer, []);
+         all_pos = this.return_all_possibilities();
+    } else {
+        let all_pos = this.generate_all_possible_move(this.Pioneer);
+    }
     this.count_evaluation = 1;
-    let all_pos = this.generate_all_possible_move(this.Pioneer);
 
     // Special case : when we have there is only one more move to do
     // So we can create new all_moves and all_actions for this coin-case
     if (all_pos.length == 0) {
-      this.generate_jump_two_times(pioneer, []);
+      this.generate_jump_two_times(this.Pioneer, []);
       all_pos = this.return_all_possibilities();
     }
     let i = Math.floor(Math.random() * all_pos.length);
@@ -80,37 +88,37 @@ export default class AI {
     }
     log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
 
-    this.first_turn = false;
     return all_pos[i].actions;
   }
 
   medium_mode(){
-      console.log("Medium mode ")
+    if (this.first_turn) {
+      this.first_turn = false;
+      var first_turn = true;
+    }
       this.count_evaluation = 0;
-      let ans = this.minimax(this.Pioneer, 1, -this.INFINITY, this.INFINITY, true, []);
+      let ans = this.minimax(this.Pioneer, 1, -this.INFINITY, this.INFINITY, true, [], true, first_turn);
 
-      //const log = document.getElementById("log")
-      //let moves = ''
-      //for(let i=0; i<ans.Actions.length; i++){
-        //moves += '('+ans.Actions[i][0] +','+ans.Actions[i][1]+')=>' + '('+ans.Actions[i+1][0] +','+ans.Actions[i+1][1]+');'
-        //i++;
-      //}
-      //log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
+      const log = document.getElementById("log")
+      let moves = ''
+      for(let i=0; i<ans.Actions.length; i++){
+        moves += '('+ans.Actions[i][0] +','+ans.Actions[i][1]+')=>' + '('+ans.Actions[i+1][0] +','+ans.Actions[i+1][1]+');'
+        i++;
+      }
+      log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
 
-      //console.log("minimax :",ans);
-      ////this.display_pioneer(ans.pioneer);
-      //console.log("actions :", ans.Actions);
-      //console.log("bilan analyzation :", this.count_evaluation, " possibilities calculated");
-      //this.display_pioneer(ans.Pioneer);
-      //this.first_turn = false;
-      ////console.log(ans)
+      console.log("minimax :",ans);
+      //this.display_pioneer(ans.pioneer);
+      console.log("actions :", ans.Actions);
+      console.log("bilan analyzation :", this.count_evaluation, " possibilities calculated");
       this.first_turn = false;
       return ans.Actions;
   }
 
    run() {
       this.count_evaluation = 0;
-      let ans = this.minimax(this.Pioneer, 3, -this.INFINITY, this.INFINITY, true, []);
+      let ans = this.minimax(this.Pioneer, 3, -this.INFINITY, this.INFINITY, true, [], this.first_turn);
+     this.first_turn = false;
 
       const log = document.getElementById("log")
       let moves = ''
@@ -127,7 +135,6 @@ export default class AI {
       //this.display_pioneer(ans.Pioneer);
       //this.first_turn = false;
       ////console.log(ans)
-      this.first_turn = false;
       return ans.Actions;
    }
 
@@ -144,13 +151,21 @@ export default class AI {
       return this.all_possibilites;
    }
 
-   minimax(pioneer, depth, alpha, beta, maximizingPlayer, actions) {
+   minimax(pioneer, depth, alpha, beta, maximizingPlayer, actions, first_turn) {
       this.count_evaluation++
       if (depth == 0 || this.game_over(pioneer)) {
          return this.create_object_for_minimax(pioneer, actions);
       }
 
-      let all_pos = this.generate_all_possible_move(pioneer);
+      let all_pos = [];
+     if (first_turn) {
+         first_turn = false;
+          this.all_possibilities = new Array();
+         this.generate_jump_two_times(pioneer, []);
+         all_pos = this.return_all_possibilities();
+     } else {
+         all_pos = this.generate_all_possible_move(pioneer);
+     }
       //if (all_pos.length == 0) console.log("err")
       //let all_actions = this.generate_all_possible_actions();
 
@@ -171,7 +186,7 @@ export default class AI {
             if (actions.length == 0) {
                save_actions = this.make_clone_action(all_pos[i].actions);
             }
-            let obj_evaluation = this.minimax(all_pos[i].pioneer, depth-1, alpha,beta, false, save_actions);
+            let obj_evaluation = this.minimax(all_pos[i].pioneer, depth-1, alpha,beta, false, save_actions, first_turn);
             let heuristic_eval = obj_evaluation.Heuristic;
             let pioneer_eval = obj_evaluation.Pioneer;
             let actions_eval = obj_evaluation.Actions;
@@ -196,7 +211,7 @@ export default class AI {
             if (actions.length == 0) {
                save_actions = this.make_clone_action(all_pos[i].actions);
             }
-            let obj_evaluation = this.minimax(all_pos[i].pioneer, depth-1, alpha,beta, true, save_actions);
+            let obj_evaluation = this.minimax(all_pos[i].pioneer, depth-1, alpha,beta, true, save_actions, first_turn);
             let heuristic_eval = obj_evaluation.Heuristic;
             let pioneer_eval = obj_evaluation.Pioneer;
             let actions_eval = obj_evaluation.Actions;
@@ -272,10 +287,10 @@ export default class AI {
    }
 
    generate_multiple_jump(start_pioneer, pioneer, i, j, actions) {
-      if (this.first_turn) {
-         this.generate_jump_two_times(pioneer, actions);
-         return;
-      }
+      //if (first_turn) {
+         //this.generate_jump_two_times(pioneer, actions);
+         //return;
+      //}
       let has_no_move = true;
       for (let dir = 0; dir < 4; dir++ ) {
          let nexti = i + this.direction_i[dir];
@@ -325,8 +340,6 @@ export default class AI {
 
    generate_all_possible_move(pioneer) {
       this.all_possibilities = new Array();
-
-     console.log("Im here")
       for (let i = 0; i<this.SIZE_BOARD; i++) {
          for (let j = 0; j<this.SIZE_BOARD; j++) {
             this.generate_multiple_jump(pioneer, pioneer, i, j, []);
