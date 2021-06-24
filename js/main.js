@@ -20,7 +20,6 @@ view.updateTurn(game)
 
 beforeButton.addEventListener("click", function(){
     game.current_display_tour --;
-    console.log(game.current_display_tour, game.turnCount)
     game.pioneer = game.clone_pioneer(game.log_board[game.current_display_tour])
     view.updateBoard(game)
     nextButton.disabled = false;
@@ -31,7 +30,6 @@ beforeButton.addEventListener("click", function(){
 
 nextButton.addEventListener("click", function(){
     game.current_display_tour ++;
-    console.log(game.current_display_tour, game.turnCount)
     game.pioneer = game.clone_pioneer(game.log_board[game.current_display_tour])
     view.updateBoard(game)
     beforeButton.disabled = false;
@@ -49,23 +47,24 @@ view.onCellClick = function(i) {
     if(view.clickCounter == 0) {
         view.clickCounter++
         view.cellClicked.push(index)
+        addColorToPossibleMove(index)
     }
     else if(view.clickCounter == 1) {
-        console.log(game.checkPioneerCanJump(view.cellClicked[0][0], view.cellClicked[0][1]).includes(index))
         if(arrayIncludesArray(game.checkPioneerCanJump(view.cellClicked[0][0], view.cellClicked[0][1]), index)) {
             view.clickCounter++
             view.cellClicked.push(index)
-            if(view.clickCounter == 2) {
-                game.makeMove(view.cellClicked[0], view.cellClicked[1])
-                view.clickCounter = 0
-                view.cellClicked.length = 0
-            }
+            removeColorInPossibleMove(view.cellClicked[0])
+            game.makeMove(view.cellClicked[0], view.cellClicked[1])
+            removeColorInPossibleMove(view.cellClicked[0])
+            view.clickCounter = 0
+            view.cellClicked.length = 0
         }
         else {
+            removeColorInPossibleMove(view.cellClicked[0])
             let lastCellClicked = view.board.querySelector(`.cell[data-index="${view.cellClicked[0][0]*9+view.cellClicked[0][1]}"]`)
             lastCellClicked.classList.remove("cellClicked")
             view.cellClicked[0][0] = index[0], view.cellClicked[0][1] = index[1]
-            console.log(view.cellClicked)
+            addColorToPossibleMove(view.cellClicked[0])
         }
 
         view.update(game)
@@ -86,7 +85,6 @@ view.onRestartClick = function() {
 // Listen for "P" pressed then pass the turn
 document.addEventListener("keypress", (e) => {
     if(e.key === "p" && game.inMultiJump) {
-        console.log("Pass the turn")
         game.changeTurn()
         // game.testingAI()
     }
@@ -99,4 +97,28 @@ function arrayIncludesArray(a1, a2) {
             return true
     }
     return false
+}
+
+function addColorToPossibleMove(index) {
+    let possbileMoves = game.checkPioneerCanJump(index[0], index[1])
+    if(possbileMoves.length > 0) {
+        for(let i = 0; i < possbileMoves.length; i++) {
+            let k = possbileMoves[i][0]
+            let l = possbileMoves[i][1]
+            const nextCell = view.board.querySelector(`.cell[data-index="${k*9+l}"]`)
+            nextCell.classList.add("possibleMove")
+        }
+    }
+}
+
+function removeColorInPossibleMove(index) {
+    let possbileMoves = game.checkPioneerCanJump(index[0], index[1])
+    if(possbileMoves.length > 0) {
+        for(let i = 0; i < possbileMoves.length; i++) {
+            let k = possbileMoves[i][0]
+            let l = possbileMoves[i][1]
+            const nextCell = view.board.querySelector(`.cell[data-index="${k*9+l}"]`)
+            nextCell.classList.remove("possibleMove")
+        }
+    }
 }

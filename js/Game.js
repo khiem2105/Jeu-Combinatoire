@@ -149,8 +149,6 @@ export default class Game {
         cell2.classList.remove("cellClicked")
 
         if(this.checkTerminalState() || this.turn != "Your" || (this.inMultiJump && (this.lastIndex[0] != i || this.lastIndex [1] != j))) {
-            console.log("Can not make move")
-            console.log(this.turn, this.inMultiJump, (this.lastIndex[0] != i || this.lastIndex [1] != j))
             return
         }
 

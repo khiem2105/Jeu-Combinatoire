@@ -38,7 +38,6 @@ export default class GameView {
     }
 
     updateMove(game, [i, j], [k, l]) {
-        console.log("Update move")
         const cellSrc = this.board.querySelector(`.cell[data-index="${i*9+j}"`)
         const cellDst = this.board.querySelector(`.cell[data-index="${k*9+l}"`)
         let iBetween = i + (k-i)/2
