@@ -146,6 +146,11 @@ export default class Game {
     makeMove([i, j], [k, l]) {
         if(this.checkTerminalState() || (this.inMultiJump && (this.lastIndex[0] != i || this.lastIndex[1] != j)))
             return
+        
+        let cell1 = this.view.board.querySelector(`.cell[data-index="${i*9+j}"`)
+        let cell2 = this.view.board.querySelector(`.cell[data-index="${k*9+l}"`)
+        cell1.classList.remove("cellClicked")
+        cell2.classList.remove("cellClicked")
 
         let possibleMove = this.checkPioneerCanJump(i, j)
 
@@ -199,6 +204,14 @@ export default class Game {
         // Testing AI
         //this.turn = this.turn == "P1" ? "AI":"P1"
         this.save_log(this.pioneer)
+    }
+
+    clone_pioneer(a) {
+        let cloneArray = new Array()
+        for(let i = 0; i < a.length; i++) {
+            cloneArray[i] = a[i].map((e) => e)
+        }
+        return cloneArray
     }
 }
 

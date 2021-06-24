@@ -38,19 +38,28 @@ nextButton.addEventListener("click", function(){
 // Cell click function
 view.onCellClick = function(i) {
     let index = [(i - i % view.size) / view.size, i % view.size]
-    if(view.clickCounter < 2) {
+    if(view.clickCounter == 0) {
         view.clickCounter++
         view.cellClicked.push(index)
-        if(view.clickCounter == 2) {
-            game.makeMove(view.cellClicked[0], view.cellClicked[1])
-            view.cellClicked.forEach(index => {
-                const cell = this.board.querySelector(`.cell[data-index="${index[0]*9+index[1]}"`)
-                cell.classList.remove("cellClicked")
-            })
-            view.clickCounter = 0
-            view.cellClicked.length = 0
-
+    }
+    else if(view.clickCounter == 1) {
+        console.log(game.checkPioneerCanJump(view.cellClicked[0][0], view.cellClicked[0][1]).includes(index))
+        if(arrayIncludesArray(game.checkPioneerCanJump(view.cellClicked[0][0], view.cellClicked[0][1]), index)) {
+            view.clickCounter++
+            view.cellClicked.push(index)
+            if(view.clickCounter == 2) {
+                game.makeMove(view.cellClicked[0], view.cellClicked[1])
+                view.clickCounter = 0
+                view.cellClicked.length = 0
+            }
         }
+        else {
+            let lastCellClicked = view.board.querySelector(`.cell[data-index="${view.cellClicked[0][0]*9+view.cellClicked[0][1]}"]`)
+            lastCellClicked.classList.remove("cellClicked")
+            view.cellClicked[0][0] = index[0], view.cellClicked[0][1] = index[1]
+            console.log(view.cellClicked)
+        }
+
         view.update(game)
     }
     if (game.log_board.length > 0)  {
@@ -68,3 +77,13 @@ document.addEventListener("keypress", (e) => {
     else
         console.log("here")
 })
+
+// A helper function to check whether an array a2 is included inside an array a1
+function arrayIncludesArray(a1, a2) {
+    for(let i = 0; i < a1.length; i++) {
+        if(a1[i][0] == a2[0] && a1[i][1] == a2[1])
+            return true
+    }
+    return false
+}
+
