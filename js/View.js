@@ -70,6 +70,36 @@ export default class GameView {
             else {
                 gameOver.textContent += " tie"
             }
+            var mainDiv = document.getElementById("app");
+            var gameOverMenu = document.createElement("div");
+            var restartButton = document.createElement("button");
+            var menuButton = document.createElement("button");
+            var paragraph = document.createElement("p");
+            var textGameOver = document.createTextNode("Game Over");
+            var textRestart = document.createTextNode("Restart");
+            var textMenu = document.createTextNode("Main Menu");
+            paragraph.appendChild(textGameOver);
+            restartButton.appendChild(textRestart);
+            menuButton.appendChild(textMenu);
+
+            gameOverMenu.className = "pause";
+            restartButton.className = "pauseButtons";
+            menuButton.className = "pauseButtons";
+            paragraph.id = "parag";
+            gameOverMenu.appendChild(paragraph);
+            gameOverMenu.appendChild(restartButton);
+            gameOverMenu.appendChild(menuButton);
+
+            menuButton.addEventListener("click", function(){
+                window.location.href = 'index.html';
+            });
+
+            restartButton.addEventListener("click", function(){
+                window.location.href = 'level.html';
+            })
+
+            mainDiv.appendChild(gameOverMenu);
+
         }
     }
 
