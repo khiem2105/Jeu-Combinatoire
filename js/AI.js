@@ -86,7 +86,7 @@ export default class AI {
       moves += '('+all_pos[i].actions[j]+ '=>' + all_pos[i].actions[j+1]+ ') ; '
       j++
     }
-    log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
+    log.innerHTML = `<p class="log"> Log<br><br>` + moves + `<br><br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
 
     return all_pos[i].actions;
   }

@@ -306,15 +306,16 @@ input::placeholder{
 #log{
     background: #bad9b5;
     width: 400px;
-    height: 400px;
+    height: 300px;
     margin: 40px;
     padding: 50px;
     border-radius: 25px;
     text-align: center;
-    font-size: 30px;
+    font-size: 20px;
     box-shadow: 0px 0px 4px rgba(0,0,0,0.7),inset 0px 0px 10px rgba(0,0,0,0.4);
     border:0.5px solid rgba(0,0,0,0.2);
     overflow: scroll;
+    transform: translateY(140%);
 }
 
 .log{
