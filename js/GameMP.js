@@ -1,6 +1,7 @@
 export default class Game {
-    constructor() {
-        // link to AI
+    constructor(view) {
+        // link to view
+        this.view = view
         // Size of the board
         this.size = 9
         // Turn: 
@@ -12,7 +13,9 @@ export default class Game {
         this.lastIndex = new Array(2).fill(null)
         // move left in a turn
         // for making 2 move in a turn
-        this.moveLeft = 2 
+        this.moveLeft = 1
+        // For multijum
+        this.inMultiJump = false
         // matrix 9x9 for the board 
         this.board = new Array(this.size).fill(null)
         for(let i = 0; i < this.size; i++) {
@@ -138,7 +141,7 @@ export default class Game {
 
     // Make a jump from index (i, j) to index (k, l)
     makeMove([i, j], [k, l]) {
-        if(this.checkTerminalState())
+        if(this.checkTerminalState() || (this.inMultiJump && (this.lastIndex[0] != i || this.lastIndex[1] != j)))
             return
 
         let possibleMove = this.checkPioneerCanJump(i, j)
@@ -160,8 +163,12 @@ export default class Game {
             }
             // If the player continue to move the same pioneer that he has moved previously and after that
             // no more move can be made, change turn
-            if(this.lastIndex[0] == i && this.lastIndex[1] == j && this.checkPioneerCanJump(k, l).length == 0) {
-                this.changeTurn()
+            if(this.lastIndex[0] == i && this.lastIndex[1] == j) {
+                this.inMultiJump = true
+                this.lastIndex[0] = k, this.lastIndex[1] = l
+                if(this.checkPioneerCanJump(k, l).length == 0) {
+                    this.changeTurn()
+                }
                 return
             }
 
@@ -170,10 +177,15 @@ export default class Game {
     }
     
     changeTurn() {
-        this.moveLeft = 2
         this.lastIndex.fill(null)
         this.turnCount++
+        if(this.turnCount > 2)
+            this.moveLeft = 2
+        else
+            this.moveLeft = 1
         this.turn = this.turn == "P1" ? "P2":"P1"
+        this.view.updateTurn(this)
+        this.inMultiJump = false
         // Testing AI
         //this.turn = this.turn == "P1" ? "AI":"P1"
     }

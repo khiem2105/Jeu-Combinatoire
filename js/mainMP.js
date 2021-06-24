@@ -4,7 +4,7 @@ import View from "./ViewMP.js"
 let view = new View(document.getElementById("app"))
 
 // let game = new Game()
-let game = new Game()
+let game = new Game(view)
 view.updateColors(game)
 view.update(game)
 
@@ -28,10 +28,12 @@ view.onCellClick = function(i) {
     }
 }
 
-//Restart function
-view.onRestartClick = function() {
-    game = new Game()
-    view.update(game)
-}
-
-view.update(game)
+// Listen for "P" pressed then pass the turn
+document.addEventListener("keypress", (e) => {
+    if(e.key == "p" && game.inMultiJump) {
+        console.log("pass the turn")
+        game.changeTurn()
+    }
+    else
+        console.log("here")
+})
