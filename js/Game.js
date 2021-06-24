@@ -224,6 +224,7 @@ export default class Game {
     }
 
     medium_mode() {
+        console.log("medium")
         this.ai.sync_data(this.pioneer);
         let ai_calculated_actions = this.ai.medium_mode();
         this.AI_make_move_from_list(ai_calculated_actions)

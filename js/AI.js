@@ -92,12 +92,14 @@ export default class AI {
   }
 
   medium_mode(){
+    var first_turn = false;
     if (this.first_turn) {
       this.first_turn = false;
-      var first_turn = true;
+      first_turn = true;
     }
+
       this.count_evaluation = 0;
-      let ans = this.minimax(this.Pioneer, 1, -this.INFINITY, this.INFINITY, true, [], true, first_turn);
+      let ans = this.minimax(this.Pioneer, 1, -this.INFINITY, this.INFINITY, true, [], first_turn);
 
       const log = document.getElementById("log")
       let moves = ''
@@ -111,7 +113,6 @@ export default class AI {
       //this.display_pioneer(ans.pioneer);
       console.log("actions :", ans.Actions);
       console.log("bilan analyzation :", this.count_evaluation, " possibilities calculated");
-      this.first_turn = false;
       return ans.Actions;
   }
 
