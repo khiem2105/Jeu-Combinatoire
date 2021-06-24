@@ -202,7 +202,7 @@ export default class Game {
             this.pioneer[i+(ni-i)/2][j+(nj-j)/2] = 0;
             k++;
             await new Promise(r => setTimeout(r, 500))
-            this.view.updateMove(this, [i, j], [k, l])
+            this.view.updateMove(this, [i, j], [ni, nj])
             this.view.updatePoint(this)
             if(this.checkTerminalState())
                 this.view.updateStatus(this)
