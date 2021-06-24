@@ -109,10 +109,10 @@ export default class GameView {
     async visualizeAIMove([i, j], [k, l]) {
         const cellSrc = this.board.querySelector(`.cell[data-index="${i*9+j}"`)
         const cellDst = this.board.querySelector(`.cell[data-index="${k*9+l}"`)
-        cellSrc.classList.add("cellClicked")
-        cellDst.classList.add("cellClicked")
+        cellSrc.classList.add("cellClickedAI")
+        cellDst.classList.add("cellClickedAI")
         await new Promise(r => setTimeout(r, 500))
-        cellSrc.classList.remove("cellClicked")
-        cellDst.classList.remove("cellClicked")
+        cellSrc.classList.remove("cellClickedAI")
+        cellDst.classList.remove("cellClickedAI")
     }
 }
