@@ -1,5 +1,7 @@
 export default class Game {
-    constructor(ai, view) {
+    constructor(ai, view, mode) {
+        // add mode of AI
+        this.mode = mode
         // link to AI
         this.ai = ai
         // View
@@ -201,9 +203,23 @@ export default class Game {
         this.view.updateTurn(this)
     }
 
-    testingAI() {
+    hard_mode() {
         this.ai.sync_data(this.pioneer);
+        //let ai_calculated_actions = this.ai.run();
         let ai_calculated_actions = this.ai.run();
+        this.AI_make_move_from_list(ai_calculated_actions)
+    }
+
+    medium_mode() {
+        this.ai.sync_data(this.pioneer);
+        //let ai_calculated_actions = this.ai.run();
+        let ai_calculated_actions = this.ai.medium_mode();
+        this.AI_make_move_from_list(ai_calculated_actions)
+    }
+    easy_mode() {
+        this.ai.sync_data(this.pioneer);
+        //let ai_calculated_actions = this.ai.run();
+        let ai_calculated_actions = this.ai.easy_mode();
         this.AI_make_move_from_list(ai_calculated_actions)
     }
     
@@ -217,7 +233,13 @@ export default class Game {
         this.inMultiJump = false
         // this.view.update(this)
         // Run AI
-        this.testingAI()
+        if (this.mode == 'hard') {
+            this.hard_mode()
+        } else if (this.mode == 'medium' ) {
+            this.medium_mode();
+        } else if (this.mode == 'easy') {
+            this.easy_mode();
+        }
     }
 }
 

@@ -59,6 +59,53 @@ export default class AI {
       }
    }
 
+  easy_mode() {
+    this.first_turn = false;
+    this.count_evaluation = 1;
+    let all_pos = this.generate_all_possible_move(this.Pioneer);
+
+    // Special case : when we have there is only one more move to do
+    // So we can create new all_moves and all_actions for this coin-case
+    if (all_pos.length == 0) {
+      this.generate_jump_two_times(pioneer, []);
+      all_pos = this.return_all_possibilities();
+    }
+    let i = Math.floor(Math.random() * all_pos.length);
+
+    const log = document.getElementById("log")
+    let moves = ''
+    for(let j=0; j<all_pos[i].actions.length; j++){
+      moves += '('+all_pos[i].actions[j]+ '=>' + all_pos[i].actions[j+1]+ ') ; '
+      j++
+    }
+    log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
+
+    return all_pos[i].actions;
+  }
+
+  medium_mode(){
+      this.first_turn = false;
+      this.count_evaluation = 0;
+      let ans = this.minimax(this.Pioneer, 1, -this.INFINITY, this.INFINITY, true, []);
+
+      const log = document.getElementById("log")
+      let moves = ''
+      for(let i=0; i<ans.Actions.length; i++){
+        moves += '('+ans.Actions[i][0] +','+ans.Actions[i][1]+')=>' + '('+ans.Actions[i+1][0] +','+ans.Actions[i+1][1]+');'
+        i++;
+      }
+      log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
+
+      console.log("minimax :",ans);
+      //this.display_pioneer(ans.pioneer);
+      console.log("actions :", ans.Actions);
+      console.log("bilan analyzation :", this.count_evaluation, " possibilities calculated");
+      //this.display_pioneer(ans.Pioneer);
+      //this.first_turn = false;
+      ////console.log(ans)
+      return ans.Actions;
+  }
+
    run() {
       //let ans = this.minimax(this.Pioneer, 2, -this.INFINITY, this.INFINITY, true, []);
       //return;
@@ -79,7 +126,8 @@ export default class AI {
       const log = document.getElementById("log")
       let moves = ''
       for(let i=0; i<ans.Actions.length; i++){
-        moves += '('+ans.Actions[i][0] +','+ans.Actions[i][1]+')'+ '=>'
+        moves += '('+ans.Actions[i][0] +','+ans.Actions[i][1]+')=>' + '('+ans.Actions[i+1][0] +','+ans.Actions[i+1][1]+');'
+        i++;
       }
       log.innerHTML = log.innerHTML + `<p class="log">` + moves + `<br>`+ this.count_evaluation+ ` possibilities calculated<\p>`
 
