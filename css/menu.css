@@ -105,7 +105,7 @@ body {
 
 }
 #start{
-    top: 200px;
+    top: 250px;
 }
 #start:hover{
     background:#0b2d09;
@@ -170,7 +170,7 @@ body {
     transform:rotate(-2deg);
 }
 #rules{
-    top: 400px;
+    top: 350px;
 }
 
 #rules:hover{
@@ -180,7 +180,7 @@ body {
     transform:rotate(-2deg);
 }
 #about{
-    top: 500px;
+    top: 450px;
 }
 #about:hover{
     background:#0b2d09;
