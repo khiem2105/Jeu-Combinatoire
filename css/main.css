@@ -284,7 +284,7 @@ input::placeholder{
     font-size: 30px;
     padding:5px 20px;
     border-radius: 5px;
-    background-color: rgb(0, 0, 0);
+    background-color:#5d5c5c;
     width: 300px;
     height: 50px;
     cursor:pointer;
@@ -321,3 +321,11 @@ input::placeholder{
     font-size: 20px;
     padding: 20px;
 }
+<<<<<<< HEAD
+=======
+
+#playernameDiv{
+    font-size: 25px;
+    text-align: center;
+}
+>>>>>>> 572f7781cdf8da1004d3f0afb692b203eb8c1e92

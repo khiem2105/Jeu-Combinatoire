@@ -15,6 +15,8 @@ var mode = element_mode.getAttribute("name")
 let game = new Game(ai, view, mode)
 view.updateColors(game)
 view.update(game)
+view.updateBoard(game)
+view.updateTurn(game)
 
 beforeButton.addEventListener("click", function(){
     game.current_display_tour --;
@@ -52,6 +54,7 @@ view.onCellClick = function(i) {
             view.clickCounter = 0
             view.cellClicked.length = 0
         }
+
         view.update(game)
     }
     if (game.log_board.length > 0)  {
@@ -63,6 +66,8 @@ view.onCellClick = function(i) {
 view.onRestartClick = function() {
     game = new Game(ai, view)
     view.update(game)
+    view.updateBoard(game)
+    view.updateTurn(game)
 }
 
 // Listen for "P" pressed then pass the turn
@@ -70,5 +75,6 @@ document.addEventListener("keypress", (e) => {
     if(e.key === "p" && game.inMultiJump) {
         console.log("Pass the turn")
         game.changeTurn()
+        // game.testingAI()
     }
 })
