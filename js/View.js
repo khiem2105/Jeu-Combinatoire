@@ -48,10 +48,12 @@ export default class GameView {
         cellSrc.textContent = ""
         cellBetween.textContent = ""
         cellDst.textContent = game.pioneer[k][l]
+        cellSrc.classList.remove("cell-on")
         cellSrc.removeEventListener("mouseover", mouseOn)
         cellSrc.removeEventListener("mouseout", mouseOut)
         cellDst.addEventListener("mouseover", mouseOn)
         cellDst.addEventListener("mouseout", mouseOut)
+        cellBetween.classList.remove("cell-on")
         cellBetween.removeEventListener("mouseover", mouseOn)
         cellBetween.removeEventListener("mouseout", mouseOut)
     }
