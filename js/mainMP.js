@@ -11,11 +11,9 @@ view.update(game)
 
 var beforeButton = document.getElementById("before");
 var nextButton = document.getElementById("next");
-beforeButton.disabled = false;
 
 beforeButton.addEventListener("click", function(){
     game.current_display_tour --;
-    console.log(game.current_display_tour, game.turnCount)
     game.pioneer = game.clone_pioneer(game.log_board[game.current_display_tour])
     view.updateBoard(game)
     nextButton.disabled = false;
@@ -26,7 +24,6 @@ beforeButton.addEventListener("click", function(){
 
 nextButton.addEventListener("click", function(){
     game.current_display_tour ++;
-    console.log(game.current_display_tour, game.turnCount)
     game.pioneer = game.clone_pioneer(game.log_board[game.current_display_tour])
     view.updateBoard(game)
     beforeButton.disabled = false;
@@ -40,7 +37,6 @@ view.onCellClick = function(i) {
     let index = [(i - i % view.size) / view.size, i % view.size]
     if(view.clickCounter != 0 || game.pioneer[index[0]][index[1]] != 0) {
         if(view.clickCounter == 0) {
-            console.log("0")
             view.board.querySelector(`.cell[data-index="${i}"]`).classList.add("cellClicked")
             view.clickCounter++
             view.cellClicked.push(index)
@@ -59,7 +55,6 @@ view.onCellClick = function(i) {
                 view.cellClicked.length = 0
             }
             else {
-                console.log("1")
                 removeColorInPossibleMove(view.cellClicked[0])
                 let lastCellClicked = view.board.querySelector(`.cell[data-index="${view.cellClicked[0][0]*9+view.cellClicked[0][1]}"]`)
                 lastCellClicked.classList.remove("cellClicked")

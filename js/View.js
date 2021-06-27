@@ -86,7 +86,7 @@ export default class GameView {
             var menuButton = document.createElement("button");
             var paragraph = document.createElement("p");
             var textGameOver = document.createTextNode("Game Over");
-            var textRestart = document.createTextNode("Restart");
+            var textRestart = document.createTextNode("Play Again");
             var textMenu = document.createTextNode("Main Menu");
             paragraph.appendChild(textGameOver);
             restartButton.appendChild(textRestart);
